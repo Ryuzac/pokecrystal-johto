@@ -11,7 +11,7 @@ hRTCHours::   db
 hRTCMinutes:: db
 hRTCSeconds:: db
 
-	ds 2
+hOtherPlayerMovementScript:: dw
 
 hHours:: db
 	ds 1

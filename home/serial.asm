@@ -6,6 +6,10 @@ Serial::
 	push de
 	push hl
 
+	;ld a, [wLinkWalkEnabled]
+	;dec a
+	;jr z, .link_walk
+
 	ldh a, [hMobileReceive]
 	and a
 	jr nz, .mobile
@@ -17,6 +21,15 @@ Serial::
 	ldh a, [hSerialConnectionStatus]
 	inc a ; is it equal to CONNECTION_NOT_ESTABLISHED?
 	jr z, .establish_connection
+
+	ld a, [wLinkWalkEnabled]
+	dec a
+	jr nz, .no_link_walk
+	ldh a, [rSB]
+	cp SERIAL_NO_DATA_BYTE
+	jr z, .no_link_walk
+	ld [wOtherPlayerMovement], a
+.no_link_walk
 
 	ldh a, [rSB]
 	ldh [hSerialReceive], a
@@ -33,6 +46,11 @@ Serial::
 	ld a, (1 << rSC_ON) | (0 << rSC_CLOCK)
 	ldh [rSC], a
 	jr .player2
+
+.link_walk
+	ldh a, [rSB]
+	ld [wOtherPlayerMovement], a
+	jr .end
 
 .mobile
 	call MobileReceive
@@ -406,17 +424,4 @@ LinkDataReceived::
 	ldh [rSC], a
 	ret
 
-SetBitsForTimeCapsuleRequestIfNotLinked:: ; unreferenced
-; Similar to SetBitsForTimeCapsuleRequest (see engine/link/link.asm).
-	ld a, [wLinkMode]
-	and a
-	ret nz
-	ld a, USING_INTERNAL_CLOCK
-	ldh [rSB], a
-	xor a
-	ldh [hSerialReceive], a
-	ld a, (0 << rSC_ON) | (0 << rSC_CLOCK)
-	ldh [rSC], a
-	ld a, (1 << rSC_ON) | (0 << rSC_CLOCK)
-	ldh [rSC], a
-	ret
+

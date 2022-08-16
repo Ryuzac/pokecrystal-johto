@@ -30,6 +30,7 @@ SpecialsPointers::
 	add_special GetMysteryGiftItem
 	add_special UnlockMysteryGift
 	add_special CheckOtherPlayerGender
+	add_special EnableLinkWalk
 
 ; Map events
 	add_special BugContestJudging

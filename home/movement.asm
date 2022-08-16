@@ -127,3 +127,59 @@ ComputePathToWalkToPlayer::
 	big_step UP
 	big_step LEFT
 	big_step RIGHT
+
+LinkExchangeMovementData::
+	ld a, [wLinkWalkEnabled]
+	dec a
+	ret nz
+	ldh a, [hSerialReceive]
+	cp SERIAL_NO_DATA_BYTE
+	jr z, .no_data_received
+	ld [wOtherPlayerMovement], a
+.no_data_received
+	ldh a, [hSerialConnectionStatus]
+	cp USING_INTERNAL_CLOCK
+	jr nz, .player_1
+	ldh a, [rSC]
+	bit rSC_ON, a
+	ret nz
+	ld a, [wLinkWalkDelay]
+	sub a, $50
+	ld [wLinkWalkDelay], a
+	ret nc
+	ld a, [wPlayerMovement]
+	ldh [hSerialSend], a
+	ld a, (0 << rSC_ON) | (1 << rSC_CLOCK)
+	ldh [rSC], a
+	ld a, (1 << rSC_ON) | (1 << rSC_CLOCK)
+	ldh [rSC], a
+	ret
+.player_1
+	ld a, [wPlayerMovement]
+	ldh [hSerialSend], a
+	ret
+
+LinkDoMovement::
+	ld a, [wLinkWalkEnabled]
+	dec a
+	ret nz
+	farcall CableClubCheckWhichChris
+	ld a, [wScriptVar]
+	dec a
+	ld a, COLOSSEUM_LINK_TRAINER2
+	jr nz, .Chris2
+	ld a, COLOSSEUM_LINK_TRAINER1
+.Chris2
+	call GetScriptObject
+	ld c, a
+	ld hl, hOtherPlayerMovementScript
+	ld a, [wOtherPlayerMovement]
+	cp NUM_MOVEMENT_CMDS + 1
+	ret nc
+	ld [hli], a
+	ld a, movement_step_end
+	ld [hl], a
+	dec hl
+	xor a
+	ld b, a
+	jp GetMovementData

@@ -2542,6 +2542,20 @@ CheckOtherPlayerGender:
 	ld [wLinkOtherPlayerGender], a
 	ret
 
+EnableLinkWalk:
+	const_def
+	const LINK_WALK_OFF
+	const LINK_WALK_ON
+	ld a, LINK_WALK_ON
+	call Link_EnsureSync
+	push af
+	call LinkDataReceived
+;	call DelayFrame
+	call LinkDataReceived
+	pop af
+	ld [wLinkWalkEnabled], a
+	ret
+
 CheckBothSelectedSameRoom:
 	ld a, [wChosenCableClubRoom]
 	call Link_EnsureSync
@@ -2655,7 +2669,7 @@ Link_EnsureSync:
 	and $f
 	ret
 
-CableClubCheckWhichChris:
+CableClubCheckWhichChris::
 	ldh a, [hSerialConnectionStatus]
 	cp USING_EXTERNAL_CLOCK
 	ld a, TRUE

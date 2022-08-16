@@ -155,6 +155,7 @@ HandleMap:
 	call NextOverworldFrame
 	call HandleMapBackground
 	call CheckPlayerState
+	jp LinkExchangeMovementData
 	ret
 
 MapEvents:
@@ -204,6 +205,7 @@ HandleMapTimeAndJoypad:
 	ret
 
 HandleMapObjects:
+	call LinkDoMovement
 	farcall HandleNPCStep
 	farcall _HandlePlayerStep
 	call _CheckObjectEnteringVisibleRange

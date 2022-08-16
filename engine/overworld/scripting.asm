@@ -246,7 +246,7 @@ CheckScript:
 	bit SCRIPT_RUNNING, [hl]
 	ret
 
-StopScript:
+StopScript::
 	ld hl, wScriptFlags
 	res SCRIPT_RUNNING, [hl]
 	ret
@@ -793,7 +793,7 @@ Script_cry:
 	call PlayMonCry
 	ret
 
-GetScriptObject:
+GetScriptObject::
 	and a ; PLAYER?
 	ret z
 	cp LAST_TALKED
