@@ -148,6 +148,10 @@ LinkExchangeMovementData::
 	ld [wLinkWalkDelay], a
 	ret nc
 	ld a, [wPlayerMovement]
+	cp movement_step_sleep
+	jr nz, .not_sleep1
+	ld a, SERIAL_NO_DATA_BYTE
+.not_sleep1
 	ldh [hSerialSend], a
 	ld a, (0 << rSC_ON) | (1 << rSC_CLOCK)
 	ldh [rSC], a
@@ -156,6 +160,10 @@ LinkExchangeMovementData::
 	ret
 .player_1
 	ld a, [wPlayerMovement]
+	cp movement_step_sleep
+	jr nz, .not_sleep2
+	ld a, SERIAL_NO_DATA_BYTE
+.not_sleep2
 	ldh [hSerialSend], a
 	ret
 
@@ -163,6 +171,9 @@ LinkDoMovement::
 	ld a, [wLinkWalkEnabled]
 	dec a
 	ret nz
+	call CheckScript
+	ret nz
+	call StartScript
 	farcall CableClubCheckWhichChris
 	ld a, [wScriptVar]
 	dec a
@@ -172,14 +183,37 @@ LinkDoMovement::
 .Chris2
 	call GetScriptObject
 	ld c, a
-	ld hl, hOtherPlayerMovementScript
+
 	ld a, [wOtherPlayerMovement]
-	cp NUM_MOVEMENT_CMDS + 1
-	ret nc
+	ld b, a
+
+	ld hl, .MovementData
+	ld de, 1
+	push bc
+	call IsInArray
+	pop bc
+	jr nc, .return
+
+	ld a, b
+	ld hl, hOtherPlayerMovementScript
 	ld [hli], a
 	ld a, movement_step_end
 	ld [hl], a
 	dec hl
 	xor a
 	ld b, a
-	jp GetMovementData
+	call GetMovementData
+.return
+	ld a, SERIAL_NO_DATA_BYTE
+	ld [wOtherPlayerMovement], a
+	ret c
+	ld a, SCRIPT_WAIT_MOVEMENT
+	ld [wScriptMode], a
+	jp StopScript
+
+.MovementData
+	step DOWN
+	step UP
+	step LEFT
+	step RIGHT
+	db -1

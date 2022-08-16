@@ -236,12 +236,12 @@ ScriptCommandTable:
 	dw Script_checksave                  ; a9
 	assert_table_length NUM_EVENT_COMMANDS
 
-StartScript:
+StartScript::
 	ld hl, wScriptFlags
 	set SCRIPT_RUNNING, [hl]
 	ret
 
-CheckScript:
+CheckScript::
 	ld hl, wScriptFlags
 	bit SCRIPT_RUNNING, [hl]
 	ret
