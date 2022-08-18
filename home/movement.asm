@@ -171,9 +171,12 @@ LinkDoMovement::
 	ld a, [wLinkWalkEnabled]
 	dec a
 	ret nz
-	call CheckScript
+	ld a, [wObject1MovementType]
+	cp $7
 	ret nz
-	call StartScript
+;	call CheckScript
+;	ret nz
+;	call StartScript
 	farcall CableClubCheckWhichChris
 	ld a, [wScriptVar]
 	dec a
@@ -194,7 +197,21 @@ LinkDoMovement::
 	pop bc
 	jr nc, .return
 
+	xor a
+	ld a, [wLinkIgnoreNextData]
+	sub 1
+	jr z, .do_movement
+	jr c, .do_movement
+	;ld a, FALSE
+	ld [wLinkIgnoreNextData], a
+	jr .return
+.do_movement
+	ld a, 4
+	ld [wLinkIgnoreNextData], a
+
 	ld a, b
+	cp (movement_turn_step | RIGHT) + 1
+	jr c, .do_facing
 	ld hl, hOtherPlayerMovementScript
 	ld [hli], a
 	ld a, movement_step_end
@@ -206,14 +223,32 @@ LinkDoMovement::
 .return
 	ld a, SERIAL_NO_DATA_BYTE
 	ld [wOtherPlayerMovement], a
-	ret c
-	ld a, SCRIPT_WAIT_MOVEMENT
-	ld [wScriptMode], a
-	jp StopScript
+	ret
+;	ret c
+;	ld a, SCRIPT_WAIT_MOVEMENT
+;	ld [wScriptMode], a
+;	jp StopScript
+
+.do_facing
+	sub 4
+	add a
+	add a
+	ld e, a
+	ld d, c
+	xor a
+	ld [wLinkIgnoreNextData], a
+	call ApplyObjectFacing
+	jr .return
 
 .MovementData
 	step DOWN
 	step UP
 	step LEFT
 	step RIGHT
+	turn_step DOWN
+	turn_step UP
+	turn_step LEFT
+	turn_step RIGHT
+;	step_sleep 1
+;	step_end
 	db -1

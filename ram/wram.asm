@@ -133,7 +133,7 @@ wMapTimeOfDay:: db
 
 wLinkWalkEnabled:: db
 wLinkWalkDelay:: db
-	ds 1
+wLinkIgnoreNextData:: db
 
 wPrinterConnectionOpen:: db
 wPrinterOpcode:: db
