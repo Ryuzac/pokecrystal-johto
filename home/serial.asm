@@ -82,6 +82,7 @@ Serial::
 	ldh [hSerialSend], a
 
 .end
+	call LinkMovementReceive
 	pop hl
 	pop de
 	pop bc

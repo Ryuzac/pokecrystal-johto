@@ -1532,6 +1532,16 @@ StepFunction_Restore:
 	dw StepFunction_Standing
 
 .Reset:
+	ld a, [wLinkWalkEnabled]
+	dec a
+	jr nz, .reset_cont
+	ld a, c
+	cp LOW(wObject1Sprite)
+	jr nz, .reset_cont
+	ld a, b
+	cp HIGH(wObject1Sprite)
+	jr z, StepFunction_Standing
+.reset_cont
 	call RestoreDefaultMovement
 	call GetInitialFacing
 	ld hl, OBJECT_FACING
@@ -1850,7 +1860,21 @@ UpdateJumpPosition:
 
 GetPlayerNextMovementByte:
 ; copy [wPlayerNextMovement] to [wPlayerMovement]
+	ld a, [wLinkWalkEnabled]
+	dec a
 	ld a, [wPlayerNextMovement]
+	jr nz, .continue
+	cp movement_step_sleep
+	jr z, .continue
+	push af
+	push bc
+	push de
+	ld hl, wLinkMovementSendRingBuffer
+	call LinkMovementStoreByte
+	pop de
+	pop bc
+	pop af
+.continue
 	ld hl, wPlayerMovement
 	ld [hl], a
 ; load [wPlayerNextMovement] with movement_step_sleep

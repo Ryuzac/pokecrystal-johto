@@ -131,7 +131,10 @@ wUnusedScriptByte:: db
 
 wMapTimeOfDay:: db
 
-	ds 3
+wLinkWalkEnabled:: db
+wLinkWalkDelay:: db
+
+	ds 1
 
 wPrinterConnectionOpen:: db
 wPrinterOpcode:: db
@@ -2880,11 +2883,11 @@ wGameTimeMinutes:: db
 wGameTimeSeconds:: db
 wGameTimeFrames::  db
 
-	ds 2
+wLinkMovementTempPointer:: dw
 
 wCurDay:: db
 
-	ds 1
+wLinkMovementTempByte:: db
 
 wObjectFollow_Leader:: db
 wObjectFollow_Follower:: db
@@ -2901,7 +2904,12 @@ endr
 
 wCmdQueue:: ds CMDQUEUE_CAPACITY * CMDQUEUE_ENTRY_SIZE
 
-	ds 40
+wLinkMovementSendTailPointer::     dw
+wLinkMovementSendHeadPointer::     dw
+wLinkMovementSendRingBuffer::      ds 16
+wLinkMovementReceivedTailPointer:: dw
+wLinkMovementReceivedHeadPointer:: dw
+wLinkMovementReceivedRingBuffer::  ds 16
 
 wMapObjects::
 wPlayerObject:: map_object wPlayer ; player is map object 0

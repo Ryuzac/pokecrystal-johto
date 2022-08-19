@@ -417,8 +417,15 @@ Script_WalkOutOfMobileBattleRoom:
 	end
 
 Pokecenter2F_EnterRoom:
+	special CableClubCheckWhichChris
+	iffalse .Chris2
 	applymovementlasttalked Pokecenter2FMovementData_ReceptionistWalksUpAndLeft_LookRight
-	applymovement PLAYER, Pokecenter2FMovementData_PlayerTakesThreeStepsUp
+	applymovement PLAYER, Pokecenter2FMovementData_EnterRightDoor
+	sjump .continue
+.Chris2
+	applymovementlasttalked Pokecenter2FMovementData_ReceptionistWalksUpAndRight_LookLeft
+	applymovement PLAYER, Pokecenter2FMovementData_EnterLeftDoor
+.continue
 	readmem wLinkOtherPlayerGender
 	iftrue .Female
 	variablesprite SPRITE_LINK_TRAINER, SPRITE_CHRIS
@@ -601,6 +608,12 @@ Pokecenter2FOfficerScript:
 	closetext
 	end
 
+Pokecenter2FMovementData_ReceptionistWalksUpAndRight_LookLeft:
+	slow_step UP
+	slow_step RIGHT
+	turn_head LEFT
+	step_end
+
 Pokecenter2FMovementData_ReceptionistWalksUpAndLeft_LookRight:
 	slow_step UP
 	slow_step LEFT
@@ -631,6 +644,20 @@ Pokecenter2FMovementData_ReceptionistWalksUpAndLeft_LookRight_2:
 
 Pokecenter2FMovementData_ReceptionistLooksRight:
 	turn_head RIGHT
+	step_end
+
+Pokecenter2FMovementData_EnterLeftDoor:
+	step UP
+	step UP
+	step LEFT
+	step UP
+	step_end
+
+Pokecenter2FMovementData_EnterRightDoor:
+	step UP
+	step UP
+	step RIGHT
+	step UP
 	step_end
 
 Pokecenter2FMovementData_PlayerTakesThreeStepsUp:
@@ -1006,11 +1033,11 @@ Pokecenter2F_MapEvents:
 
 	def_warp_events
 	warp_event  0,  7, POKECENTER_2F, -1
-	warp_event  5,  0, TRADE_CENTER, 1
-	warp_event  9,  0, COLOSSEUM, 1
+	warp_event  4,  0, TRADE_CENTER, 1
+	warp_event  6,  0, TRADE_CENTER, 2
+	warp_event  8,  0, COLOSSEUM, 1
+	warp_event 10,  0, COLOSSEUM, 2
 	warp_event 13,  2, TIME_CAPSULE, 1
-	warp_event  6,  0, MOBILE_TRADE_ROOM, 1
-	warp_event 10,  0, MOBILE_BATTLE_ROOM, 1
 
 	def_coord_events
 

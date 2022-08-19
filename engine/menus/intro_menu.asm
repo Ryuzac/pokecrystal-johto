@@ -66,6 +66,7 @@ NewGame:
 	call AreYouABoyOrAreYouAGirl
 	call OakSpeech
 	call InitializeWorld
+	call InitLinkMovementBuffer
 
 	ld a, LANDMARK_NEW_BARK_TOWN
 	ld [wPrevLandmark], a
@@ -1363,3 +1364,50 @@ GameInit::
 	ldh [hWY], a
 	call WaitBGMap
 	jp IntroSequence
+
+InitLinkMovementBuffer::
+	ld a, [rSVBK]
+	push af
+	ld a, BANK(wLinkMovementSendRingBuffer)
+	ld [rSVBK], a
+
+	ld hl, wLinkMovementSendTailPointer
+	ld de, wLinkMovementSendRingBuffer
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+	
+	; wLinkMovementSendHeadPointer
+	inc de ; wLinkMovementSendRingBuffer + 1
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hl], a
+
+	ld hl, wLinkMovementReceivedTailPointer
+	ld de, wLinkMovementReceivedRingBuffer
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hli], a
+
+	; wLinkMovementReceivedTailPointer
+	inc de ; wLinkMovementReceivedRingBuffer + 1
+	ld a, d
+	ld [hli], a
+	ld a, e
+	ld [hl], a
+
+	ld bc, LINK_MOVE_BUFFER_SIZE
+	ld hl, wLinkMovementSendRingBuffer
+	ld a, SERIAL_NO_DATA_BYTE
+	call ByteFill
+	ld bc, LINK_MOVE_BUFFER_SIZE
+	ld hl, wLinkMovementReceivedRingBuffer
+	ld a, SERIAL_NO_DATA_BYTE
+	call ByteFill
+
+	pop af
+	ld [rSVBK], a
+	ret

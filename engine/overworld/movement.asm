@@ -1,4 +1,4 @@
-MovementPointers:
+MovementPointers::
 ; entries correspond to movement_* constants (see macros/scripts/movement.asm)
 	table_width 2, MovementPointers
 	dw Movement_turn_head_down        ; 00

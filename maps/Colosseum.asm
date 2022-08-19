@@ -1,7 +1,3 @@
-	object_const_def
-	const COLOSSEUM_LINK_TRAINER1
-	const COLOSSEUM_LINK_TRAINER2
-
 Colosseum_MapScripts:
 	def_scene_scripts
 	scene_script ColosseumInitializeScene, SCENE_COLOSSEUM_INITIALIZE
@@ -74,5 +70,5 @@ Colosseum_MapEvents:
 	bg_event  5,  4, BGEVENT_LEFT, ColosseumConsoleScript
 
 	def_object_events
-	object_event  3,  4, SPRITE_LINK_TRAINER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CableClubFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
-	object_event  6,  4, SPRITE_LINK_TRAINER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CableClubFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_2
+	object_event  4,  7, SPRITE_LINK_TRAINER, SPRITEMOVEDATA_STANDING_UP_LINK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CableClubFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
+	object_event  5,  7, SPRITE_LINK_TRAINER, SPRITEMOVEDATA_STANDING_UP_LINK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CableClubFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_2
