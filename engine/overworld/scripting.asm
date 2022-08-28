@@ -961,8 +961,13 @@ Script_variablesprite:
 	ld [hl], a
 	ret
 
-Script_appear:
+Link_appear::
+	ld a, b
+	jr Script_appear.link
+
+Script_appear::
 	call GetScriptByte
+.link
 	call GetScriptObject
 	call UnmaskCopyMapObjectStruct
 	ldh a, [hMapObjectIndex]
@@ -970,8 +975,13 @@ Script_appear:
 	call ApplyEventActionAppearDisappear
 	ret
 
-Script_disappear:
+Link_disappear::
+	ld a, b
+	jr Script_disappear.link
+
+Script_disappear::
 	call GetScriptByte
+.link
 	call GetScriptObject
 	cp LAST_TALKED
 	jr nz, .ok
@@ -1018,6 +1028,11 @@ Script_stopfollow:
 	farcall StopFollow
 	ret
 
+Link_moveobject::
+	ld a, b
+	call GetScriptObject
+	jr Script_moveobject.link
+
 Script_moveobject:
 	call GetScriptByte
 	call GetScriptObject
@@ -1028,6 +1043,7 @@ Script_moveobject:
 	call GetScriptByte
 	add 4
 	ld e, a
+.link
 	farcall CopyDECoordsToMapObject
 	ret
 

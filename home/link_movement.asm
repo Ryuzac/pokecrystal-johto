@@ -175,7 +175,7 @@ LinkExchangeMovementData::
 	bit rSC_ON, a
 	ret nz
 	ld a, [wLinkWalkDelay]
-	sub a, $50
+	sub a, $40
 	ld [wLinkWalkDelay], a
 	ret nc
 	ld a, (0 << rSC_ON) | (1 << rSC_CLOCK)
@@ -227,6 +227,10 @@ LinkDoMovement::
 	ld hl, wLinkMovementReceivedRingBuffer
 	call LinkMovementGetByte
 	jr z, .return
+
+	cp LINK_MOVE_COORD_COMMAND
+	jr z, .do_coord_update
+
 	ld hl, LinkMovementData
 	ld de, 1
 	call IsInArray
@@ -246,6 +250,48 @@ LinkDoMovement::
 	rst Bankswitch
 	pop de
 	pop bc
+	ret
+
+.do_coord_update
+.loop1
+	ld hl, wLinkMovementReceivedRingBuffer
+	call LinkMovementGetByte
+	jr z, .loop1
+	cp SERIAL_NO_DATA_BYTE
+	jr z, .loop1
+	ld d, a
+	push de
+.loop2
+	ld hl, wLinkMovementReceivedRingBuffer
+	call LinkMovementGetByte
+	jr z, .loop2
+	cp SERIAL_NO_DATA_BYTE
+	jr z, .loop2
+	pop de
+	ld e, a
+	ld a, [wObject1Direction]
+	push af
+	push de
+	call .which_chris
+	farcall Link_disappear
+	call .which_chris
+	pop de
+	dec b
+	farcall Link_moveobject
+	call .which_chris
+	farcall Link_appear
+	pop af
+	ld [wObject1Direction], a
+	jr .return
+
+.which_chris
+	ldh a, [hSerialConnectionStatus]
+	cp USING_EXTERNAL_CLOCK
+	ld a, COLOSSEUM_LINK_TRAINER2
+	jr nz, .got_chris
+	ld a, COLOSSEUM_LINK_TRAINER1
+.got_chris
+	ld b, a
 	ret
 
 LinkMovementData:

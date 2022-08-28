@@ -113,6 +113,7 @@ VBlank0::
 .done_oam
 
 	; vblank-sensitive operations are done
+	call LinkExchangeMovementData
 
 	xor a
 	ld [wVBlankOccurred], a

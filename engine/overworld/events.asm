@@ -155,7 +155,6 @@ HandleMap:
 	call NextOverworldFrame
 	call HandleMapBackground
 	call CheckPlayerState
-	call LinkExchangeMovementData
 	jp LinkDoMovement
 
 MapEvents:

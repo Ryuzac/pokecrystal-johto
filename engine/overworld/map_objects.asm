@@ -1858,12 +1858,39 @@ UpdateJumpPosition:
 	db  -4,  -6,  -8, -10, -11, -12, -12, -12
 	db -11, -10,  -9,  -8,  -6,  -4,   0,   0
 
+LinkCoordUpdate:
+	push af
+	push bc
+	push de
+	push hl
+	ld a, [wLinkCoordDelay]
+	dec a
+	ld [wLinkCoordDelay], a
+	and a
+	jr nz, .done
+	ld hl, wLinkMovementSendRingBuffer
+	ld a, LINK_MOVE_COORD_COMMAND
+	call LinkMovementStoreByte
+	ld a, [wPlayerStandingMapX]
+	ld hl, wLinkMovementSendRingBuffer
+	call LinkMovementStoreByte
+	ld a, [wPlayerStandingMapY]
+	ld hl, wLinkMovementSendRingBuffer
+	call LinkMovementStoreByte
+.done
+	pop hl
+	pop de
+	pop bc
+	pop af
+	ret
+
 GetPlayerNextMovementByte:
 ; copy [wPlayerNextMovement] to [wPlayerMovement]
 	ld a, [wLinkWalkEnabled]
 	dec a
 	ld a, [wPlayerNextMovement]
 	jr nz, .continue
+	call LinkCoordUpdate
 	cp movement_step_sleep
 	jr z, .continue
 	push af
