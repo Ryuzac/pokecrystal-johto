@@ -269,6 +269,13 @@ LinkDoMovement::
 	jr z, .loop2
 	pop de
 	ld e, a
+	ld a, [wObject1StandingMapY]
+	cp e
+	jr nz, .update_needed
+	ld a, [wObject1StandingMapX]
+	cp d
+	jr z, .return
+.update_needed
 	ld a, [wObject1Direction]
 	push af
 	push de
