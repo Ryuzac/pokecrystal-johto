@@ -507,7 +507,7 @@ CopySpriteMovementData::
 	push de
 	ld e, a
 	ld d, 0
-	ld hl, SpriteMovementData + SPRITEMOVEATTR_FACING
+	ld hl, SpriteMovementData + SPRITEMOVEATTR_FACING + 1
 rept NUM_SPRITEMOVEDATA_FIELDS
 	add hl, de
 endr
@@ -515,6 +515,15 @@ endr
 	ld c, l
 	pop de
 
+	ld hl, OBJECT_MOVEMENT_TYPE
+	add hl, de
+	ld a, [hl]
+	cp SPRITEMOVEDATA_FOLLOWNOTEXACT
+	jr z, .skip_facing
+	cp SPRITEMOVEDATA_FOLLOWEROBJ
+	jr z, .skip_facing
+
+	dec bc
 	ld a, [bc]
 	inc bc
 	rlca
@@ -524,6 +533,7 @@ endr
 	add hl, de
 	ld [hl], a
 
+.skip_facing
 	ld a, [bc]
 	inc bc
 	ld hl, OBJECT_ACTION

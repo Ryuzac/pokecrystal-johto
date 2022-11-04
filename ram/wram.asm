@@ -131,7 +131,9 @@ wUnusedScriptByte:: db
 
 wMapTimeOfDay:: db
 
-	ds 3
+	ds 2
+
+wFollowerSpriteID:: db
 
 wPrinterConnectionOpen:: db
 wPrinterOpcode:: db
@@ -2894,7 +2896,9 @@ wStartSecond:: db
 
 wRTC:: ds 4
 
-	ds 4
+wFollowerNextMovement:: db
+
+	ds 3
 
 wDST::
 ; bit 7: dst
@@ -2911,8 +2915,7 @@ wGameTimeFrames::  db
 
 wCurDay:: db
 
-	ds 1
-
+wFollowerFlags:: db
 wObjectFollow_Leader:: db
 wObjectFollow_Follower:: db
 wCenteredObject:: db
@@ -2927,8 +2930,6 @@ wObject{d:n}Struct:: object_struct wObject{d:n}
 endr
 
 wCmdQueue:: ds CMDQUEUE_CAPACITY * CMDQUEUE_ENTRY_SIZE
-
-	ds 40
 
 wMapObjects::
 wPlayerObject:: map_object wPlayer ; player is map object 0
@@ -3013,7 +3014,7 @@ wPokegearFlags::
 	db
 wRadioTuningKnob:: db
 wLastDexMode:: db
-	ds 1
+wFollowerState:: db
 wWhichRegisteredItem:: db
 wRegisteredItem:: db
 
@@ -3026,8 +3027,6 @@ wTradeFlags:: flag_array NUM_NPC_TRADES
 wMooMooBerries:: db
 wUndergroundSwitchPositions:: db
 wFarfetchdPosition:: db
-
-	ds 13
 
 ; map scene ids
 wPokecenter2FSceneID::                            db

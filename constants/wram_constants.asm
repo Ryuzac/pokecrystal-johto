@@ -21,6 +21,9 @@ DEF AUTO_INPUT EQU $ff
 	const TEMPMON    ; 3
 	const WILDMON    ; 4
 
+; wFollowerFlags::
+DEF FOLLOWER_FROZEN_F EQU 2
+
 ; wGameTimerPaused::
 DEF GAME_TIMER_PAUSED_F EQU 0
 DEF GAME_TIMER_MOBILE_F EQU 7
