@@ -1,3 +1,6 @@
+INCLUDE "gfx/following/following_sprites.asm"
+INCLUDE "gfx/following/following_palettes.asm"
+
 SECTION "bank1", ROMX
 
 INCLUDE "engine/link/place_waiting_text.asm"

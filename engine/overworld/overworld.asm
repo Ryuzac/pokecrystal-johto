@@ -267,41 +267,88 @@ GetMonSprite:
 	and a
 	ret
 
+GetFirstAliveMon::
+	ld e, 0
+	ld a, [wPartyCount]
+	ld d, a
+	and a
+	jr z, .none
+
+	ld hl, wPartyMon1HP
+	ld bc, wPartyMon2 - wPartyMon1
+.loop
+	ld a, [hli]
+	or [hl]
+	jr nz, .ok
+	inc e
+	ld a, e
+	cp d
+	jr nc, .none
+	add hl, bc
+	jr .loop
+.ok
+	ld bc, wPartyMon1Species - (wPartyMon1HP + 1)
+	add hl, bc
+	ld a, [hl]
+	ret
+.none
+	xor a
+	ret
+
 GetFollowingSprite:
 	cp SPRITE_FOLLOWER
-	jr nz, .none
+	jr nz, .nope
 
-	ld hl, OverworldSprites
-	ld a, [wFollowerSpriteID]
-	add a
-	ld e, a
-	add e
-	add e
-	ld d, 0
+	call GetFirstAliveMon
+
+	push af
+	dec a
+	ld de, 0
+.mod
+	inc de
+	sub 42
+	jr nc, .mod
+	dec de
+	add 42
+
+	push af
+	ld hl, PokemonSpritePointers
 	add hl, de
-	ld de, wUnusedMapBuffer
-	ld bc, 6
-	ld a, BANK(OverworldSprites)
-	call FarCopyBytes
-	ld hl, wUnusedMapBuffer
-	ld a, [hli]
-	ld e, a
-	ld a, [hli]
-	ld d, a
-	ld a, [hli]
-	swap a
-	and $f
-	ld c, a
+	add hl, de
+	add hl, de
 	ld a, [hli]
 	ld b, a
-	ld l, [hl]
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+
+	push bc
+	ld bc, 16 * 4 * 6
+	call AddNTimes
+	pop bc
+
+	ld d, h
+	ld e, l
 	ld h, 0
+	ld c, 12
+	ld l, WALKING_SPRITE
+
+	pop af
+
 	scf
 	ret
-
-.none
+.nope
 	and a
 	ret
+
+PokemonSpritePointers:
+	dba PokemonSprites1
+	dba PokemonSprites2
+	dba PokemonSprites3
+	dba PokemonSprites4
+	dba PokemonSprites5
+	dba PokemonSprites6
 
 _DoesSpriteHaveFacings::
 ; Checks to see whether we can apply a facing to a sprite.
@@ -359,7 +406,13 @@ _GetSpritePalette::
 	ret
 
 .follower
-	ld c, 0
+	ld hl, FollowingPalettes
+	ld b, 0
+	ld c, a
+	add hl, bc
+	ld a, BANK(FollowingPalettes)
+	call GetFarByte
+	ld c, a
 	ret
 
 LoadAndSortSprites:
@@ -415,7 +468,9 @@ LoadSpriteGFX:
 	and a
 	jr z, .done
 	push hl
+	push bc
 	call .LoadSprite
+	pop bc
 	pop hl
 	ld [hli], a
 	dec b
