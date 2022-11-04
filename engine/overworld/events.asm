@@ -35,41 +35,6 @@ CheckBit5_ScriptFlags2:
 	bit 5, [hl]
 	ret
 
-DisableWarpsConnxns: ; unreferenced
-	ld hl, wScriptFlags2
-	res 2, [hl]
-	ret
-
-DisableCoordEvents: ; unreferenced
-	ld hl, wScriptFlags2
-	res 1, [hl]
-	ret
-
-DisableStepCount: ; unreferenced
-	ld hl, wScriptFlags2
-	res 0, [hl]
-	ret
-
-DisableWildEncounters: ; unreferenced
-	ld hl, wScriptFlags2
-	res 4, [hl]
-	ret
-
-EnableWarpsConnxns: ; unreferenced
-	ld hl, wScriptFlags2
-	set 2, [hl]
-	ret
-
-EnableCoordEvents: ; unreferenced
-	ld hl, wScriptFlags2
-	set 1, [hl]
-	ret
-
-EnableStepCount: ; unreferenced
-	ld hl, wScriptFlags2
-	set 0, [hl]
-	ret
-
 EnableWildEncounters:
 	ld hl, wScriptFlags2
 	set 4, [hl]
@@ -125,16 +90,12 @@ EnterMap:
 	xor a
 	ld [wPoisonStepCount], a
 .dontresetpoison
+	farcall RefreshFollowingCoords
 
 	xor a ; end map entry
 	ldh [hMapEntryMethod], a
 	ld a, MAPSTATUS_HANDLE
 	ld [wMapStatus], a
-	ret
-
-UnusedWait30Frames: ; unreferenced
-	ld c, 30
-	call DelayFrames
 	ret
 
 HandleMap:
@@ -210,6 +171,36 @@ HandleMapBackground:
 	farcall _UpdateSprites
 	farcall ScrollScreen
 	farcall PlaceMapNameSign
+	ret
+
+Script_GetFollowerDirectionFromPlayer::
+	call GetFollowerDirectionFromPlayer
+	ld a, c
+	ld [wScriptVar], a
+	ret
+
+GetFollowerDirectionFromPlayer::
+	ld a, [wObject1MapX]
+	ld b, a
+	ld a, [wPlayerMapX]
+	cp b
+	jr z, .check_y
+	ld c, RIGHT
+	ret c
+	ld c, LEFT
+	ret
+
+.check_y
+	ld a, [wObject1MapY]
+	ld b, a
+	ld a, [wPlayerMapY]
+	cp b
+	ld c, STANDING
+	ret z
+	ld c, DOWN
+	ret c
+; nc
+	ld c, UP
 	ret
 
 CheckPlayerState:
@@ -474,11 +465,6 @@ CheckTimeEvents:
 	ld a, BANK(BugCatchingContestOverScript)
 	ld hl, BugCatchingContestOverScript
 	call CallScript
-	scf
-	ret
-
-.unused ; unreferenced
-	ld a, $8 ; ???
 	scf
 	ret
 
@@ -993,9 +979,6 @@ PlayerEventScriptPointers:
 InvalidEventScript:
 	end
 
-UnusedPlayerEventScript: ; unreferenced
-	end
-
 HatchEggScript:
 	callasm OverworldHatchEgg
 	end
@@ -1009,6 +992,7 @@ FallIntoMapScript:
 	newloadmap MAPSETUP_FALL
 	playsound SFX_KINESIS
 	applymovement PLAYER, .SkyfallMovement
+	callasm FollowerInBall
 	playsound SFX_STRENGTH
 	scall LandAfterPitfallScript
 	end
@@ -1028,6 +1012,36 @@ ChangeDirectionScript:
 	deactivatefacing 3
 	callasm EnableWildEncounters
 	end
+
+_CheckActiveFollowerBallAnim::
+	ld hl, wFollowerFlags
+	bit FOLLOWER_ENTERING_BALL_F, [hl]
+	jr z, .not_entering
+	push bc
+	ld bc, wObject1Struct
+	farcall SpawnPokeballClosing
+	pop bc
+	ret
+.not_entering
+	bit FOLLOWER_EXITING_BALL_F, [hl]
+	ret z
+	push bc
+	ld bc, wObject1Struct
+	farcall SpawnPokeballOpening
+	pop bc
+	ret
+
+FollowerInBall:
+	push bc
+	ld bc, wObject1Struct
+	ld hl, OBJECT_FLAGS1
+	add hl, bc
+	set INVISIBLE_F, [hl]
+	ld hl, wFollowerFlags
+	set FOLLOWER_INVISIBLE_F, [hl]
+	set FOLLOWER_IN_POKEBALL_F, [hl]
+	pop bc
+	ret
 
 INCLUDE "engine/overworld/scripting.asm"
 

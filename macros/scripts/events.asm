@@ -1065,4 +1065,49 @@ MACRO checksave
 	db checksave_command
 ENDM
 
+	const freezefollower_command ; $aa
+MACRO freezefollower
+	db freezefollower_command
+ENDM
+
+	const unfreezefollower_command ; $ab
+MACRO unfreezefollower
+	db unfreezefollower_command
+ENDM
+
+	const getfollowerdirection_command ; $ac
+MACRO getfollowerdirection
+	db getfollowerdirection_command
+ENDM
+
+	const followcry_command ; $ad
+MACRO followcry
+	db followcry_command
+ENDM
+
+	const stowfollower_command ; $ae
+MACRO stowfollower
+	db stowfollower_command
+ENDM
+
+	const appearfollower_command ; $af
+MACRO appearfollower
+	db appearfollower_command
+ENDM
+
+	const appearfolloweronestep_command ; $b0
+MACRO appearfolloweronestep
+	db appearfolloweronestep_command
+ENDM
+
+	const savefollowercoords_command ; $b1
+MACRO savefollowercoords
+	db savefollowercoords_command
+ENDM
+
+	const silentstowfollower_command ; $b2
+MACRO silentstowfollower
+	db silentstowfollower_command
+ENDM
+
 DEF NUM_EVENT_COMMANDS EQU const_value

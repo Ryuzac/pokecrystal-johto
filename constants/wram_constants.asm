@@ -21,6 +21,17 @@ DEF AUTO_INPUT EQU $ff
 	const TEMPMON    ; 3
 	const WILDMON    ; 4
 
+; wFollowerFlags::
+	const_def
+	const FOLLOWER_INVISIBLE_F          ; 0
+	const FOLLOWER_INVISIBLE_ONE_STEP_F ; 1
+	const FOLLOWER_FROZEN_F             ; 2
+	const FOLLOWER_IN_POKEBALL_F        ; 3
+	const FOLLOWER_ENTERING_BALL_F      ; 4
+	const FOLLOWER_EXITING_BALL_F       ; 5
+
+FOLLOWER_INVISIBLE EQU (1 << FOLLOWER_INVISIBLE_F)
+
 ; wGameTimerPaused::
 DEF GAME_TIMER_PAUSED_F EQU 0
 DEF GAME_TIMER_MOBILE_F EQU 7
