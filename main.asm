@@ -1,6 +1,3 @@
-INCLUDE "gfx/following/following_sprites.asm"
-INCLUDE "gfx/following/following_palettes.asm"
-
 SECTION "bank1", ROMX
 
 INCLUDE "engine/link/place_waiting_text.asm"
@@ -685,6 +682,11 @@ SECTION "Crystal Events", ROMX
 
 INCLUDE "engine/events/battle_tower/load_trainer.asm"
 INCLUDE "engine/events/odd_egg.asm"
+
+
+SECTION "Following", ROMX
+
+INCLUDE "gfx/following_palettes.asm"
 
 
 SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F]
