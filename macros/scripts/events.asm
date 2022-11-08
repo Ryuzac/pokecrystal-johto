@@ -1085,4 +1085,9 @@ MACRO checkfollowerswapped
 	db checkfollowerswapped_command
 ENDM
 
+	const followcry_command ; ae
+MACRO followcry
+	db followcry_command
+ENDM
+
 DEF NUM_EVENT_COMMANDS EQU const_value

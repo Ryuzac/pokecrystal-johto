@@ -626,7 +626,6 @@ INCLUDE "data/phone/text/kenji_callee.asm"
 INCLUDE "data/phone/text/parry_callee.asm"
 INCLUDE "data/phone/text/erin_callee.asm"
 INCLUDE "data/phone/text/unused.asm"
-INCLUDE "engine/events/follower.asm"
 
 
 SECTION "Miscellaneous Text", ROMX
@@ -687,6 +686,7 @@ INCLUDE "engine/events/odd_egg.asm"
 SECTION "Following", ROMX
 
 INCLUDE "gfx/following_palettes.asm"
+INCLUDE "engine/events/follower.asm"
 
 
 SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F]

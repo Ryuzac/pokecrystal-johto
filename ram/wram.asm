@@ -131,9 +131,10 @@ wUnusedScriptByte:: db
 
 wMapTimeOfDay:: db
 
-	ds 2
+	ds 1
 
 wFollowerSpriteID:: db
+wFollowerPartyNum:: db
 
 wPrinterConnectionOpen:: db
 wPrinterOpcode:: db
@@ -148,11 +149,12 @@ wLinkMode::
 	db
 
 wScriptVar:: db
+wScriptVar2:: db
 
 wPlayerNextMovement:: db
 wPlayerMovement:: db
 
-	ds 2
+	ds 1
 
 wMovementObject::
 	db

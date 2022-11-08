@@ -238,6 +238,7 @@ ScriptCommandTable:
 	dw Script_unfreezefollower           ; ab
 	dw Script_getfollowerdirection       ; ac
 	dw Script_checkfollowerswapped       ; ad
+	dw Script_followcry                  ; ae
 	assert_table_length NUM_EVENT_COMMANDS
 
 StartScript:
@@ -1242,13 +1243,14 @@ Script_memcall:
 	ld d, [hl]
 	; fallthrough
 
-ScriptCall:
-; BUG: ScriptCall can overflow wScriptStack and crash (see docs/bugs_and_glitches.md)
-
-	push de
+ScriptCall::
 	ld hl, wScriptStackSize
-	ld e, [hl]
+	ld a, [hl]
+	cp 5
+	ret nc
+	push de
 	inc [hl]
+	ld e, a
 	ld d, 0
 	ld hl, wScriptStack
 	add hl, de
@@ -2379,3 +2381,7 @@ Script_checkfollowerswapped:
 	and 1
 	ld [wScriptVar], a
 	ret
+
+Script_followcry:
+	ld a, [wFollowerSpriteID]
+	jp PlayMonCry
