@@ -11,26 +11,32 @@ MACRO interaction
 	db \4 ; landmark
 	db \5 ; time
 	db \6 ; status
-	dw \7 ; script
+	dw \7 ; event
+	dw \8 ; script
 ENDM
 
-DEF FOLLOWER_INT_TABLE_ROW_LENGTH EQU 8
+DEF FOLLOWER_INT_TABLE_ROW_LENGTH EQU 10
 
 FollowerInteractionTable:
 ; uses the first interaction that matches all of its conditions.
-;	interaction species     type-incl type-excl landmark                time      status      script
-	interaction -1,         -1,       -1,       -1,                     -1,       SLP_MASK,   SleepInteraction
-	interaction -1,         -1,       -1,       -1,                     -1,       (1 << PSN), PoisonInteraction
-	interaction -1,         -1,       -1,       -1,                     -1,       (1 << BRN), BurnInteraction
-	interaction -1,         -1,       -1,       -1,                     -1,       (1 << FRZ), FrozenInteraction
-	interaction -1,         -1,       -1,       -1,                     -1,       (1 << PAR), ParalyzeInteraction
-	interaction CHIKORITA,  -1,       -1,       LANDMARK_ROUTE_29,      -1,       -1,         ChikoritaRoute29Interaction
-	interaction TOTODILE,   -1,       -1,       LANDMARK_ROUTE_30,      -1,       -1,         TotodileRoute30Interaction
-	interaction CYNDAQUIL,  -1,       -1,       LANDMARK_ROUTE_31,      -1,       -1,         CyndaquilRoute31Interaction
-	interaction -1,         ICE,      -1,       LANDMARK_DARK_CAVE,     -1,       -1,         DarkCaveInteraction
-	interaction BELLSPROUT, -1,       -1,       LANDMARK_SPROUT_TOWER,  -1,       -1,         BellsproutSproutTowerInteraction
-	interaction UNOWN,      -1,       -1,       LANDMARK_RUINS_OF_ALPH, -1,       -1,         UnownRuinsOfAlphInteraction
-	interaction -1,         -1,       -1,       -1,                     -1,       -1,         DefaultInteraction
+;	interaction species     type-incl type-excl landmark                time      status      event                        script
+	interaction -1,         -1,       -1,       -1,                     -1,       SLP_MASK,   -1,                          SleepInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << PSN), -1,                          PoisonInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << BRN), -1,                          BurnInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << FRZ), -1,                          FrozenInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << PAR), -1,                          ParalyzeInteraction
+	interaction CHIKORITA,  -1,       -1,       LANDMARK_ROUTE_29,      -1,       -1,         -1,                          ChikoritaRoute29Interaction
+	interaction TOTODILE,   -1,       -1,       LANDMARK_ROUTE_30,      -1,       -1,         -1,                          TotodileRoute30Interaction
+	interaction CYNDAQUIL,  -1,       -1,       LANDMARK_ROUTE_31,      -1,       -1,         -1,                          CyndaquilRoute31Interaction
+	interaction -1,         ICE,      -1,       LANDMARK_DARK_CAVE,     -1,       -1,         -1,                          DarkCaveInteraction
+	interaction BELLSPROUT, -1,       -1,       LANDMARK_SPROUT_TOWER,  -1,       -1,         -1,                          BellsproutSproutTowerInteraction
+	interaction UNOWN,      -1,       -1,       LANDMARK_RUINS_OF_ALPH, -1,       -1,         -1,                          UnownRuinsOfAlphInteraction
+	interaction -1,         FIRE,     -1,       LANDMARK_AZALEA_TOWN,   -1,       -1,         -1,                          AzaleaTownInteraction
+	interaction SLOWPOKE,   -1,       -1,       LANDMARK_SLOWPOKE_WELL, -1,       -1,         EVENT_CLEARED_SLOWPOKE_WELL, SlowPokeWellInteraction
+	interaction SLOWBRO,    -1,       -1,       LANDMARK_SLOWPOKE_WELL, -1,       -1,         EVENT_CLEARED_SLOWPOKE_WELL, SlowPokeWellInteraction
+	interaction SLOWPOKE,   -1,       -1,       LANDMARK_SLOWPOKE_WELL, -1,       -1,         -1,                          SlowPokeWellRocketInteraction
+	interaction SLOWBRO,    -1,       -1,       LANDMARK_SLOWPOKE_WELL, -1,       -1,         -1,                          SlowPokeWellRocketInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       -1,         -1,                          DefaultInteraction
 
 DoFollowerInteraction:
 	call StoreFollowerNickInBuffer
@@ -100,7 +106,7 @@ DoFollowerInteraction:
 	ld a, [hli]
 	dec b
 	inc a
-	jr z, .run_script
+	jr z, .check_event
 	dec a
 	push bc
 	ld c, a
@@ -113,6 +119,35 @@ DoFollowerInteraction:
 	pop hl
 	and c
 	pop bc
+	jr z, .next_row
+.check_event
+	ld a, [hli]
+	dec b
+	dec b
+	inc a
+	ld a, [hli]
+	jr nz, .continue
+	inc a
+	jr z, .run_script
+	dec a
+.continue
+	dec hl
+	dec hl
+	push de
+	ld d, a
+	ld a, [hl]
+	ld e, a
+	inc hl
+	inc hl
+	push bc
+	push hl
+	ld b, CHECK_FLAG
+	call EventFlagAction
+	pop hl
+	ld a, c
+	pop bc
+	pop de
+	and a
 	jr z, .next_row
 .run_script
 	ld a, [hli]
@@ -130,7 +165,7 @@ DoFollowerInteraction:
 	ld b, 0
 	add hl, bc
 	pop bc
-	jr .get_row
+	jp .get_row
 
 StoreFollowerNickInBuffer:
 	ld a, [wFollowerPartyNum]
@@ -455,4 +490,44 @@ UnownRuinsOfAlphInteraction:
 	text "Your #MON"
 	line "seems to be"
 	cont "singing something?"
+	done
+
+AzaleaTownInteraction:
+	opentext
+	followcry
+	writetext .AzaleaTownText
+	closetext
+	end
+
+.AzaleaTownText:
+	text "Your #MON"
+	line "is hot and"
+	cont "cheerful!"
+	done
+
+SlowPokeWellInteraction:
+	opentext
+	followcry
+	writetext .SlowPokeWellText
+	closetext
+	end
+
+.SlowPokeWellText
+	text "@"
+	text_ram wStringBuffer1
+	text " seems"
+	line "very happy!"
+	done
+
+SlowPokeWellRocketInteraction:
+	opentext
+	followcry
+	writetext .SlowPokeWellRocketText
+	closetext
+	end
+
+.SlowPokeWellRocketText
+	text "Your #MON"
+	line "seems somehow"
+	cont "unhappy."
 	done
