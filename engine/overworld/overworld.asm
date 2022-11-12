@@ -306,6 +306,9 @@ GetFollowingSprite:
 	ld [wFollowerPartyNum], a
 	pop af
 
+	call GetUnownSprite
+	ret c
+
 	push af
 	dec a
 	ld de, 0
@@ -354,6 +357,46 @@ PokemonSpritePointers:
 	dba PokemonSprites4
 	dba PokemonSprites5
 	dba PokemonSprites6
+
+GetUnownSprite:
+	push af
+	cp UNOWN
+	jr nz, .not_unown
+	ld a, [wFollowerPartyNum]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	ld hl, wPartyMon1DVs
+	call AddNTimes
+	predef GetUnownLetter
+	ld a, [wUnownLetter]
+	dec a
+	ld hl, UnownSpritePointers
+	push af
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+	push bc
+	ld bc, 16 * 4 * 6
+	call AddNTimes
+	pop bc
+	ld d, h
+	ld e, l
+	ld h, 0
+	ld c, 12
+	ld l, WALKING_SPRITE
+	pop af
+	scf
+	ret
+
+.not_unown
+	pop af
+	and a ; Clear carry flag
+	ret
+
+UnownSpritePointers:
+	dba UnownSprites
 
 _DoesSpriteHaveFacings::
 ; Checks to see whether we can apply a facing to a sprite.
