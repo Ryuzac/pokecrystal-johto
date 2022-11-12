@@ -15,23 +15,22 @@ MACRO interaction
 ENDM
 
 DEF FOLLOWER_INT_TABLE_ROW_LENGTH EQU 8
-DEF NO_CHECK EQU -1
 
 FollowerInteractionTable:
 ; uses the first interaction that matches all of its conditions.
 ;	interaction species     type-incl type-excl landmark                time      status      script
-	interaction NO_CHECK,   NO_CHECK, NO_CHECK, NO_CHECK,               NO_CHECK, SLP_MASK,   SleepInteraction
-	interaction NO_CHECK,   NO_CHECK, NO_CHECK, NO_CHECK,               NO_CHECK, (1 << PSN), PoisonInteraction
-	interaction NO_CHECK,   NO_CHECK, NO_CHECK, NO_CHECK,               NO_CHECK, (1 << BRN), BurnInteraction
-	interaction NO_CHECK,   NO_CHECK, NO_CHECK, NO_CHECK,               NO_CHECK, (1 << FRZ), FrozenInteraction
-	interaction NO_CHECK,   NO_CHECK, NO_CHECK, NO_CHECK,               NO_CHECK, (1 << PAR), ParalyzeInteraction
-	interaction CHIKORITA,  NO_CHECK, NO_CHECK, LANDMARK_ROUTE_29,      NO_CHECK, NO_CHECK,   ChikoritaRoute29Interaction
-	interaction TOTODILE,   NO_CHECK, NO_CHECK, LANDMARK_ROUTE_30,      NO_CHECK, NO_CHECK,   TotodileRoute30Interaction
-	interaction CYNDAQUIL,  NO_CHECK, NO_CHECK, LANDMARK_ROUTE_31,      NO_CHECK, NO_CHECK,   CyndaquilRoute31Interaction
-	interaction NO_CHECK,   ICE,      NO_CHECK, LANDMARK_DARK_CAVE,     NO_CHECK, NO_CHECK,   DarkCaveInteraction
-	interaction BELLSPROUT, NO_CHECK, NO_CHECK, LANDMARK_SPROUT_TOWER,  NO_CHECK, NO_CHECK,   BellsproutSproutTowerInteraction
-	interaction UNOWN,      NO_CHECK, NO_CHECK, LANDMARK_RUINS_OF_ALPH, NO_CHECK, NO_CHECK,   UnownRuinsOfAlphInteraction
-	interaction NO_CHECK,   NO_CHECK, NO_CHECK, NO_CHECK,               NO_CHECK, NO_CHECK,   DefaultInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       SLP_MASK,   SleepInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << PSN), PoisonInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << BRN), BurnInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << FRZ), FrozenInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       (1 << PAR), ParalyzeInteraction
+	interaction CHIKORITA,  -1,       -1,       LANDMARK_ROUTE_29,      -1,       -1,         ChikoritaRoute29Interaction
+	interaction TOTODILE,   -1,       -1,       LANDMARK_ROUTE_30,      -1,       -1,         TotodileRoute30Interaction
+	interaction CYNDAQUIL,  -1,       -1,       LANDMARK_ROUTE_31,      -1,       -1,         CyndaquilRoute31Interaction
+	interaction -1,         ICE,      -1,       LANDMARK_DARK_CAVE,     -1,       -1,         DarkCaveInteraction
+	interaction BELLSPROUT, -1,       -1,       LANDMARK_SPROUT_TOWER,  -1,       -1,         BellsproutSproutTowerInteraction
+	interaction UNOWN,      -1,       -1,       LANDMARK_RUINS_OF_ALPH, -1,       -1,         UnownRuinsOfAlphInteraction
+	interaction -1,         -1,       -1,       -1,                     -1,       -1,         DefaultInteraction
 
 DoFollowerInteraction:
 	call StoreFollowerNickInBuffer
@@ -126,10 +125,11 @@ DoFollowerInteraction:
 	ret
 
 .next_row
-.next_entry
-	inc hl
-	dec b
-	jr nz, .next_entry
+	push bc
+	ld c, b
+	ld b, 0
+	add hl, bc
+	pop bc
 	jr .get_row
 
 StoreFollowerNickInBuffer:
@@ -380,6 +380,8 @@ UnownRuinsOfAlphInteraction:
 	end
 
 .interaction2
+	applymovement FOLLOWER, .FollowerSpinMovement
+	faceplayer
 	writetext .StartedSpinningText
 	closetext
 	end
@@ -414,6 +416,25 @@ UnownRuinsOfAlphInteraction:
 	line "started spinning"
 	cont "around in circles."
 	done
+
+.FollowerSpinMovement:
+	turn_head DOWN
+	step_sleep 4
+	turn_head LEFT
+	step_sleep 4
+	turn_head UP
+	step_sleep 4
+	turn_head RIGHT
+	step_sleep 4
+	turn_head DOWN
+	step_sleep 4
+	turn_head LEFT
+	step_sleep 4
+	turn_head UP
+	step_sleep 4
+	turn_head RIGHT
+	step_sleep 4
+	step_end
 
 .GrowlingText:
 	text "@"
