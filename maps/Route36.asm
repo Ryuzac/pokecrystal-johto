@@ -93,7 +93,7 @@ DidntCatchSudowoodo:
 	disappear ROUTE36_WEIRD_TREE
 	variablesprite SPRITE_WEIRD_TREE, SPRITE_TWIN
 	special LoadUsedSpritesGFX
-	special RefreshSprites
+	special ReloadVisibleSprites
 	end
 
 Route36FloriaScript:

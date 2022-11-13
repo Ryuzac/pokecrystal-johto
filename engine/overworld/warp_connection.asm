@@ -303,7 +303,7 @@ LoadMapGraphics:
 	ldh [hMapAnims], a
 	xor a
 	ldh [hTileAnimFrame], a
-	farcall RefreshSprites
+	farcall ReloadVisibleSprites
 	call LoadFontsExtra
 	farcall LoadOverworldFont
 	ret

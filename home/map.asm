@@ -1957,7 +1957,7 @@ ReturnToMapWithSpeechTextbox::
 ReloadTilesetAndPalettes::
 	call DisableLCD
 	call ClearSprites
-	farcall RefreshSprites
+	farcall ReloadVisibleSprites
 	call LoadStandardFont
 	call LoadFontsExtra
 	ldh a, [hROMBank]
