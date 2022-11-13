@@ -229,14 +229,15 @@ GetMonSprite:
 	ld hl, SpriteMons
 	add hl, de
 	ld a, [hl]
-	jr .Mon
+	jp GetWalkingMonSprite
 
 .BreedMon1
 	ld a, [wBreedMon1Species]
-	jr .Mon
+	jp GetWalkingMonSprite
 
 .BreedMon2
 	ld a, [wBreedMon2Species]
+	jp GetWalkingMonSprite
 
 .Mon:
 	ld e, a
@@ -297,7 +298,7 @@ GetFirstAliveMon::
 
 GetFollowingSprite:
 	cp SPRITE_FOLLOWER
-	jr nz, .nope
+	jr nz, GetWalkingMonSprite.nope
 
 	call GetFirstAliveMon
 	ld [wFollowerSpriteID], a
@@ -305,6 +306,8 @@ GetFollowingSprite:
 	ld a, e
 	ld [wFollowerPartyNum], a
 	pop af
+
+GetWalkingMonSprite:
 
 	call GetUnownSprite
 	ret c
