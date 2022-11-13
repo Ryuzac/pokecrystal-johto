@@ -266,11 +266,11 @@ GetSpeciesIcon:
 FlyFunction_GetMonIcon:
 	push de
 	ld a, [wTempIconSpecies]
-	call ReadMonMenuIcon
+	;call ReadMonMenuIcon
 	ld [wCurIcon], a
 	pop de
 	ld a, e
-	call GetIcon_a
+	call FlyTest
 	ret
 
 GetMonIconDE: ; unreferenced
@@ -342,6 +342,79 @@ endr
 
 	pop hl
 	ret
+
+FlyTest:
+	ld l, a
+	ld h, 0
+rept 4
+	add hl, hl
+endr
+
+	ld de, vTiles0
+	add hl, de
+	push hl
+	ld a, [wCurIcon]
+	push hl
+
+	push af
+	dec a
+	ld de, 0
+.mod
+	inc de
+	sub 42
+	jr nc, .mod
+	dec de
+	add 42
+
+	push af
+	ld hl, PokemonSpritePointers2
+	add hl, de
+	add hl, de
+	add hl, de
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	pop af
+	
+	push bc
+	ld bc, 16 * 4 * 6
+	call AddNTimes
+	pop bc
+
+	ld d, h
+	ld e, l
+	ld c, 4
+	pop af
+
+	pop hl
+
+	push bc
+	call GetGFXUnlessMobile
+	ld bc, 16 * 4
+	add hl, bc
+	push hl
+	ld h, d
+	ld l, e
+	ld de, 16 * 4 * 3
+	add hl, de
+	ld d, h
+	ld e, l
+	pop hl
+	pop bc
+	call GetGFXUnlessMobile
+
+	pop hl
+	ret
+
+PokemonSpritePointers2:
+	dba PokemonSprites1
+	dba PokemonSprites2
+	dba PokemonSprites3
+	dba PokemonSprites4
+	dba PokemonSprites5
+	dba PokemonSprites6
 
 GetGFXUnlessMobile:
 	ld a, [wLinkMode]
