@@ -13,15 +13,6 @@ _UpdatePlayerSprite::
 	ld a, [wUsedSprites + 1]
 	ldh [hUsedSpriteTile], a
 	call GetUsedSprite
-	call AddFollowSprite
-	ret
-
-AddFollowSprite:
-	ld a, [wUsedSprites + FOLLOWER * 2]
-	ldh [hUsedSpriteIndex], a
-	ld a, [wUsedSprites + FOLLOWER * 2 + 1]
-	ldh [hUsedSpriteTile], a
-	call GetUsedSprite
 	ret
 
 _RefreshSprites: ; mobile
@@ -93,6 +84,7 @@ ReloadVisibleSprites::
 	xor a
 	ld [hUsedSpriteIndex], a
 	call ReloadSpriteIndex
+	call LoadMiscTiles
 	pop bc
 	pop de
 	pop hl
