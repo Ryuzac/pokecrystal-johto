@@ -261,6 +261,9 @@ INCBIN "gfx/following/tyranitar.2bpp"
 INCBIN "gfx/following/lugia.2bpp"
 INCBIN "gfx/following/ho_oh.2bpp"
 INCBIN "gfx/following/celebi.2bpp"
+SECTION "EggSprite", ROMX
+EggSprite::
+INCBIN "gfx/following/egg.2bpp"
 SECTION "UnownSprites", ROMX
 UnownSprites::
 INCBIN "gfx/following/UNOWN_A.2bpp"
