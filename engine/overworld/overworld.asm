@@ -195,13 +195,13 @@ GetMonSprite:
 	jr z, .BreedMon2
 	cp SPRITE_VARS
 	jr nc, .Variable
-	jr .Icon
+	jr .pokemon_sprite
 
 .Normal:
 	and a
 	ret
 
-.Icon:
+.pokemon_sprite:
 	sub SPRITE_POKEMON
 	ld e, a
 	ld d, 0
@@ -218,18 +218,6 @@ GetMonSprite:
 	ld a, [wBreedMon2Species]
 	jp GetWalkingMonSprite
 
-.Mon:
-	ld e, a
-	and a
-	jr z, .NoBreedmon
-
-	farcall LoadOverworldMonIcon
-
-	ld l, WALKING_SPRITE
-	ld h, 0
-	scf
-	ret
-
 .Variable:
 	sub SPRITE_VARS
 	ld e, a
@@ -239,13 +227,6 @@ GetMonSprite:
 	ld a, [hl]
 	and a
 	jp nz, GetMonSprite
-
-.NoBreedmon:
-	ld a, WALKING_SPRITE
-	ld l, WALKING_SPRITE
-	ld h, 0
-	and a
-	ret
 
 GetFirstAliveMon::
 	ld e, 0
