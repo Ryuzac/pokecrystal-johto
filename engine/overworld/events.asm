@@ -125,7 +125,6 @@ EnterMap:
 	xor a
 	ld [wPoisonStepCount], a
 .dontresetpoison
-	farcall RefreshFollowingCoords
 
 	xor a ; end map entry
 	ldh [hMapEntryMethod], a

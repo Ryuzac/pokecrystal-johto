@@ -323,7 +323,9 @@ GetNextTile:
 	push bc
 	call GetCoordTile
 	pop bc
+	push af
 	call UpdateFollowerSprite
+	pop af
 	ld hl, OBJECT_TILE
 	add hl, bc
 	ld [hl], a
@@ -339,7 +341,6 @@ UpdateFollowerSprite:
 	ld hl, OBJECT_TILE
 	add hl, bc
 	ld d, [hl]
-	ld [hl], e
 	push de
 	ld a, d ; previous
 	call GetTileCollision
@@ -363,6 +364,10 @@ UpdateFollowerSprite:
 	push de
 	push hl
 
+	ld hl, OBJECT_FLAGS1
+	add hl, bc
+	res INVISIBLE_F, [hl]
+
 	jr .done
 
 .water_tile
@@ -370,6 +375,10 @@ UpdateFollowerSprite:
 	push bc
 	push de
 	push hl
+
+	ld hl, OBJECT_FLAGS1
+	add hl, bc
+	set INVISIBLE_F, [hl]
 
 .done
 	pop hl
