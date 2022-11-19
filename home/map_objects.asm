@@ -541,11 +541,32 @@ endr
 	add hl, de
 	ld [hl], a
 
+	ld hl, OBJECT_SPRITE
+	add hl, de
+	ld a, [hl]
+	cp SPRITE_FOLLOWER
+	jr nz, .not_follower
+	ld a, [bc]
+	inc bc
+	ld hl, OBJECT_FLAGS1
+	add hl, de
+	push bc
+	ld b, a
+	ld a, [wFollowerFlags]
+	and FOLLOWER_INVISIBLE
+	or b
+	pop bc
+	ld [hl], a
+	jr .flags1_done
+
+.not_follower
 	ld a, [bc]
 	inc bc
 	ld hl, OBJECT_FLAGS1
 	add hl, de
 	ld [hl], a
+
+.flags1_done
 
 	ld a, [bc]
 	inc bc

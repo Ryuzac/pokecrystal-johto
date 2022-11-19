@@ -22,7 +22,12 @@ DEF AUTO_INPUT EQU $ff
 	const WILDMON    ; 4
 
 ; wFollowerFlags::
-DEF FOLLOWER_FROZEN_F EQU 2
+	const_def
+	const FOLLOWER_INVISIBLE_F
+	const_skip
+	const FOLLOWER_FROZEN_F
+
+FOLLOWER_INVISIBLE EQU (1 << FOLLOWER_INVISIBLE_F)
 
 ; wGameTimerPaused::
 DEF GAME_TIMER_PAUSED_F EQU 0

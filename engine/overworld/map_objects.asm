@@ -359,32 +359,19 @@ UpdateFollowerSprite:
 	ret
 
 .land_tile
-	push af
-	push bc
-	push de
-	push hl
-
 	ld hl, OBJECT_FLAGS1
 	add hl, bc
 	res INVISIBLE_F, [hl]
-
-	jr .done
+	ld hl, wFollowerFlags
+	res FOLLOWER_INVISIBLE_F, [hl]
+	ret
 
 .water_tile
-	push af
-	push bc
-	push de
-	push hl
-
 	ld hl, OBJECT_FLAGS1
 	add hl, bc
 	set INVISIBLE_F, [hl]
-
-.done
-	pop hl
-	pop de
-	pop bc
-	pop af
+	ld hl, wFollowerFlags
+	set FOLLOWER_INVISIBLE_F, [hl]
 	ret
 
 AddStepVector:

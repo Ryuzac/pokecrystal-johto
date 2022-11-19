@@ -237,8 +237,7 @@ ScriptCommandTable:
 	dw Script_freezefollower             ; aa
 	dw Script_unfreezefollower           ; ab
 	dw Script_getfollowerdirection       ; ac
-	dw Script_checkfollowerswapped       ; ad
-	dw Script_followcry                  ; ae
+	dw Script_followcry                  ; ad
 	assert_table_length NUM_EVENT_COMMANDS
 
 StartScript:
@@ -2376,12 +2375,6 @@ Script_unfreezefollower:
 
 Script_getfollowerdirection:
 	farcall Script_GetFollowerDirectionFromPlayer
-	ret
-
-Script_checkfollowerswapped:
-	ld a, [wFollowerFlags] ; swap flag is bit 0
-	and 1
-	ld [wScriptVar], a
 	ret
 
 Script_followcry:

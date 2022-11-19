@@ -1080,12 +1080,7 @@ MACRO getfollowerdirection
 	db getfollowerdirection_command
 ENDM
 
-	const checkfollowerswapped_command ; $ad
-MACRO checkfollowerswapped
-	db checkfollowerswapped_command
-ENDM
-
-	const followcry_command ; ae
+	const followcry_command ; $ad
 MACRO followcry
 	db followcry_command
 ENDM
