@@ -37,7 +37,6 @@ MapSetupScript_Warp:
 	mapsetup LoadBlockData
 	mapsetup BufferScreen
 	mapsetup LoadMapGraphics
-	mapsetup UpdateFollowerPositionAfterWarp
 	mapsetup LoadMapTimeOfDay
 	mapsetup LoadMapObjects
 	mapsetup EnableLCD
@@ -62,7 +61,6 @@ MapSetupScript_BadWarp:
 	mapsetup BufferScreen
 	mapsetup DisableLCD
 	mapsetup LoadMapGraphics
-	mapsetup UpdateFollowerPositionAfterWarp
 	mapsetup LoadMapTimeOfDay
 	mapsetup FadeOutMapMusic
 	mapsetup EnableLCD
@@ -109,7 +107,6 @@ MapSetupScript_Train:
 	mapsetup BufferScreen
 	mapsetup DisableLCD
 	mapsetup LoadMapGraphics
-	mapsetup UpdateFollowerPositionAfterWarp
 	mapsetup LoadMapTimeOfDay
 	mapsetup FadeOutMapMusic
 	mapsetup EnableLCD
