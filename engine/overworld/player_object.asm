@@ -147,7 +147,8 @@ RefreshPlayerCoords:
 
 MapPlayerCoordWarped:
 	ld hl, wFollowerFlags
-	res FOLLOWER_INVISIBLE_F, [hl]
+	set FOLLOWER_INVISIBLE_F, [hl]
+	set FOLLOWER_INVISIBLE_ONE_STEP_F, [hl]
 	call _RefreshPlayerCoords
 	ld b, PLAYER
 	ld c, FOLLOWER

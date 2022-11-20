@@ -338,6 +338,7 @@ UpdateFollowerSprite:
 	cp FOLLOWER
 	ld a, e
 	ret nz
+	call CheckFollowerInvisOneStep
 	ld hl, OBJECT_TILE
 	add hl, bc
 	ld d, [hl]
@@ -372,6 +373,20 @@ UpdateFollowerSprite:
 	set INVISIBLE_F, [hl]
 	ld hl, wFollowerFlags
 	set FOLLOWER_INVISIBLE_F, [hl]
+	ret
+
+CheckFollowerInvisOneStep:
+	; Although the below could be optimized, it is currently easier to understand.
+	ld hl, wFollowerFlags
+	bit FOLLOWER_INVISIBLE_F, [hl]
+	ret z
+	bit FOLLOWER_INVISIBLE_ONE_STEP_F, [hl]
+	ret z
+	res FOLLOWER_INVISIBLE_F, [hl]
+	res FOLLOWER_INVISIBLE_ONE_STEP_F, [hl]
+	ld hl, OBJECT_FLAGS1
+	add hl, bc
+	res INVISIBLE_F, [hl]
 	ret
 
 AddStepVector:
