@@ -430,33 +430,51 @@ endr
 
 	push af
 	dec a
-	ld de, 0
-.mod
-	inc de
-	sub 42
-	jr nc, .mod
-	dec de
-	add 42
 
-	push af
-	ld hl, PokemonSpritePointers2
-	add hl, de
-	add hl, de
-	add hl, de
-	ld a, [hli]
-	ld b, a
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	pop af
-	
-	push bc
-	ld bc, 16 * 4 * 6
+	ld hl, FollowingSpritePointers
+
+	cp (UNOWN - 1) ; we already decremented
+	jr nz, .not_unown
+	ld a, [wCurPartyMon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	ld hl, wPartyMon1DVs
 	call AddNTimes
-	pop bc
+	predef GetUnownLetter
+	ld a, [wUnownLetter]
+	dec a
+	ld hl, UnownFollowingSpritePointers
 
-	ld d, h
-	ld e, l
+.not_unown
+	ld d, 0
+	ld e, a
+	add hl, de
+	add hl, de
+	add hl, de
+	assert BANK(FollowingSpritePointers) == BANK(UnownFollowingSpritePointers), \
+			"FollowingSpritePointers Bank is not equal to UnownFollowingSpritePointers"
+	ld a, BANK(FollowingSpritePointers)
+	push af
+	call GetFarByte
+	ld b, a
+	inc hl
+	pop af
+	call GetFarWord
+
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wDecompressScratch)
+	ldh [rSVBK], a
+
+	push bc
+	ld a, b
+	ld de, wDecompressScratch
+	call FarDecompress
+	pop bc
+	ld de, wDecompressScratch
+
+	pop af
+	ldh [rSVBK], a
+
 	ld c, 4
 	pop af
 
@@ -480,20 +498,23 @@ endr
 	pop hl
 	ret
 
-PokemonSpritePointers2:
-	dba PokemonSprites1
-	dba PokemonSprites2
-	dba PokemonSprites3
-	dba PokemonSprites4
-	dba PokemonSprites5
-	dba PokemonSprites6
-	dba EggSprite
-
 GetGFXUnlessMobile:
 	ld a, [wLinkMode]
 	cp LINK_MOBILE
-	jp nz, Request2bpp
+	jp nz, .not_mobile
 	jp Get2bppViaHDMA
+
+.not_mobile
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wDecompressScratch)
+	ldh [rSVBK], a
+
+	call Request2bpp
+
+	pop af
+	ldh [rSVBK], a
+	ret
 
 FreezeMonIcons:
 	ld hl, wSpriteAnimationStructs

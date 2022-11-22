@@ -268,39 +268,53 @@ GetFollowingSprite:
 	pop af
 
 GetWalkingMonSprite:
-
-	call GetUnownSprite
-	ret c
-
 	push af
 	dec a
-	ld de, 0
-.mod
-	inc de
-	sub 42
-	jr nc, .mod
-	dec de
-	add 42
 
+	ld hl, FollowingSpritePointers
+
+	cp (UNOWN - 1) ; we already decremented
+	jr nz, .not_unown
+	ld a, [wFollowerPartyNum]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	ld hl, wPartyMon1DVs
+	call AddNTimes
+	predef GetUnownLetter
+	ld a, [wUnownLetter]
+	dec a
+	ld hl, UnownFollowingSpritePointers
+
+.not_unown
+	ld d, 0
+	ld e, a
+	add hl, de
+	add hl, de
+	add hl, de
+	assert BANK(FollowingSpritePointers) == BANK(UnownFollowingSpritePointers), \
+			"FollowingSpritePointers Bank is not equal to UnownFollowingSpritePointers"
+	ld a, BANK(FollowingSpritePointers)
 	push af
-	ld hl, PokemonSpritePointers
-	add hl, de
-	add hl, de
-	add hl, de
-	ld a, [hli]
+	call GetFarByte
 	ld b, a
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
+	inc hl
 	pop af
+	call GetFarWord
+
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wDecompressScratch)
+	ldh [rSVBK], a
 
 	push bc
-	ld bc, 16 * 4 * 6
-	call AddNTimes
+	ld a, b
+	ld de, wDecompressScratch
+	call FarDecompress
 	pop bc
+	ld de, wDecompressScratch
 
-	ld d, h
-	ld e, l
+	pop af
+	ldh [rSVBK], a
+
 	ld h, 0
 	ld c, 12
 	ld l, WALKING_SPRITE
@@ -312,54 +326,6 @@ GetWalkingMonSprite:
 .nope
 	and a
 	ret
-
-PokemonSpritePointers:
-	dba PokemonSprites1
-	dba PokemonSprites2
-	dba PokemonSprites3
-	dba PokemonSprites4
-	dba PokemonSprites5
-	dba PokemonSprites6
-
-GetUnownSprite:
-	push af
-	cp UNOWN
-	jr nz, .not_unown
-	ld a, [wFollowerPartyNum]
-	ld bc, PARTYMON_STRUCT_LENGTH
-	ld hl, wPartyMon1DVs
-	call AddNTimes
-	predef GetUnownLetter
-	ld a, [wUnownLetter]
-	dec a
-	ld hl, UnownSpritePointers
-	push af
-	ld a, [hli]
-	ld b, a
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	pop af
-	push bc
-	ld bc, 16 * 4 * 6
-	call AddNTimes
-	pop bc
-	ld d, h
-	ld e, l
-	ld h, 0
-	ld c, 12
-	ld l, WALKING_SPRITE
-	pop af
-	scf
-	ret
-
-.not_unown
-	pop af
-	and a ; Clear carry flag
-	ret
-
-UnownSpritePointers:
-	dba UnownSprites
 
 _DoesSpriteHaveFacings::
 ; Checks to see whether we can apply a facing to a sprite.
@@ -592,7 +558,17 @@ endr
 
 .bankswitch
 	ldh [rVBK], a
+
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wDecompressScratch)
+	ldh [rSVBK], a
+
 	call Get2bpp
+
+	pop af
+	ldh [rSVBK], a
+
 	pop af
 	ldh [rVBK], a
 	ret
