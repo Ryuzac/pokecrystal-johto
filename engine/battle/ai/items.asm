@@ -282,8 +282,8 @@ AI_Items:
 	dbw X_ATTACK,     .XAttack
 	dbw X_DEFEND,     .XDefend
 	dbw X_SPEED,      .XSpeed
-	dbw X_SP_ATK,     .XSpAtk
-	dbw X_SP_DEF,     .XSpDef
+	dbw X_SPCL_ATK,   .XSpclAtk
+	dbw X_SPCL_DEF,   .XSpclDef
 	db -1 ; end
 
 .FullHeal:
@@ -484,16 +484,16 @@ AI_Items:
 	call EnemyUsedXSpeed
 	jp .Use
 
-.XSpAtk:
+.XSpclAtk:
 	call .XItem
 	jp c, .DontUse
-	call EnemyUsedXSpAtk
+	call EnemyUsedXSpclAtk
 	jp .Use
 	
-.XSpDef:
+.XSpclDef:
 	call .XItem
 	jp c, .DontUse
-	call EnemyUsedXSpDef
+	call EnemyUsedXSpclDef
 	jp .Use
 
 .XItem:
@@ -813,18 +813,18 @@ EnemyUsedXSpeed:
 	ld a, X_SPEED
 	jr EnemyUsedXItem
 
-EnemyUsedXSpAtk:
+EnemyUsedXSpclAtk:
 	ld b, SP_ATTACK
-	ld a, X_SP_ATK
+	ld a, X_SPCL_ATK
 
-EnemyUsedXSpDef:
+EnemyUsedXSpclDef:
 	ld b, SP_DEFENSE
-	ld a, X_SP_DEF
+	ld a, X_SPCL_DEF
 	jr EnemyUsedXItem
 
 ; Parameter
 ; a = ITEM_CONSTANT
-; b = BATTLE_CONSTANT (ATTACK, DEFENSE, SPEED, SP_ATTACK, SP_DEFENSE, ACCURACY, EVASION)
+; b = BATTLE_CONSTANT (ATTACK, DEFENSE, SPEED, SPCL_ATTACK, SPCL_DEFENSE, ACCURACY, EVASION)
 EnemyUsedXItem:
 	ld [wCurEnemyItem], a
 	push bc

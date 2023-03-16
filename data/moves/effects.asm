@@ -1231,6 +1231,13 @@ TrapTarget:
 	traptarget
 	endmove
 
+Growth:
+	checkobedience
+	usedmovetext
+	doturn
+	growth
+	endmove
+
 SuperFang:
 Psywave:
 StaticDamage:
@@ -2073,11 +2080,4 @@ DefenseCurl:
 	raisesub
 	statupmessage
 	statupfailtext
-	endmove
-
-Growth:
-	checkobedience
-	usedmovetext
-	doturn
-	growth
 	endmove

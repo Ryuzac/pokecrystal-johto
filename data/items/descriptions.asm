@@ -53,7 +53,7 @@ ItemDescriptions:
 	dw TeruSama4Desc
 	dw XDefendDesc
 	dw XSpeedDesc
-	dw XSpAtkDesc
+	dw XSpclAtkDesc
 	dw CoinCaseDesc
 	dw ItemfinderDesc
 	dw TeruSama5Desc
@@ -120,7 +120,7 @@ ItemDescriptions:
 	dw MiracleSeedDesc
 	dw ThickClubDesc
 	dw FocusBandDesc
-	dw XSpDefDesc
+	dw XSpclDefDesc
 	dw EnergyPowderDesc
 	dw EnergyRootDesc
 	dw HealPowderDesc
@@ -463,7 +463,7 @@ XSpeedDesc:
 	db   "Raises SPEED."
 	next "(1 BTL)@"
 
-XSpAtkDesc:
+XSpclAtkDesc:
 	db   "Raises SPECIAL"
 	next "ATTACK. (1 BTL)@"
 
@@ -725,7 +725,7 @@ FocusBandDesc:
 	db   "May prevent faint-"
 	next "ing. (HOLD)@"
 
-XSpDefDesc:
+XSpclDefDesc:
 	db   "Raises SPECIAL"
 	next "DEFENSE. (1 BTL)@"		 
 

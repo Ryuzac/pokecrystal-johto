@@ -10,8 +10,8 @@ MysteryGiftItems:
 	db X_ATTACK
 	db BITTER_BERRY
 	db DIRE_HIT
-	db X_SP_ATK
-	db X_SP_DEF
+	db X_SPCL_ATK
+	db X_SPCL_DEF
 	db X_ACCURACY
 	db EON_MAIL
 	db MORPH_MAIL
