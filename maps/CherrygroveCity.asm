@@ -40,18 +40,21 @@ CherrygroveCityGuideGent:
 .Return
 	follow CHERRYGROVECITY_GRAMPS, PLAYER
 	applymovement CHERRYGROVECITY_GRAMPS, GuideGentMovement1
+	turnobject PLAYER, UP					  
 	opentext
 	writetext GuideGentPokecenterText
 	waitbutton
 	closetext
 	applymovement CHERRYGROVECITY_GRAMPS, GuideGentMovement2
 	turnobject PLAYER, UP
+	turnobject FOLLOWER, UP
 	opentext
 	writetext GuideGentMartText
 	waitbutton
 	closetext
 	applymovement CHERRYGROVECITY_GRAMPS, GuideGentMovement3
 	turnobject PLAYER, UP
+	turnobject FOLLOWER, UP
 	opentext
 	writetext GuideGentRoute30Text
 	waitbutton
@@ -64,9 +67,11 @@ CherrygroveCityGuideGent:
 	closetext
 	applymovement CHERRYGROVECITY_GRAMPS, GuideGentMovement5
 	turnobject PLAYER, UP
+	turnobject FOLLOWER, UP
 	pause 60
 	turnobject CHERRYGROVECITY_GRAMPS, LEFT
 	turnobject PLAYER, RIGHT
+	turnobject FOLLOWER, RIGHT
 	opentext
 	writetext GuideGentGiftText
 	promptbutton
@@ -81,6 +86,7 @@ CherrygroveCityGuideGent:
 	stopfollow
 	special RestartMapMusic
 	turnobject PLAYER, UP
+	turnobject FOLLOWER, UP
 	applymovement CHERRYGROVECITY_GRAMPS, GuideGentMovement6
 	playsound SFX_ENTER_DOOR
 	disappear CHERRYGROVECITY_GRAMPS
@@ -112,6 +118,7 @@ CherrygroveRivalSceneSouth:
 	applymovement FOLLOWER, CherrygroveCity_FollowerMovementForRival
 CherrygroveRivalSceneNorth:
 	turnobject PLAYER, RIGHT
+	turnobject FOLLOWER, RIGHT
 	showemote EMOTE_SHOCK, PLAYER, 15
 	special FadeOutMusic
 	pause 15
@@ -128,6 +135,7 @@ CherrygroveRivalSceneNorth:
 	checkevent EVENT_GOT_CHIKORITA_FROM_ELM
 	iftrue .Chikorita
 	winlosstext RivalCherrygroveWinText, RivalCherrygroveLossText
+	appearfollower ; Respawns follower as a temporary fix due to an issue with it corrupting after the rival fight
 	setlasttalked CHERRYGROVECITY_RIVAL
 	loadtrainer RIVAL1, RIVAL1_1_TOTODILE
 	loadvar VAR_BATTLETYPE, BATTLETYPE_CANLOSE
@@ -257,8 +265,8 @@ GuideGentMovement_Player:
 
 GuideGentMovement1:
 	step LEFT
-	step LEFT
 	step UP
+	step LEFT
 	step LEFT
 	turn_head UP
 	step_end
@@ -293,11 +301,11 @@ GuideGentMovement4:
 	step LEFT
 	step LEFT
 	step DOWN
+	step DOWN
 	turn_head LEFT
 	step_end
 
 GuideGentMovement5:
-	step DOWN
 	step DOWN
 	step RIGHT
 	step RIGHT

@@ -3,7 +3,6 @@
 
 """
 Usage: python palfix.py image.png
-
 Fix the palette format of the input image. Colored images (Pokémon or trainer
 sprites) will become indexed, with a palette sorted {white, light color, dark
 color, black}. Grayscale images will become two-bit grayscale.

@@ -66,7 +66,7 @@ ItemEffects:
 	dw NoEffect            ; ITEM_32
 	dw XItemEffect         ; X_DEFEND
 	dw XItemEffect         ; X_SPEED
-	dw XItemEffect         ; X_SPECIAL
+	dw XItemEffect         ; X_SP_ATK
 	dw CoinCaseEffect      ; COIN_CASE
 	dw ItemfinderEffect    ; ITEMFINDER
 	dw PokeFluteEffect     ; POKE_FLUTE
@@ -103,7 +103,7 @@ ItemEffects:
 	dw NoEffect            ; BIG_MUSHROOM
 	dw NoEffect            ; SILVERPOWDER
 	dw NoEffect            ; BLU_APRICORN
-	dw NoEffect            ; ITEM_5A
+	dw PokeBallEffect      ; NIGHT_BALL
 	dw NoEffect            ; AMULET_COIN
 	dw NoEffect            ; YLW_APRICORN
 	dw NoEffect            ; GRN_APRICORN
@@ -113,7 +113,7 @@ ItemEffects:
 	dw NoEffect            ; WHT_APRICORN
 	dw NoEffect            ; BLACKBELT_I
 	dw NoEffect            ; BLK_APRICORN
-	dw NoEffect            ; ITEM_64
+	dw NoEffect            ; PUR_APRICORN
 	dw NoEffect            ; PNK_APRICORN
 	dw NoEffect            ; BLACKGLASSES
 	dw NoEffect            ; SLOWPOKETAIL
@@ -133,7 +133,7 @@ ItemEffects:
 	dw NoEffect            ; MIRACLE_SEED
 	dw NoEffect            ; THICK_CLUB
 	dw NoEffect            ; FOCUS_BAND
-	dw NoEffect            ; ITEM_78
+	dw XItemEffect         ; X_SP_DEF
 	dw EnergypowderEffect  ; ENERGYPOWDER
 	dw EnergyRootEffect    ; ENERGY_ROOT
 	dw HealPowderEffect    ; HEAL_POWDER
@@ -148,7 +148,7 @@ ItemEffects:
 	dw NoEffect            ; STAR_PIECE
 	dw BasementKeyEffect   ; BASEMENT_KEY
 	dw NoEffect            ; PASS
-	dw NoEffect            ; ITEM_87
+	dw NoEffect            ; EVIOLITE
 	dw NoEffect            ; ITEM_88
 	dw NoEffect            ; ITEM_89
 	dw NoEffect            ; CHARCOAL
@@ -210,11 +210,14 @@ ItemEffects:
 ; NoEffect would be appropriate, with the table then being NUM_ITEMS long.
 
 PokeBallEffect:
-; BUG: The Dude's catching tutorial may crash if his Poké Ball can't be used (see docs/bugs_and_glitches.md)
 	ld a, [wBattleMode]
 	dec a
 	jp nz, UseBallInTrainerBattle
-
+	
+	ld a, [wBattleType]
+	cp BATTLETYPE_TUTORIAL
+	jr z, .room_in_party
+	
 	ld a, [wPartyCount]
 	cp PARTY_LENGTH
 	jr nz, .room_in_party
@@ -226,12 +229,13 @@ PokeBallEffect:
 	call CloseSRAM
 	jp z, Ball_BoxIsFullMessage
 
+
+
 .room_in_party
-; BUG: Using a Park Ball in non-Contest battles has a corrupt animation (see docs/bugs_and_glitches.md)
 	xor a
 	ld [wWildMon], a
-	ld a, [wCurItem]
-	cp PARK_BALL
+	ld a, [wBattleType]
+	cp BATTLETYPE_CONTEST
 	call nz, ReturnToBattle_UseBall
 
 	ld hl, wOptions
@@ -336,12 +340,12 @@ PokeBallEffect:
 	jr nz, .statuscheck
 	ld a, 1
 .statuscheck
-; BUG: BRN/PSN/PAR do not affect catch rate (see docs/bugs_and_glitches.md)
 	ld b, a
 	ld a, [wEnemyMonStatus]
 	and 1 << FRZ | SLP_MASK
 	ld c, 10
 	jr nz, .addstatus
+	ld a, [wEnemyMonStatus]					
 	and a
 	ld c, 5
 	jr nz, .addstatus
@@ -352,11 +356,10 @@ PokeBallEffect:
 	jr nc, .max_1
 	ld a, $ff
 .max_1
-
-; BUG: HELD_CATCH_CHANCE has no effect (see docs/bugs_and_glitches.md)
 	ld d, a
 	push de
 	ld a, [wBattleMonItem]
+	ld b, a
 	farcall GetItemHeldEffect
 	ld a, b
 	cp HELD_CATCH_CHANCE
@@ -440,18 +443,9 @@ PokeBallEffect:
 	push af
 	set SUBSTATUS_TRANSFORMED, [hl]
 
-; BUG: Catching a Transformed Pokémon always catches a Ditto (see docs/bugs_and_glitches.md)
 	bit SUBSTATUS_TRANSFORMED, a
-	jr nz, .ditto
-	jr .not_ditto
+	jr nz, .load_data
 
-.ditto
-	ld a, DITTO
-	ld [wTempEnemyMonSpecies], a
-	jr .load_data
-
-.not_ditto
-	set SUBSTATUS_TRANSFORMED, [hl]
 	ld hl, wEnemyBackupDVs
 	ld a, [wEnemyMonDVs]
 	ld [hli], a
@@ -507,6 +501,18 @@ PokeBallEffect:
 	ld hl, Text_GotchaMonWasCaught
 	call PrintText
 
+	ld a, [wTempSpecies]
+	ld l, a
+	ld a, [wCurPartyLevel]
+	ld h, a
+	push hl
+	farcall ApplyExperienceAfterEnemyCaught
+	pop hl
+	ld a, l
+	ld [wCurPartySpecies], a
+	ld [wTempSpecies], a
+	ld a, h
+	ld [wCurPartyLevel], a
 	call ClearSprites
 
 	ld a, [wTempSpecies]
@@ -731,6 +737,7 @@ BallMultiplierFunctionTable:
 	dbw MOON_BALL,   MoonBallMultiplier
 	dbw LOVE_BALL,   LoveBallMultiplier
 	dbw PARK_BALL,   ParkBallMultiplier
+	dbw NIGHT_BALL,  NightBallMultiplier
 	db -1 ; end
 
 UltraBallMultiplier:
@@ -752,11 +759,11 @@ ParkBallMultiplier:
 	ld b, $ff
 	ret
 
-HeavyBall_GetDexEntryBank:
-; BUG: Heavy Ball uses wrong weight value for three Pokémon (see docs/bugs_and_glitches.md)
+HeavyBall_GetDexEntryBank:			   
 	push hl
 	push de
 	ld a, [wEnemyMonSpecies]
+	dec a  
 	rlca
 	rlca
 	maskbits NUM_DEX_ENTRY_BANKS
@@ -917,11 +924,10 @@ MoonBallMultiplier:
 	inc hl
 	inc hl
 
-; BUG: Moon Ball does not boost catch rate (see docs/bugs_and_glitches.md)
 	push bc
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
-	cp MOON_STONE_RED ; BURN_HEAL
+	cp MOON_STONE
 	pop bc
 	ret nz
 
@@ -972,13 +978,11 @@ LoveBallMultiplier:
 	jr nz, .got_wild_gender
 	inc d   ; female
 .got_wild_gender
-
-; BUG: Love Ball boosts catch rate for the wrong gender (see docs/bugs_and_glitches.md)
 	ld a, d
 	pop de
 	cp d
 	pop bc
-	ret nz
+	ret z
 
 	sla b
 	jr c, .max
@@ -1012,7 +1016,7 @@ FastBallMultiplier:
 	cp -1
 	jr z, .next
 	cp c
-	jr nz, .next
+	jr nz, .loop
 	sla b
 	jr c, .max
 
@@ -1056,6 +1060,32 @@ LevelBallMultiplier:
 	ld b, $ff
 	ret
 
+NightBallMultiplier:
+; is it night?
+	ld a, [wTimeOfDay]
+	cp NITE
+	jr z, .night_or_cave
+; or are we in a cave?
+	ld a, [wEnvironment]
+	cp CAVE
+	ret nz ; neither night nor cave
+
+.night_or_cave
+; b is the catch rate
+; a := b + b + b == b × 3
+	ld a, b
+	add a
+	jr c, .max
+
+	add b
+	jr c, .max
+
+	ld b, a
+	ret
+
+.max
+	ld b, $ff
+	ret
 ; BallDodgedText and BallMissedText were used in Gen 1.
 
 BallDodgedText: ; unreferenced
@@ -2079,6 +2109,8 @@ UseRepel:
 
 	ld a, b
 	ld [wRepelEffect], a
+	ld a, [wCurItem]
+	ld [wRepelType], a
 	jp UseItemText
 
 RepelUsedEarlierIsStillInEffectText:

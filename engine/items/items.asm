@@ -16,12 +16,16 @@ _ReceiveItem::
 	dw .KeyItem
 	dw .Ball
 	dw .TMHM
+	dw .Berry
 
 .Item:
 	ld h, d
 	ld l, e
 	jp PutItemInPocket
 
+.Berry:
+	ld hl, wNumBerries
+	jp PutItemInPocket
 .KeyItem:
 	ld h, d
 	ld l, e
@@ -57,11 +61,15 @@ _TossItem::
 	dw .KeyItem
 	dw .Ball
 	dw .TMHM
+	dw .Berry
 
 .Ball:
 	ld hl, wNumBalls
 	jp RemoveItemFromPocket
 
+.Berry:
+	ld hl, wNumBerries
+	jp RemoveItemFromPocket
 .TMHM:
 	ld h, d
 	ld l, e
@@ -100,10 +108,15 @@ _CheckItem::
 	dw .KeyItem
 	dw .Ball
 	dw .TMHM
+	dw .Berry
 
 .Ball:
 	ld hl, wNumBalls
 	jp CheckTheItem
+	
+.Berry:
+	ld hl, wNumBerries
+	jp CheckTheItem		
 
 .TMHM:
 	ld h, d
@@ -152,6 +165,15 @@ GetPocketCapacity:
 	ret z
 
 .not_pc
+	ld c, MAX_BERRIES
+	ld a, e
+	cp LOW(wNumBerries)
+	jr nz, .not_berries
+	ld a, d
+	cp HIGH(wNumBerries)
+	ret z
+
+.not_berries
 	ld c, MAX_BALLS
 	ret
 

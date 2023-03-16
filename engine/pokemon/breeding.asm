@@ -625,7 +625,8 @@ GetEggFrontpic:
 	ld [wCurPartySpecies], a
 	ld [wCurSpecies], a
 	call GetBaseData
-	ld hl, wBattleMonDVs
+	ld a, MON_DVS
+	call GetPartyParamLocation
 	predef GetUnownLetter
 	pop de
 	predef_jump GetMonFrontpic
@@ -635,7 +636,8 @@ GetHatchlingFrontpic:
 	ld [wCurPartySpecies], a
 	ld [wCurSpecies], a
 	call GetBaseData
-	ld hl, wBattleMonDVs
+	ld a, MON_DVS
+	call GetPartyParamLocation
 	predef GetUnownLetter
 	pop de
 	predef_jump GetAnimatedFrontpic

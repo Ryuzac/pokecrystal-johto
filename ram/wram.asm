@@ -743,13 +743,12 @@ wDexListingCursorBackup:: db
 wBackupDexListingCursor:: db
 wBackupDexListingPage:: db
 wDexCurLocation:: db
-if DEF(_CRYSTAL11)
 wPokedexStatus:: db
+wPokedexShinyToggle::
+; bit 0: set if displaying shiny palettes
+	db
 wPokedexDataEnd::
-else
-wPokedexDataEnd:: ds 1
-endc
-	ds 2
+	ds 1
 
 NEXTU
 ; pokegear
@@ -808,6 +807,19 @@ wSlotBuildingMatch:: db
 wSlotsDataEnd::
 	ds 28
 wSlotsEnd::
+
+NEXTU
+; voltorb flip
+wVoltorbFlip::
+wVFlipBoard:: ds 5 * 5
+wVFlipCursorPos:: db
+wVFlipCardsTurned:: db
+wVFlipComboCounter:: db
+wVFlipLevel:: db
+wVFlipRowStats:: ds 5 * 2
+wVFlipColStats:: ds 5 * 2
+wVFlipOldLevel:: db
+wVoltorbFlipEnd::
 
 NEXTU
 ; card flip
@@ -1539,12 +1551,7 @@ wCreditsLYOverride:: db
 NEXTU
 ; pokedex
 wPrevDexEntryJumptableIndex:: db
-if DEF(_CRYSTAL11)
 wPrevDexEntryBackup:: db
-else
-wPrevDexEntryBackup::
-wPokedexStatus:: db
-endc
 wUnusedPokedexByte:: db
 
 NEXTU
@@ -2255,7 +2262,7 @@ wStringBuffer5:: ds STRING_BUFFER_LENGTH
 
 wBattleMenuCursorPosition:: db
 
-	ds 1
+wBuffer1:: db
 
 wCurBattleMon::
 ; index of the player's mon currently in battle (0-5)
@@ -2271,6 +2278,7 @@ wItemsPocketCursor::    db
 wKeyItemsPocketCursor:: db
 wBallsPocketCursor::    db
 wTMHMPocketCursor::     db
+wBerryPocketCursor::    db						  
 
 wPCItemsScrollPosition::        db
 	ds 1
@@ -2278,6 +2286,7 @@ wItemsPocketScrollPosition::    db
 wKeyItemsPocketScrollPosition:: db
 wBallsPocketScrollPosition::    db
 wTMHMPocketScrollPosition::     db
+wBerryPocketScrollPosition::    db								  
 
 wSwitchMon::
 wSwitchItem::
@@ -2780,6 +2789,7 @@ NEXTU
 wDudeNumItems:: db
 wDudeItems:: ds 2 * 4 + 1
 
+wDudeNumBerries::
 wDudeNumKeyItems:: db
 wDudeKeyItems:: ds 18 + 1
 
@@ -3004,6 +3014,9 @@ wKeyItems:: ds MAX_KEY_ITEMS + 1
 wNumBalls:: db
 wBalls:: ds MAX_BALLS * 2 + 1
 
+wNumBerries:: db
+wBerries:: ds MAX_BERRIES * 2 + 1
+
 wNumPCItems:: db
 wPCItems:: ds MAX_PC_ITEMS * 2 + 1
 
@@ -3111,7 +3124,7 @@ wMountMoonSquareSceneID::                         db
 wMobileTradeRoomSceneID::                         db
 wMobileBattleRoomSceneID::                        db
 
-	ds 49
+	ds 9 ; 49
 
 ; fight counts
 wJackFightCount::    db
@@ -3235,7 +3248,7 @@ wPlayerMonSelection:: ds 3
 wdc5f:: db
 wdc60:: db
 
-	ds 18
+;	ds 18 ; Used to increase CONTACT_LIST_SIZE
 
 wStepCount:: db
 wPoisonStepCount:: db
@@ -3249,10 +3262,10 @@ wSafariTimeRemaining:: dw
 
 wPhoneList:: ds CONTACT_LIST_SIZE + 1
 
-	ds 22
+;	ds 22 ; Used to increase CONTACT_LIST_SIZE
 
 wLuckyNumberShowFlag:: db
-	ds 1
+wRepelType:: db
 wLuckyIDNumber:: dw
 
 wRepelEffect:: db ; If a Repel is in use, it contains the nr of steps it's still active

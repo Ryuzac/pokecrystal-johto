@@ -488,6 +488,7 @@ LedybaEggMoves:
 	db PSYBEAM
 	db BIDE
 	db LIGHT_SCREEN
+	db DIZZY_PUNCH
 	db -1 ; end
 
 SpinarakEggMoves:
@@ -586,6 +587,11 @@ AipomEggMoves:
 	db SLAM
 	db DOUBLESLAP
 	db BEAT_UP
+	db -1 ; end
+
+SunkernEggMoves:
+	db ENDURE
+	db ENCORE
 	db -1 ; end
 
 YanmaEggMoves:
@@ -723,6 +729,7 @@ DelibirdEggMoves:
 	db FUTURE_SIGHT
 	db SPLASH
 	db RAPID_SPIN
+	db ICE_PUNCH
 	db -1 ; end
 
 MantineEggMoves:

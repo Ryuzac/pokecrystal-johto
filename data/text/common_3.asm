@@ -200,11 +200,11 @@ _SavedTheGameText::
 	line "the game."
 	done
 
-_AlreadyASaveFileText::
-	text "There is already a"
-	line "save file. Is it"
-	cont "OK to overwrite?"
-	done
+;_AlreadyASaveFileText::
+;	text "There is already a"
+;	line "save file. Is it"
+;	cont "OK to overwrite?"
+;	done
 
 _AnotherSaveFileText::
 	text "There is another"
@@ -1358,7 +1358,7 @@ _ItemCantUseOnEggText::
 	prompt
 
 _ItemOakWarningText::
-	text "OAK: <PLAYER>!"
+	text "ELM: <PLAYER>!"
 	line "This isn't the"
 	cont "time to use that!"
 	prompt
@@ -1525,3 +1525,45 @@ _MomLostGearBookletText::
 	para "Come back again in"
 	line "a while."
 	prompt
+
+_MoveReminderIntro::
+    text "Hi, I'm the Move"
+    line "Reminder!"
+
+	para "I can make #MON"
+	line "relearn moves."
+
+	para "Shall I make a"
+	line "#MON remember?"
+	done
+
+_MoveReminderWhichMon::
+    text "Which #MON?"
+    done
+
+_MoveReminderWhichMove::
+    text "Which move should"
+    next "it relearn?"
+    done
+
+_MoveReminderCancel::
+    text "Come back anytime."
+    done
+
+_MoveReminderEgg::
+	text "An EGG doesn't"
+	line "have any moves"
+	cont "to relearn!"
+	done
+
+_MoveReminderNoMon::
+    text "Your #MON don't"
+    line "have any moves to"
+	cont "relearn."
+    done
+
+_MoveReminderNoMoves::
+    text "That #MON has"
+    line "no moves to"
+	cont "relearn."
+    done

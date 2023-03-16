@@ -532,10 +532,11 @@ WigglytuffEvosAttacks:
 ZubatEvosAttacks:
 	db EVOLVE_LEVEL, 22, GOLBAT
 	db 0 ; no more evolutions
-	db 1, LEECH_LIFE
+	db 1, ABSORB
 	db 6, SUPERSONIC
 	db 12, BITE
 	db 19, CONFUSE_RAY
+	db 25, LEECH_LIFE			  
 	db 27, WING_ATTACK
 	db 36, MEAN_LOOK
 	db 46, HAZE
@@ -545,12 +546,13 @@ GolbatEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, CROBAT
 	db 0 ; no more evolutions
 	db 1, SCREECH
-	db 1, LEECH_LIFE
+	db 1, ABSORB
 	db 1, SUPERSONIC
 	db 6, SUPERSONIC
 	db 12, BITE
 	db 19, CONFUSE_RAY
 	db 30, WING_ATTACK
+	db 31, LEECH_LIFE			  
 	db 42, MEAN_LOOK
 	db 55, HAZE
 	db 0 ; no more level-up moves
@@ -598,7 +600,7 @@ ParasEvosAttacks:
 	db 1, SCRATCH
 	db 7, STUN_SPORE
 	db 13, POISONPOWDER
-	db 19, LEECH_LIFE
+	db 23, LEECH_LIFE
 	db 25, SPORE
 	db 31, SLASH
 	db 37, GROWTH
@@ -612,7 +614,7 @@ ParasectEvosAttacks:
 	db 1, POISONPOWDER
 	db 7, STUN_SPORE
 	db 13, POISONPOWDER
-	db 19, LEECH_LIFE
+	db 23, LEECH_LIFE
 	db 28, SPORE
 	db 37, SLASH
 	db 46, GROWTH
@@ -2246,30 +2248,32 @@ LedybaEvosAttacks:
 	db EVOLVE_LEVEL, 18, LEDIAN
 	db 0 ; no more evolutions
 	db 1, TACKLE
-	db 8, SUPERSONIC
-	db 15, COMET_PUNCH
-	db 22, LIGHT_SCREEN
-	db 22, REFLECT
-	db 22, SAFEGUARD
-	db 29, BATON_PASS
-	db 36, SWIFT
-	db 43, AGILITY
-	db 50, DOUBLE_EDGE
+	db 6, SUPERSONIC
+	db 9, COMET_PUNCH
+	db 14, LIGHT_SCREEN
+	db 14, REFLECT
+	db 14, SAFEGUARD
+	db 17, MACH_PUNCH
+	db 22, BATON_PASS
+	db 30, AGILITY
+	db 33, SWIFT
+	db 38, DOUBLE_EDGE
 	db 0 ; no more level-up moves
 
 LedianEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, SUPERSONIC
-	db 8, SUPERSONIC
-	db 15, COMET_PUNCH
-	db 24, LIGHT_SCREEN
-	db 24, REFLECT
-	db 24, SAFEGUARD
-	db 33, BATON_PASS
-	db 42, SWIFT
-	db 51, AGILITY
-	db 60, DOUBLE_EDGE
+	db 1, COMET_PUNCH
+	db 6, SUPERSONIC
+	db 9, COMET_PUNCH
+	db 14, LIGHT_SCREEN
+	db 14, REFLECT
+	db 14, SAFEGUARD
+	db 24, BATON_PASS
+	db 36, AGILITY
+	db 41, SWIFT
+	db 48, DOUBLE_EDGE
 	db 0 ; no more level-up moves
 
 SpinarakEvosAttacks:
@@ -2306,12 +2310,13 @@ AriadosEvosAttacks:
 CrobatEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SCREECH
-	db 1, LEECH_LIFE
+	db 1, ABSORB
 	db 1, SUPERSONIC
 	db 6, SUPERSONIC
 	db 12, BITE
 	db 19, CONFUSE_RAY
 	db 30, WING_ATTACK
+	db 35, LEECH_LIFE			  
 	db 42, MEAN_LOOK
 	db 55, HAZE
 	db 0 ; no more level-up moves
@@ -2583,23 +2588,32 @@ AipomEvosAttacks:
 SunkernEvosAttacks:
 	db EVOLVE_ITEM, SUN_STONE, SUNFLORA
 	db 0 ; no more evolutions
-	db 1, ABSORB
-	db 4, GROWTH
+	db 1, TACKLE
+	db 1, GROWTH
+	db 7, ABSORB
 	db 10, MEGA_DRAIN
-	db 19, SUNNY_DAY
-	db 31, SYNTHESIS
-	db 46, GIGA_DRAIN
+	db 13, LEECH_SEED
+	db 16, RAZOR_LEAF
+	db 22, GIGA_DRAIN
+	db 26, SYNTHESIS
+	db 31, SOLARBEAM
+	db 34, DOUBLE_EDGE
+	db 36, SUNNY_DAY	 
 	db 0 ; no more level-up moves
 
 SunfloraEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, ABSORB
 	db 1, POUND
-	db 4, GROWTH
-	db 10, RAZOR_LEAF
-	db 19, SUNNY_DAY
-	db 31, PETAL_DANCE
-	db 46, SOLARBEAM
+	db 1, GROWTH
+	db 10, MEGA_DRAIN
+	db 13, LEECH_SEED
+	db 16, RAZOR_LEAF
+	db 22, GIGA_DRAIN
+	db 26, PETAL_DANCE
+	db 31, SOLARBEAM
+	db 34, DOUBLE_EDGE
+	db 36, SUNNY_DAY
 	db 0 ; no more level-up moves
 
 YanmaEvosAttacks:
@@ -3009,6 +3023,7 @@ OctilleryEvosAttacks:
 DelibirdEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, PRESENT
+	db 25, DRILL_PECK
 	db 0 ; no more level-up moves
 
 MantineEvosAttacks:

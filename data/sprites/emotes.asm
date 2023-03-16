@@ -8,17 +8,19 @@ ENDM
 Emotes:
 ; entries correspond to EMOTE_* constants
 	table_width EMOTE_LENGTH, Emotes
-	emote ShockEmote,     4, $f8
-	emote QuestionEmote,  4, $f8
-	emote HappyEmote,     4, $f8
-	emote SadEmote,       4, $f8
-	emote HeartEmote,     4, $f8
-	emote BoltEmote,      4, $f8
-	emote SleepEmote,     4, $f8
-	emote FishEmote,      4, $f8
-	emote JumpShadowGFX,  1, $fc
-	emote FishingRodGFX,  2, $fc
-	emote BoulderDustGFX, 2, $fe
-	emote GrassRustleGFX, 1, $fe
-	emote AnimPokeBallSpriteGFX, 12, $f0
+	emote ShockEmote,     		 4, $f8
+	emote QuestionEmote,  		 4, $f8
+	emote HappyEmote,     	 	 4, $f8
+	emote SadEmote,       		 4, $f8
+	emote HeartEmote,     		 4, $f8
+	emote BoltEmote,      		 4, $f8
+	emote SleepEmote,     		 4, $f8
+	emote FishEmote,      		 4, $f8
+	emote JumpShadowGFX,  		 1, $fc
+	emote FishingRodGFX,  		 2, $fc
+	emote BoulderDustGFX, 		 2, $fe
+	emote GrassRustleGFX, 		 1, $fe
+	emote AnimPokeBallSpriteGFX, 8, $f0
+	emote FireEmote,      		 4, $f8
+	emote SingEmote,      		 4, $f8
 	assert_table_length NUM_EMOTES

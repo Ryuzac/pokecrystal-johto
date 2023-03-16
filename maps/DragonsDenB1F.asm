@@ -16,6 +16,11 @@ DragonsDenB1F_MapScripts:
 
 	def_callbacks
 	callback MAPCALLBACK_NEWMAP, DragonsDenB1FCheckRivalCallback
+	callback MAPCALLBACK_NEWMAP, .UnsetClairScene
+
+.UnsetClairScene:
+	setmapscene DRAGONS_DEN_B1F, SCENE_DRAGONSDENB1F_NOOP
+	endcallback
 
 DragonsDenB1FNoop1Scene:
 	end
@@ -217,7 +222,7 @@ ClairText_GiveDragonbreathDragonDen:
 
 Text_ReceivedTM24:
 	text "<PLAYER> received"
-	line "TM24."
+	line "TM24 DRAGONBREATH."
 	done
 
 ClairText_DescribeDragonbreathDragonDen:

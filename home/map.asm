@@ -146,13 +146,12 @@ LoadMetatiles::
 	ld e, l
 	ld d, h
 	; Set hl to the address of the current metatile data ([wTilesetBlocksAddress] + (a) tiles).
-; BUG: LoadMetatiles wraps around past 128 blocks (see docs/bugs_and_glitches.md)
-	add a
 	ld l, a
 	ld h, 0
 	add hl, hl
 	add hl, hl
 	add hl, hl
+	add hl, hl	   
 	ld a, [wTilesetBlocksAddress]
 	add l
 	ld l, a
@@ -583,13 +582,13 @@ ReadObjectEvents::
 	ld a, [wCurMapObjectEventCount]
 	call CopyMapObjectEvents
 
-; get NUM_OBJECTS - [wCurMapObjectEventCount] - 2
+; get NUM_OBJECTS - [wCurMapObjectEventCount] - 1
 	ld a, [wCurMapObjectEventCount]
 	ld c, a
 	ld a, NUM_OBJECTS - 2
 	sub c
 	jr z, .skip
-	jr c, .skip
+	jr c, .skip ; ISSUE?
 
 	; could have done "inc hl" instead
 	ld bc, 1

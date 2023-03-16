@@ -53,7 +53,7 @@ ItemDescriptions:
 	dw TeruSama4Desc
 	dw XDefendDesc
 	dw XSpeedDesc
-	dw XSpecialDesc
+	dw XSpAtkDesc
 	dw CoinCaseDesc
 	dw ItemfinderDesc
 	dw TeruSama5Desc
@@ -90,7 +90,7 @@ ItemDescriptions:
 	dw BigMushroomDesc
 	dw SilverPowderDesc
 	dw BluApricornDesc
-	dw TeruSama6Desc
+	dw NightBallDesc
 	dw AmuletCoinDesc
 	dw YlwApricornDesc
 	dw GrnApricornDesc
@@ -100,7 +100,7 @@ ItemDescriptions:
 	dw WhtApricornDesc
 	dw BlackbeltDesc
 	dw BlkApricornDesc
-	dw TeruSama7Desc
+	dw PurApricorn
 	dw PnkApricornDesc
 	dw BlackGlassesDesc
 	dw SlowpokeTailDesc
@@ -120,7 +120,7 @@ ItemDescriptions:
 	dw MiracleSeedDesc
 	dw ThickClubDesc
 	dw FocusBandDesc
-	dw TeruSama8Desc
+	dw XSpDefDesc
 	dw EnergyPowderDesc
 	dw EnergyRootDesc
 	dw HealPowderDesc
@@ -135,7 +135,7 @@ ItemDescriptions:
 	dw StarPieceDesc
 	dw BasementKeyDesc
 	dw PassDesc
-	dw TeruSama9Desc
+	dw EvioliteDesc
 	dw TeruSama10Desc
 	dw TeruSama11Desc
 	dw CharcoalDesc
@@ -463,7 +463,7 @@ XSpeedDesc:
 	db   "Raises SPEED."
 	next "(1 BTL)@"
 
-XSpecialDesc:
+XSpAtkDesc:
 	db   "Raises SPECIAL"
 	next "ATTACK. (1 BTL)@"
 
@@ -608,8 +608,9 @@ SilverPowderDesc:
 BluApricornDesc:
 	db   "A blue APRICORN.@"
 
-TeruSama6Desc:
-	db   "?@"
+NightBallDesc:
+	db   "An item for catch-"
+	next "ing in the dark.@"		 
 
 AmuletCoinDesc:
 	db   "Doubles monetary"
@@ -644,8 +645,9 @@ BlkApricornDesc:
 	db   "A black APRICORN."
 	next "@"
 
-TeruSama7Desc:
-	db   "?@"
+PurApricorn:
+	db   "A purple APRICORN."
+	next "@"
 
 PnkApricornDesc:
 	db   "A pink APRICORN."
@@ -723,8 +725,9 @@ FocusBandDesc:
 	db   "May prevent faint-"
 	next "ing. (HOLD)@"
 
-TeruSama8Desc:
-	db   "?@"
+XSpDefDesc:
+	db   "Raises SPECIAL"
+	next "DEFENSE. (1 BTL)@"		 
 
 EnergyPowderDesc:
 	db   "Restores #MON"
@@ -781,8 +784,9 @@ PassDesc:
 	db   "A ticket for the"
 	next "MAGNET TRAIN.@"
 
-TeruSama9Desc:
-	db   "?@"
+EvioliteDesc:
+	db   "Boosts unevolved"
+	next "#MON. (HOLD)@"			 
 
 TeruSama10Desc:
 	db   "?@"
@@ -909,7 +913,7 @@ SunStoneDesc:
 	next "kinds of #MON.@"
 
 PolkadotBowDesc:
-	db   "Powers up normal-"
+	db   "Powers up fairy-"
 	next "type moves. (HOLD)@"
 
 TeruSama22Desc:

@@ -21,7 +21,7 @@ INCLUDE "engine/overworld/player_object.asm"
 INCLUDE "engine/math/sine.asm"
 INCLUDE "engine/predef.asm"
 INCLUDE "engine/gfx/color.asm"
-
+INCLUDE "engine/events/repel.asm" ; Moved from bank 4
 
 SECTION "bank3", ROMX
 
@@ -58,7 +58,6 @@ INCLUDE "engine/pokemon/mon_menu.asm"
 INCLUDE "engine/overworld/select_menu.asm"
 INCLUDE "engine/events/elevator.asm"
 INCLUDE "engine/events/bug_contest/contest.asm"
-INCLUDE "engine/events/repel.asm"
 INCLUDE "engine/events/hidden_item.asm"
 INCLUDE "engine/events/std_collision.asm"
 INCLUDE "engine/events/bug_contest/judging.asm"
@@ -134,6 +133,7 @@ INCLUDE "engine/battle/trainer_huds.asm"
 INCLUDE "data/trainers/class_names.asm"
 INCLUDE "engine/battle/ai/redundant.asm"
 INCLUDE "engine/events/move_deleter.asm"
+INCLUDE "engine/events/move_reminder.asm"
 INCLUDE "engine/link/mystery_gift_2.asm"
 INCLUDE "engine/items/tmhm.asm"
 INCLUDE "engine/pokemon/print_move_description.asm"
@@ -238,6 +238,7 @@ INCLUDE "engine/events/basement_key.asm"
 INCLUDE "engine/events/sacred_ash.asm"
 INCLUDE "engine/pokemon/tempmon.asm"
 INCLUDE "engine/pokemon/types.asm"
+INCLUDE "engine/pokemon/categories.asm"
 INCLUDE "engine/battle/getgen1trainerclassname.asm"
 INCLUDE "engine/pokemon/mon_stats.asm"
 INCLUDE "engine/link/init_list.asm"
@@ -681,6 +682,11 @@ SECTION "Crystal Events", ROMX
 
 INCLUDE "engine/events/battle_tower/load_trainer.asm"
 INCLUDE "engine/events/odd_egg.asm"
+
+
+SECTION "Voltorb Flip", ROMX
+
+INCLUDE "engine/games/voltorb_flip.asm"
 
 
 SECTION "Following", ROMX

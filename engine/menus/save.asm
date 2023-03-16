@@ -110,7 +110,7 @@ MoveMonWOMail_InsertMon_SaveGame:
 	call ResumeGameLogic
 	ld de, SFX_SAVE
 	call PlaySFX
-	ld c, 24
+	ld c, 12 ; 24
 	call DelayFrames
 	ret
 
@@ -183,22 +183,23 @@ AskOverwriteSaveFile:
 	and a
 	jr z, .erase
 	call CompareLoadedAndSavedPlayerID
-	jr z, .yoursavefile
+;	jr z, .yoursavefile
+	ret z ; pretend the player answered "Yes", but without asking
 	ld hl, AnotherSaveFileText
 	call SaveTheGame_yesorno
 	jr nz, .refused
-	jr .erase
+;	jr .erase
 
-.yoursavefile
-	ld hl, AlreadyASaveFileText
-	call SaveTheGame_yesorno
-	jr nz, .refused
-	jr .ok
+;.yoursavefile
+;	ld hl, AlreadyASaveFileText
+;	call SaveTheGame_yesorno
+;	jr nz, .refused
+;	jr .ok
 
 .erase
 	call ErasePreviousSave
 
-.ok
+;.ok
 	and a
 	ret
 
@@ -240,8 +241,8 @@ _SavingDontTurnOffThePower:
 	call SavingDontTurnOffThePower
 SavedTheGame:
 	call _SaveGameData
-	; wait 32 frames
-	ld c, 32
+	; wait 16 frames
+	ld c, 16 ; 32
 	call DelayFrames
 	; copy the original text speed setting to the stack
 	ld a, [wOptions]
@@ -258,8 +259,8 @@ SavedTheGame:
 	ld de, SFX_SAVE
 	call WaitPlaySFX
 	call WaitSFX
-	; wait 30 frames
-	ld c, 30
+	; wait 15 frames
+	ld c, 15 ; 15
 	call DelayFrames
 	ret
 
@@ -1103,9 +1104,9 @@ SavedTheGameText:
 	text_far _SavedTheGameText
 	text_end
 
-AlreadyASaveFileText:
-	text_far _AlreadyASaveFileText
-	text_end
+;AlreadyASaveFileText:
+;	text_far _AlreadyASaveFileText
+;	text_end
 
 AnotherSaveFileText:
 	text_far _AnotherSaveFileText

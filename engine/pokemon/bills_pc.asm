@@ -1929,7 +1929,7 @@ MovePKMNWithoutMail_InsertMon:
 	hlcoord 1, 16
 	ld de, .Saving_LeaveOn
 	call PlaceString
-	ld c, 20
+	ld c, 10 ; 20
 	call DelayFrames
 	pop af
 	pop bc

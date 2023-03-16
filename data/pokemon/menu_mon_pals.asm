@@ -76,8 +76,8 @@ MenuMonPals::
 	menu_mon_pals BROWN,  BROWN  ; PRIMEAPE
 	menu_mon_pals RED,    BROWN  ; GROWLITHE
 	menu_mon_pals RED,    BROWN  ; ARCANINE
-	menu_mon_pals RED,    RED    ; POLIWAG
-	menu_mon_pals BLUE,   BLUE   ; POLIWHIRL
+	menu_mon_pals BLUE,   TEAL   ; POLIWAG
+	menu_mon_pals BLUE,   TEAL   ; POLIWHIRL
 	menu_mon_pals BLUE,   TEAL   ; POLIWRATH
 	menu_mon_pals BROWN,  PURPLE ; ABRA
 	menu_mon_pals BROWN,  PURPLE ; KADABRA
@@ -176,7 +176,7 @@ MenuMonPals::
 	menu_mon_pals PINK,   PURPLE ; TYPHLOSION
 	menu_mon_pals BLUE,   TEAL   ; TOTODILE
 	menu_mon_pals BLUE,   TEAL   ; CROCONAW
-	menu_mon_pals BLUE,   GREEN  ; FERALIGATR
+	menu_mon_pals BLUE,   TEAL   ; FERALIGATR
 	menu_mon_pals BROWN,  PURPLE ; SENTRET
 	menu_mon_pals BROWN,  PURPLE ; FURRET
 	menu_mon_pals BROWN,  BROWN  ; HOOTHOOT
@@ -188,7 +188,7 @@ MenuMonPals::
 	menu_mon_pals PURPLE, PINK   ; CROBAT
 	menu_mon_pals BLUE,   GRAY   ; CHINCHOU
 	menu_mon_pals BLUE,   BLUE   ; LANTURN
-	menu_mon_pals RED,    PINK   ; PICHU
+	menu_mon_pals RED,    BROWN  ; PICHU
 	menu_mon_pals PINK,   GREEN  ; CLEFFA
 	menu_mon_pals PINK,   GREEN  ; IGGLYBUFF
 	menu_mon_pals RED,    BLUE   ; TOGEPI
@@ -270,5 +270,5 @@ MenuMonPals::
 	menu_mon_pals GREEN,  PINK   ; CELEBI
 	assert_table_length NUM_POKEMON
 	menu_mon_pals RED,    RED    ; unused
-	menu_mon_pals RED,    BLUE   ; EGG
+	menu_mon_pals GREEN,  RED    ; EGG ; Make both colors match for normal egg behavior
 	assert_table_length EGG

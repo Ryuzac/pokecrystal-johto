@@ -421,7 +421,7 @@ _GetSpritePalette::
 	ld c, a
 	ret
 
-AddSpriteGFX:
+AddSpriteGFX: ; ISSUE?
 ; Add any new sprite ids to a list of graphics to be loaded.
 ; Return carry if the list is full.
 

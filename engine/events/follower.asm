@@ -322,14 +322,13 @@ DefaultInteraction:
 	text "@"
 	text_ram wStringBuffer1
 	text " seems"
-	line "to have found"
+	line "to have"
 	cont "something."
 
 	para "Take it?"
 	done
 
 .followerjumptest:
-	jump_in_place
 	jump_in_place
 	jump_in_place
 	step_end
@@ -366,7 +365,7 @@ PoisonInteraction:
 	done
 
 BurnInteraction:
-	showemote EMOTE_SHOCK, FOLLOWER, 40
+	showemote EMOTE_FIRE, FOLLOWER, 40
 	opentext
 	followcry
 	writetext .text
@@ -517,11 +516,19 @@ BellsproutSproutTowerInteraction:
 	followcry
 	random 2
 	iftrue .interaction2
+	showemote EMOTE_SING, FOLLOWER, 40
+	turnobject FOLLOWER, RIGHT
+	turnobject FOLLOWER, DOWN
+	turnobject FOLLOWER, LEFT
 	writetext .danced_as_pleased
 	closetext
 	end
 
 .interaction2
+	turnobject FOLLOWER, LEFT
+	turnobject FOLLOWER, RIGHT
+	turnobject FOLLOWER, LEFT
+	turnobject FOLLOWER, RIGHT
 	writetext .danced_strange_manner
 	closetext
 	end
@@ -530,8 +537,7 @@ BellsproutSproutTowerInteraction:
 	text "@"
 	text_ram wStringBuffer1
 	text " swayed"
-	line "and danced around"
-	cont "as it pleased."
+	line "and danced."
 	done
 
 .danced_strange_manner:
@@ -572,6 +578,7 @@ UnownRuinsOfAlphInteraction:
 	end
 
 .interaction5
+	showemote EMOTE_SING, FOLLOWER, 40
 	writetext .SingingText
 	closetext
 	end
@@ -973,7 +980,7 @@ LighthouseInteraction:
 	line "sparkled in"
 
 	para "concert with"
-	line "Amphy!"
+	line "AMPHY!"
 	done
 
 CianwoodCityInteraction:

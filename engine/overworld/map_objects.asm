@@ -323,9 +323,9 @@ GetNextTile:
 	push bc
 	call GetCoordTile
 	pop bc
-	push af
-	call HideFollowerIfNPCBump
-	pop af
+;	push af
+;	call HideFollowerIfNPCBump
+;	pop af
 	push af
 	call UpdateFollowerSprite
 	pop af
@@ -334,31 +334,31 @@ GetNextTile:
 	ld [hl], a
 	ret
 
-HideFollowerIfNPCBump:
-	ldh a, [hMapObjectIndex]
-	cp PLAYER
-	ret z
-	cp FOLLOWER
-	ret z
-	push hl
-	push bc
-	call WillObjectBumpIntoSomeoneElse
-	jr nc, .return
-	ld hl, OBJECT_SPRITE
-	add hl, bc
-	ld a, [hl]
-	cp SPRITE_FOLLOWER
-	jr nz, .return
-	ld hl, OBJECT_FLAGS1
-	add hl, bc
-	set INVISIBLE_F, [hl]
-	ld hl, wFollowerFlags
-	set FOLLOWER_INVISIBLE_F, [hl]
-	set FOLLOWER_INVISIBLE_ONE_STEP_F, [hl]
-.return
-	pop bc
-	pop hl
-	ret
+;HideFollowerIfNPCBump:
+;	ldh a, [hMapObjectIndex]
+;	cp PLAYER
+;	ret z
+;	cp FOLLOWER
+;	ret z
+;	push hl
+;	push bc
+;	call WillObjectBumpIntoSomeoneElse
+;	jr nc, .return
+;	ld hl, OBJECT_SPRITE
+;	add hl, bc
+;	ld a, [hl]
+;	cp SPRITE_FOLLOWER
+;	jr nz, .return
+;	ld hl, OBJECT_FLAGS1
+;	add hl, bc
+;	set INVISIBLE_F, [hl]
+;	ld hl, wFollowerFlags
+;	set FOLLOWER_INVISIBLE_F, [hl]
+;	set FOLLOWER_INVISIBLE_ONE_STEP_F, [hl]
+;.return
+;	pop bc
+;	pop hl
+;	ret
 
 UpdateFollowerSprite:
 	ld e, a

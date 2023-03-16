@@ -86,11 +86,11 @@ MrPokemonsHouse_OakScript:
 	playmusic MUSIC_PROF_OAK
 	applymovement MRPOKEMONSHOUSE_OAK, MrPokemonsHouse_OakWalksToPlayer
 	turnobject PLAYER, RIGHT
+	turnobject FOLLOWER, RIGHT
 	opentext
 	writetext MrPokemonsHouse_OakText1
 	promptbutton
 	applymovement MRPOKEMONSHOUSE_OAK, MrPokemonsHouse_OakWalksToPokemon
-	turnobject FOLLOWER, RIGHT
 	writetext MrPokemonsHouse_OakText1_Part2
 	promptbutton
 	applymovement MRPOKEMONSHOUSE_OAK, MrPokemonsHouse_OakWalksToPlayer_2

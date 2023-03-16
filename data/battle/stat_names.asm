@@ -8,5 +8,5 @@ StatNames:
 	li "SPCL.DEF"
 	li "ACCURACY"
 	li "EVASION"
-	li "ABILITY" ; used for BattleCommand_Curse
+	li "ABILITY" ; used for BattleCommand_Curse and BattleCommand_Growth
 	assert_list_length NUM_LEVEL_STATS

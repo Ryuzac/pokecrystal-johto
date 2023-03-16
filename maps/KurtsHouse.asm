@@ -92,6 +92,8 @@ Kurt1:
 	iftrue .GiveHeavyBall
 	checkevent EVENT_GAVE_KURT_PNK_APRICORN
 	iftrue .GiveLoveBall
+;	checkevent EVENT_GAVE_KURT_PUR_APRICORN
+;	iftrue .GiveNightBall
 	checkevent EVENT_CAN_GIVE_GS_BALL_TO_KURT
 	iftrue .CanGiveGSBallToKurt
 .NoGSBall:
@@ -116,6 +118,8 @@ Kurt1:
 	iftrue .AskApricorn
 	checkitem PNK_APRICORN
 	iftrue .AskApricorn
+;	checkitem PUR_APRICORN
+;	iftrue .AskApricorn
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_2
 	iftrue .ThatTurnedOutGreat
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_3
@@ -141,6 +145,7 @@ Kurt1:
 	ifequal WHT_APRICORN, .Wht
 	ifequal BLK_APRICORN, .Blk
 	ifequal PNK_APRICORN, .Pnk
+;	ifequal PUR_APRICORN, .Pur
 ; .Red
 	setevent EVENT_GAVE_KURT_RED_APRICORN
 	sjump .GaveKurtApricorns
@@ -168,6 +173,9 @@ Kurt1:
 .Pnk:
 	setevent EVENT_GAVE_KURT_PNK_APRICORN
 	sjump .GaveKurtApricorns
+;.Pur:
+;	setevent EVENT_GAVE_KURT_PUR_APRICORN
+;	sjump .GaveKurtApricorns
 
 .GaveKurtApricorns:
 	setevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
@@ -262,6 +270,16 @@ Kurt1:
 	iffalse .NoRoomForBall
 	clearevent EVENT_GAVE_KURT_PNK_APRICORN
 	sjump ._ThatTurnedOutGreat
+
+;.GiveNightBall
+;	checkflag ENGINE_KURT_MAKING_BALLS
+;	iftrue KurtMakingBallsScript
+;	writetext KurtsHouseKurtJustFinishedYourBallText
+;	promptbutton
+;	verbosegiveitemvar NIGHT_BALL, VAR_KURT_APRICORNS
+;	iffalse .NoRoomForBall
+;	clearevent EVENT_GAVE_KURT_PNK_APRICORN
+;	sjump ._ThatTurnedOutGreat
 
 .CanGiveGSBallToKurt:
 	checkevent EVENT_GAVE_GS_BALL_TO_KURT

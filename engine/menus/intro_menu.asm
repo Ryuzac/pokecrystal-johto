@@ -160,6 +160,9 @@ _ResetWRAM:
 
 	ld hl, wNumPCItems
 	call .InitList
+		
+	ld hl, wNumBerries
+	call .InitList
 
 	xor a
 	ld [wRoamMon1Species], a
@@ -785,7 +788,7 @@ NamePlayer:
 	ret
 
 .Chris:
-	db "CHRIS@@@@@@"
+	db "GOLD@@@@@@@"
 .Kris:
 	db "KRIS@@@@@@@"
 

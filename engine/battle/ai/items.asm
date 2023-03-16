@@ -282,7 +282,8 @@ AI_Items:
 	dbw X_ATTACK,     .XAttack
 	dbw X_DEFEND,     .XDefend
 	dbw X_SPEED,      .XSpeed
-	dbw X_SPECIAL,    .XSpecial
+	dbw X_SP_ATK,     .XSpAtk
+	dbw X_SP_DEF,     .XSpDef
 	db -1 ; end
 
 .FullHeal:
@@ -483,10 +484,16 @@ AI_Items:
 	call EnemyUsedXSpeed
 	jp .Use
 
-.XSpecial:
+.XSpAtk:
 	call .XItem
 	jp c, .DontUse
-	call EnemyUsedXSpecial
+	call EnemyUsedXSpAtk
+	jp .Use
+	
+.XSpDef:
+	call .XItem
+	jp c, .DontUse
+	call EnemyUsedXSpDef
 	jp .Use
 
 .XItem:
@@ -552,14 +559,9 @@ EnemyUsedMaxPotion:
 	jr FullRestoreContinue
 
 EnemyUsedFullRestore:
-; BUG: AI use of Full Heal does not cure confusion status (see docs/bugs_and_glitches.md)
 	call AI_HealStatus
 	ld a, FULL_RESTORE
 	ld [wCurEnemyItem], a
-	ld hl, wEnemySubStatus3
-	res SUBSTATUS_CONFUSED, [hl]
-	xor a
-	ld [wEnemyConfuseCount], a
 	; fallthrough
 
 FullRestoreContinue:
@@ -727,7 +729,6 @@ EnemyUsedFullHealRed: ; unreferenced
 	jp PrintText_UsedItemOn_AND_AIUpdateHUD
 
 AI_HealStatus:
-; BUG: AI use of Full Heal or Full Restore does not cure Nightmare status (see docs/bugs_and_glitches.md)
 	ld a, [wCurOTMon]
 	ld hl, wOTPartyMon1Status
 	ld bc, PARTYMON_STRUCT_LENGTH
@@ -735,6 +736,11 @@ AI_HealStatus:
 	xor a
 	ld [hl], a
 	ld [wEnemyMonStatus], a
+	ld hl, wEnemySubStatus1
+	res SUBSTATUS_NIGHTMARE, [hl]
+	ld [wEnemyConfuseCount], a
+	ld hl, wEnemySubStatus3
+	res SUBSTATUS_CONFUSED, [hl]					 
 	ld hl, wEnemySubStatus5
 	res SUBSTATUS_TOXIC, [hl]
 	ret
@@ -807,9 +813,14 @@ EnemyUsedXSpeed:
 	ld a, X_SPEED
 	jr EnemyUsedXItem
 
-EnemyUsedXSpecial:
+EnemyUsedXSpAtk:
 	ld b, SP_ATTACK
-	ld a, X_SPECIAL
+	ld a, X_SP_ATK
+
+EnemyUsedXSpDef:
+	ld b, SP_DEFENSE
+	ld a, X_SP_DEF
+	jr EnemyUsedXItem
 
 ; Parameter
 ; a = ITEM_CONSTANT

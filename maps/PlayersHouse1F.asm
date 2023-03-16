@@ -279,16 +279,17 @@ DontKnowTheInstructionsText:
 	cont "PHONE icon."
 	done
 
-InstructionsNextText:
-	text "Phone numbers are"
+	para "Phone numbers are"
 	line "stored in memory."
 
 	para "Just choose a name"
 	line "you want to call."
-
-	para "Gee, isn't that"
-	line "convenient?"
 	done
+
+InstructionsNextText:
+	text "Gee, isn't that"
+	line "convenient?"
+	done	
 
 HurryUpElmIsWaitingText:
 	text "PROF.ELM is wait-"

@@ -73,11 +73,12 @@ Credits::
 
 	call GetCreditsPalette
 	call SetPalettes
-; BUG: Credits sequence changes move selection menu behavior (see docs/bugs_and_glitches.md)
 	ldh a, [hVBlank]
 	push af
 	ld a, $5
 	ldh [hVBlank], a
+	ldh a, [hInMenu]
+	push af
 	ld a, TRUE
 	ldh [hInMenu], a
 	xor a
@@ -101,6 +102,8 @@ Credits::
 	ldh [hLCDCPointer], a
 	ldh [hBGMapAddress], a
 	pop af
+	ldh a, [hInMenu]
+	push af
 	ldh [hVBlank], a
 	pop af
 	ldh [rSVBK], a

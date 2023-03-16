@@ -58,7 +58,7 @@
 	const ITEM_32      ; 32
 	const X_DEFEND     ; 33
 	const X_SPEED      ; 34
-	const X_SPECIAL    ; 35
+	const X_SP_ATK     ; 35
 	const COIN_CASE    ; 36
 	const ITEMFINDER   ; 37
 	const POKE_FLUTE   ; 38
@@ -95,7 +95,7 @@
 	const BIG_MUSHROOM ; 57
 	const SILVERPOWDER ; 58
 	const BLU_APRICORN ; 59
-	const ITEM_5A      ; 5a
+	const NIGHT_BALL   ; 5a
 	const AMULET_COIN  ; 5b
 	const YLW_APRICORN ; 5c
 	const GRN_APRICORN ; 5d
@@ -105,7 +105,7 @@
 	const WHT_APRICORN ; 61
 	const BLACKBELT_I  ; 62
 	const BLK_APRICORN ; 63
-	const ITEM_64      ; 64
+	const PUR_APRICORN ; 64
 	const PNK_APRICORN ; 65
 	const BLACKGLASSES ; 66
 	const SLOWPOKETAIL ; 67
@@ -125,7 +125,7 @@
 	const MIRACLE_SEED ; 75
 	const THICK_CLUB   ; 76
 	const FOCUS_BAND   ; 77
-	const ITEM_78      ; 78
+	const X_SP_DEF     ; 78
 	const ENERGYPOWDER ; 79
 	const ENERGY_ROOT  ; 7a
 	const HEAL_POWDER  ; 7b
@@ -140,7 +140,7 @@
 	const STAR_PIECE   ; 84
 	const BASEMENT_KEY ; 85
 	const PASS         ; 86
-	const ITEM_87      ; 87
+	const EVIOLITE     ; 87
 	const ITEM_88      ; 88
 	const ITEM_89      ; 89
 	const CHARCOAL     ; 8a

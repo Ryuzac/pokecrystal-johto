@@ -1,4 +1,5 @@
 BattleCommand_ClearHazards:
+	call BattleCommand_SpeedUp
 	ld a, BATTLE_VARS_SUBSTATUS4
 	call GetBattleVarAddr
 	bit SUBSTATUS_LEECH_SEED, [hl]

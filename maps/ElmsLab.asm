@@ -184,12 +184,19 @@ CyndaquilPokeBallScript:
 	moveobject FOLLOWER, 6, 3
 	closetext
 	scall AddFollowing
-	cry CYNDAQUIL
 	disappear ELMSLAB_POKE_BALL1
+	cry CYNDAQUIL
 	readvar VAR_FACING
-	ifequal RIGHT, ElmDirectionsScript
+	ifequal RIGHT, .FacingRight
 	applymovement PLAYER, AfterCyndaquilMovement
 	sjump ElmDirectionsScript
+
+.FacingRight
+	applymovement FOLLOWER, CyndaquilJumpMovement
+	turnobject PLAYER, DOWN
+	pause 30
+	sjump ElmDirectionsScript
+	
 
 TotodilePokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
@@ -726,6 +733,12 @@ ElmsLab_ElmToDefaultPositionMovement2:
 AfterCyndaquilMovement:
 	step LEFT
 	step UP
+	turn_head UP
+	step_end
+
+CyndaquilJumpMovement:
+	step DOWN
+	step LEFT
 	turn_head UP
 	step_end
 

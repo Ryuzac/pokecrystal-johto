@@ -25,6 +25,8 @@
 	charmap "<RIVAL>",   $53 ; wRivalName
 	charmap "#",         $54 ; "POKé"
 	charmap "<CONT>",    $55
+    ; While "<SCROLL>" this is used in sharply rose or sharply fell stat texts, this will be
+    ; adjusted to give the player time to read.
 	charmap "<……>",      $56 ; "……"
 	charmap "<DONE>",    $57
 	charmap "<PROMPT>",  $58
@@ -35,6 +37,8 @@
 	charmap "<TRAINER>", $5d ; "TRAINER"
 	charmap "<ROCKET>",  $5e ; "ROCKET"
 	charmap "<DEXEND>",  $5f
+	charmap "<ATPRA>",	 $60
+	charmap "<ATDNE>",	 $61
 
 ; Actual characters (from gfx/font/font_extra.png)
 

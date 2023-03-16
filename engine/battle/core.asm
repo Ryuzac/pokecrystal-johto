@@ -294,8 +294,20 @@ HandleBetweenTurnEffects:
 	call LoadTilemapToTempTilemap
 	jp HandleEncore
 
+HasAnyoneFainted:
+	call HasPlayerFainted
+	jp nz, HasEnemyFainted
+	ret
+
 CheckFaint_PlayerThenEnemy:
-; BUG: Perish Song and Spikes can leave a Pokemon with 0 HP and not faint (see docs/bugs_and_glitches.md)
+.faint_loop
+	call .Function
+	ret c
+	call HasAnyoneFainted
+	ret nz
+	jr .faint_loop
+
+.Function:
 	call HasPlayerFainted
 	jr nz, .PlayerNotFainted
 	call HandlePlayerMonFaint
@@ -320,7 +332,14 @@ CheckFaint_PlayerThenEnemy:
 	ret
 
 CheckFaint_EnemyThenPlayer:
-; BUG: Perish Song and Spikes can leave a Pokemon with 0 HP and not faint (see docs/bugs_and_glitches.md)
+.faint_loop
+	call .Function
+	ret c
+	call HasAnyoneFainted
+	ret nz
+	jr .faint_loop
+
+.Function:
 	call HasEnemyFainted
 	jr nz, .EnemyNotFainted
 	call HandleEnemyMonFaint
@@ -389,11 +408,20 @@ HandleBerserkGene:
 	call GetPartyLocation
 	xor a
 	ld [hl], a
-; BUG: Berserk Gene's confusion lasts for 256 turns or the previous Pokémon's confusion count (see docs/bugs_and_glitches.md)
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
 	push af
 	set SUBSTATUS_CONFUSED, [hl]
+	ldh a, [hBattleTurn]
+	and a
+	ld hl, wPlayerConfuseCount
+	jr z, .set_confuse_count
+	ld hl, wEnemyConfuseCount
+.set_confuse_count
+	call BattleRandom
+	and %11
+	add 2
+	ld [hl], a
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVarAddr
 	push hl
@@ -2149,6 +2177,8 @@ UpdateBattleStateAndExperienceAfterEnemyFaint:
 	ld a, [wBattleResult]
 	and BATTLERESULT_BITMASK
 	ld [wBattleResult], a ; WIN
+	; fallthrough
+ApplyExperienceAfterEnemyCaught:
 	call IsAnyMonHoldingExpShare
 	jr z, .skip_exp
 	ld hl, wEnemyMonBaseStats
@@ -2201,6 +2231,16 @@ IsAnyMonHoldingExpShare:
 	pop bc
 	pop hl
 	jr z, .next
+
+	push hl
+	push bc
+	ld bc, MON_LEVEL
+	add hl, bc
+	ld a, [hl]
+	cp MAX_LEVEL
+	pop bc
+	pop hl
+	jr nc, .next
 
 	push hl
 	push bc
@@ -2353,7 +2393,11 @@ WinTrainerBattle:
 	ld a, b
 	call z, PlayVictoryMusic
 	callfar Battle_GetTrainerName
-	ld hl, BattleText_EnemyWasDefeated
+	ld hl, BattleText_PluralEnemyWereDefeated
+	call IsPluralTrainer
+	jr z, .got_defeat_phrase
+ 	ld hl, BattleText_EnemyWasDefeated
+.got_defeat_phrase:
 	call StdBattleTextbox
 
 	call IsMobileBattle
@@ -2597,6 +2641,18 @@ IsGymLeaderCommon:
 	ret
 
 INCLUDE "data/trainers/leaders.asm"
+
+IsPluralTrainer:
+; return z for plural trainers
+	ld a, [wOtherTrainerClass]
+	cp TWINS
+;	ret z
+;	cp TRAINER2
+;	ret z
+;	cp TRAINER3
+;	ret z
+;	cp TRAINER4
+	ret
 
 HandlePlayerMonFaint:
 	call FaintYourPokemon
@@ -3487,7 +3543,11 @@ OfferSwitch:
 	ld a, [wCurPartyMon]
 	push af
 	callfar Battle_GetTrainerName
+	ld hl, BattleText_PluralEnemyAreAboutToUseWillPlayerChangeMon
+	call IsPluralTrainer
+	jr z, .got_switch_phrase
 	ld hl, BattleText_EnemyIsAboutToUseWillPlayerChangeMon
+.got_switch_phrase:
 	call StdBattleTextbox
 	lb bc, 1, 7
 	call PlaceYesNoBox
@@ -5686,14 +5746,18 @@ MoveInfoBox:
 	ld [wStringBuffer1], a
 	call .PrintPP
 
+	farcall UpdateMoveData
+	ld a, [wPlayerMoveStruct + MOVE_ANIM]
+	ld b, a
+	farcall GetMoveCategoryName					   
 	hlcoord 1, 9
-	ld de, .Type
+	ld de, wStringBuffer1
 	call PlaceString
 
-	hlcoord 7, 11
+	ld h, b
+	ld l, c
 	ld [hl], "/"
 
-	callfar UpdateMoveData
 	ld a, [wPlayerMoveStruct + MOVE_ANIM]
 	ld b, a
 	hlcoord 2, 10
@@ -5704,8 +5768,6 @@ MoveInfoBox:
 
 .Disabled:
 	db "Disabled!@"
-.Type:
-	db "TYPE/@"
 
 .PrintPP:
 	hlcoord 5, 11
@@ -5763,8 +5825,7 @@ CheckPlayerHasUsableMoves:
 	jr .loop
 
 .done
-; BUG: A Disabled but PP Up–enhanced move may not trigger Struggle (see docs/bugs_and_glitches.md)
-	and a
+	and PP_MASK
 	ret nz
 
 .force_struggle
@@ -6009,19 +6070,19 @@ LoadEnemyMon:
 
 ; Failing that, it's all up to chance
 ;  Effective chances:
-;    75% None
-;    23% Item1
-;     2% Item2
+;    45% None
+;    50% Item1
+;     5% Item2
 
-; 25% chance of getting an item
+; 50% chance of getting an item
 	call BattleRandom
-	cp 75 percent + 1
+	cp 50 percent + 1
 	ld a, NO_ITEM
 	jr c, .UpdateItem
 
-; From there, an 8% chance for Item2
+; From there, an 10% chance for Item2
 	call BattleRandom
-	cp 8 percent ; 8% of 25% = 2% Item2
+	cp 10 percent ; 10% of 50% = 10% Item2
 	ld a, [wBaseItem1]
 	jr nc, .UpdateItem
 	ld a, [wBaseItem2]
@@ -6170,7 +6231,7 @@ LoadEnemyMon:
 
 ; No reason to keep going if length > 1536 mm (i.e. if HIGH(length) > 6 feet)
 	ld a, [wMagikarpLength]
-	cp HIGH(1536)
+	cp 5 ; should be "cp 5", since 1536 mm = 5'0", but HIGH(1536) = 6
 	jr nz, .CheckMagikarpArea
 
 ; 5% chance of skipping both size checks
@@ -6179,7 +6240,7 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1616 mm (i.e. if LOW(length) >= 4 inches)
 	ld a, [wMagikarpLength + 1]
-	cp LOW(1616)
+	cp 4 ; should be "cp 4", since 1616 mm = 5'4", but LOW(1616) = 80
 	jr nc, .GenerateDVs
 
 ; 20% chance of skipping this check
@@ -6188,24 +6249,23 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1600 mm (i.e. if LOW(length) >= 3 inches)
 	ld a, [wMagikarpLength + 1]
-	cp LOW(1600)
+	cp 3 ; should be "cp 3", since 1600 mm = 5'3", but LOW(1600) = 64
 	jr nc, .GenerateDVs
 
-.CheckMagikarpArea:
-; BUG: Magikarp in Lake of Rage are shorter, not longer (see docs/bugs_and_glitches.md)
+.CheckMagikarpArea:			
 	ld a, [wMapGroup]
 	cp GROUP_LAKE_OF_RAGE
-	jr z, .Happiness
+	jr nz, .Happiness
 	ld a, [wMapNumber]
 	cp MAP_LAKE_OF_RAGE
-	jr z, .Happiness
+	jr nz, .Happiness
 ; 40% chance of not flooring
 	call Random
 	cp 39 percent + 1
 	jr c, .Happiness
 ; Try again if length < 1024 mm (i.e. if HIGH(length) < 3 feet)
 	ld a, [wMagikarpLength]
-	cp HIGH(1024)
+	cp 3 ; should be "cp 3", since 1024 mm = 3'4", but HIGH(1024) = 4
 	jr c, .GenerateDVs ; try again
 
 ; Finally done with DVs
@@ -6407,7 +6467,7 @@ LoadEnemyMon:
 	ld bc, NUM_EXP_STATS * 2
 	call CopyBytes
 
-; BUG: PRZ and BRN stat reductions don't apply to switched Pokémon (see docs/bugs_and_glitches.md)
+	call ApplyStatusEffectOnEnemyStats
 	ret
 
 CheckSleepingTreeMon:
@@ -6799,16 +6859,18 @@ BadgeStatBoosts:
 	ld hl, wBattleMonAttack
 	ld c, 4
 .CheckBadge:
-; BUG: Glacier Badge may not boost Special Defense depending on the value of Special Attack (see docs/bugs_and_glitches.md)
 	ld a, b
 	srl b
+	push af
 	call c, BoostStat
+	pop af
 	inc hl
 	inc hl
 ; Check every other badge.
 	srl b
 	dec c
 	jr nz, .CheckBadge
+; Check GlacierBadge again for Special Defense.		  
 	srl a
 	call c, BoostStat
 	ret
@@ -7059,6 +7121,13 @@ GiveExperiencePoints:
 	inc de
 	dec c
 	jr nz, .stat_exp_loop
+	pop bc
+	ld hl, MON_LEVEL
+	add hl, bc
+	ld a, [hl]
+	cp MAX_LEVEL
+	jp nc, .next_mon
+	push bc
 	xor a
 	ldh [hMultiplicand + 0], a
 	ldh [hMultiplicand + 1], a
@@ -7355,12 +7424,28 @@ GiveExperiencePoints:
 	ld a, [wBattleParticipantsNotFainted]
 	ld b, a
 	ld c, PARTY_LENGTH
-	ld d, 0
+	ld de, 0
 .count_loop
+	push bc
+	push de
+	ld a, e
+	ld hl, wPartyMon1Level
+	call GetPartyLocation
+	ld a, [hl]
+	cp MAX_LEVEL
+	pop de
+	pop bc
+	jr c, .gains_exp
+	srl b
+	ld a, d
+	jr .no_exp
+.gains_exp		  
 	xor a
 	srl b
 	adc d
 	ld d, a
+.no_exp
+	inc e
 	dec c
 	jr nz, .count_loop
 	cp 2
@@ -9074,6 +9159,9 @@ BattleStartMessage:
 
 	farcall Battle_GetTrainerName
 
+	ld hl, WantToBattlePluralText
+	call IsPluralTrainer
+	jr z, .PlaceBattleStartText
 	ld hl, WantsToBattleText
 	jr .PlaceBattleStartText
 

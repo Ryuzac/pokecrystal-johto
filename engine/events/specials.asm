@@ -198,6 +198,13 @@ SlotMachine:
 	call StartGameCornerGame
 	ret
 
+VoltorbFlip:
+	call CheckCoinCase
+	ret c
+	ld a, BANK(_VoltorbFlip)
+	ld hl, _VoltorbFlip
+	call StartGameCornerGame
+	ret
 CardFlip:
 	call CheckCoinsAndCoinCase
 	ret c
@@ -228,6 +235,24 @@ StartGameCornerGame:
 	call ExitAllMenus
 	ret
 
+CheckCoinCase:
+	ld a, COIN_CASE
+	ld [wCurItem], a
+	ld hl, wNumItems
+	call CheckItem
+	jr nc, .no_coin_case
+	and a
+	ret
+
+.no_coin_case
+	ld hl, .NoCoinCaseText
+	call PrintText
+	scf
+	ret
+
+.NoCoinCaseText:
+	text_far _NoCoinCaseText
+	text_end
 CheckCoinsAndCoinCase:
 	ld hl, wCoins
 	ld a, [hli]
@@ -311,15 +336,12 @@ CheckPokerus:
 	jp ScriptReturnCarry
 
 ResetLuckyNumberShowFlag:
-	farcall RestartLuckyNumberCountdown
-	ld hl, wLuckyNumberShowFlag
-	res LUCKYNUMBERSHOW_GAME_OVER_F, [hl]
 	farcall LoadOrRegenerateLuckyIDNumber
 	ret
 
 CheckLuckyNumberShowFlag:
-	farcall _CheckLuckyNumberShowFlag
-	jp ScriptReturnCarry
+	ld hl, wLuckyNumberShowFlag
+	bit LUCKYNUMBERSHOW_GAME_OVER_F, [hl]
 
 SnorlaxAwake:
 ; Check if the Poké Flute channel is playing, and if the player is standing

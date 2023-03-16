@@ -803,7 +803,7 @@ _LC_Text6::
 
 _LC_Text7::
 	text_start
-	line "This week's Lucky"
+	line "Today's Lucky"
 	done
 
 _LC_Text8::
@@ -1105,20 +1105,20 @@ _BuenaOffTheAirText::
 _EnemyWithdrewText::
 	text "<ENEMY>"
 	line "withdrew"
-	cont "@"
+	scroll "@"
 	text_ram wEnemyMonNickname
 	text "!"
-	prompt
+	autodone
 
 _EnemyUsedOnText::
 	text "<ENEMY>"
 	line "used @"
 	text_ram wMonOrItemNameBuffer
 	text_start
-	cont "on @"
+	scroll "on @"
 	text_ram wEnemyMonNickname
 	text "!"
-	prompt
+	autodone
 
 _ThatCantBeUsedRightNowText:: ; unreferenced
 	text "That can't be used"
@@ -1306,6 +1306,15 @@ _BugCatchingContestIsOverText::
 _RepelWoreOffText::
 	text "REPEL's effect"
 	line "wore off."
+	done
+
+_UseAnotherRepelText::
+	text "@"
+	text_ram wStringBuffer3
+	text "'s"
+	line "wore off."
+
+	para "Use another?"
 	done
 
 _PlayerFoundItemText::

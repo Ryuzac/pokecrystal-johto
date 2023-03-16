@@ -40,6 +40,11 @@ WantsToBattleText::
 	line "wants to battle!"
 	prompt
 
+WantToBattlePluralText::
+	text "<ENEMY>"
+	line "want to battle!"
+	prompt
+
 BattleText_WildFled:
 	text "Wild @"
 	text_ram wEnemyMonNickname
@@ -57,44 +62,44 @@ BattleText_EnemyFled:
 HurtByPoisonText:
 	text "<USER>"
 	line "is hurt by poison!"
-	prompt
+	autodone
 
 HurtByBurnText:
 	text "<USER>'s"
 	line "hurt by its burn!"
-	prompt
+	autodone
 
 LeechSeedSapsText:
 	text "LEECH SEED saps"
 	line "<USER>!"
-	prompt
+	autodone
 
 HasANightmareText:
 	text "<USER>"
 	line "has a NIGHTMARE!"
-	prompt
+	autodone
 
 HurtByCurseText:
 	text "<USER>'s"
 	line "hurt by the CURSE!"
-	prompt
+	autodone
 
 SandstormHitsText:
 	text "The SANDSTORM hits"
 	line "<USER>!"
-	prompt
+	autodone
 
 PerishCountText:
 	text "<USER>'s"
 	line "PERISH count is @"
 	text_decimal wTextDecimalByte, 1, 1
 	text "!"
-	prompt
+	autodone
 
 BattleText_TargetRecoveredWithItem:
 	text "<TARGET>"
 	line "recovered with"
-	cont "@"
+	scroll "@"
 	text_ram wStringBuffer1
 	text "."
 	prompt
@@ -102,7 +107,7 @@ BattleText_TargetRecoveredWithItem:
 BattleText_UserRecoveredPPUsing:
 	text "<USER>"
 	line "recovered PP using"
-	cont "@"
+	scroll "@"
 	text_ram wStringBuffer1
 	text "."
 	prompt
@@ -133,31 +138,31 @@ BattleText_MonsReflectFaded:
 BattleText_RainContinuesToFall:
 	text "Rain continues to"
 	line "fall."
-	prompt
+	autodone
 
 BattleText_TheSunlightIsStrong:
 	text "The sunlight is"
 	line "strong."
-	prompt
+	autodone
 
 BattleText_TheSandstormRages:
 	text "The SANDSTORM"
 	line "rages."
-	prompt
+	autodone
 
 BattleText_TheRainStopped:
 	text "The rain stopped."
-	prompt
+	autodone
 
 BattleText_TheSunlightFaded:
 	text "The sunlight"
 	line "faded."
-	prompt
+	autodone
 
 BattleText_TheSandstormSubsided:
 	text "The SANDSTORM"
 	line "subsided."
-	prompt
+	autodone
 
 BattleText_EnemyMonFainted:
 	text "Enemy @"
@@ -176,6 +181,11 @@ GotMoneyForWinningText:
 BattleText_EnemyWasDefeated:
 	text "<ENEMY>"
 	line "was defeated!"
+	prompt
+
+BattleText_PluralEnemyWereDefeated:
+	text "<ENEMY>"
+	line "were defeated!"
 	prompt
 
 TiedAgainstText:
@@ -199,12 +209,6 @@ SentAllToMomText:
 	text "Sent all to MOM!"
 	prompt
 
-UnusedRivalLossText: ; unreferenced
-	text "<RIVAL>: Huh? I"
-	line "should've chosen"
-	cont "your #MON!"
-	prompt
-
 BattleText_MonFainted:
 	text_ram wBattleMonNickname
 	text_start
@@ -215,12 +219,6 @@ BattleText_UseNextMon:
 	text "Use next #MON?"
 	done
 
-UnusedRivalWinText: ; unreferenced
-	text "<RIVAL>: Yes!"
-	line "I guess I chose a"
-	cont "good #MON!"
-	prompt
-
 LostAgainstText:
 	text "Lost against"
 	line "<ENEMY>!"
@@ -229,6 +227,17 @@ LostAgainstText:
 BattleText_EnemyIsAboutToUseWillPlayerChangeMon:
 	text "<ENEMY>"
 	line "is about to use"
+	cont "@"
+	text_ram wEnemyMonNickname
+	text "."
+
+	para "Will <PLAYER>"
+	line "change #MON?"
+	done
+
+BattleText_PluralEnemyAreAboutToUseWillPlayerChangeMon:
+	text "<ENEMY>"
+	line "are about to use"
 	cont "@"
 	text_ram wEnemyMonNickname
 	text "."
@@ -284,7 +293,7 @@ BattleText_CantEscape:
 BattleText_UserHurtBySpikes:
 	text "<USER>'s"
 	line "hurt by SPIKES!"
-	prompt
+	autodone
 
 RecoveredUsingText:
 	text "<TARGET>"
@@ -445,32 +454,32 @@ BattleText_UserWasReleasedFromStringBuffer1:
 	prompt
 
 UsedBindText:
-	text "<USER>"
-	line "used BIND on"
-	cont "<TARGET>!"
-	prompt
+	text   "<USER>"
+	line   "used BIND on"
+	scroll "<TARGET>!"
+	autodone
 
 WhirlpoolTrapText:
 	text "<TARGET>"
 	line "was trapped!"
-	prompt
+	autodone
 
 FireSpinTrapText:
 	text "<TARGET>"
 	line "was trapped!"
-	prompt
+	autodone
 
 WrappedByText:
-	text "<TARGET>"
-	line "was WRAPPED by"
-	cont "<USER>!"
-	prompt
+	text   "<TARGET>"
+	line   "was WRAPPED by"
+	scroll "<USER>!"
+	autodone
 
 ClampedByText:
-	text "<TARGET>"
-	line "was CLAMPED by"
-	cont "<USER>!"
-	prompt
+	text   "<TARGET>"
+	line   "was CLAMPED by"
+	scroll "<USER>!"
+	autodone
 
 StoringEnergyText:
 	text "<USER>"
@@ -617,12 +626,12 @@ OneHitKOText:
 SuperEffectiveText:
 	text "It's super-"
 	line "effective!"
-	prompt
+	autodone
 
 NotVeryEffectiveText:
 	text "It's not very"
 	line "effective…"
-	prompt
+	autodone
 
 TookDownWithItText:
 	text "<TARGET>"

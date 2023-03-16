@@ -19,6 +19,14 @@ IlexForestAzaleaGateOfficerText:
 	cont "Don't get lost."
 	done
 
+;IlexForestAzaleaGateOfficerCelebiText:
+;	text "There's something"
+;	line "happening in the"
+;	cont "FOREST…"
+;	
+;	para "Be careful!"
+;	done
+
 IlexForestAzaleaGateGrannyText:
 	text "The FOREST is"
 	line "watched over by"
@@ -27,6 +35,11 @@ IlexForestAzaleaGateGrannyText:
 	para "Stay out of"
 	line "mischief!"
 	done
+
+;IlexForestAzaleaGateGrannyCelebiText:
+;	text "…"
+;	done
+
 
 IlexForestAzaleaGate_MapEvents:
 	db 0, 0 ; filler
