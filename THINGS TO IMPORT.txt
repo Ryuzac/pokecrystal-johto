@@ -1,2 +1,0 @@
-engine\menus\naming_screen.asm
-engine\gfx\sprites.asm
