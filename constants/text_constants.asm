@@ -45,7 +45,8 @@ DEF PRINTNUM_LEFTALIGN    EQU 1 << PRINTNUM_LEFTALIGN_F
 DEF PRINTNUM_LEADINGZEROS EQU 1 << PRINTNUM_LEADINGZEROS_F
 
 ; character sets (see charmap.asm)
-DEF FIRST_REGULAR_TEXT_CHAR     EQU $60
+;DEF FIRST_REGULAR_TEXT_CHAR     EQU $60 ; If this is restored then sprites on tiles $60–$6F or $D0–$FF will disappear, could be used for a HUD
+DEF FIRST_REGULAR_TEXT_CHAR 	EQU $7f
 DEF FIRST_HIRAGANA_DAKUTEN_CHAR EQU $20
 
 ; gfx/font/unown_font.png

@@ -115,11 +115,12 @@ ENDM
 	connection east, Route33, ROUTE_33, 0
 
 	map_attributes CianwoodCity, CIANWOOD_CITY, $35, EAST
-	connection east, Route41, ROUTE_41, 0
+	connection east, WhirlIslands, WHIRL_ISLANDS, 0
 
-	map_attributes GoldenrodCity, GOLDENROD_CITY, $35, NORTH | SOUTH
-	connection north, Route35, ROUTE_35, 5
-	connection south, Route34, ROUTE_34, 5
+	map_attributes GoldenrodCity, GOLDENROD_CITY, $35, NORTH | WEST | SOUTH
+	connection north, Route35, ROUTE_35, 6
+	connection west, Route41, ROUTE_41, 1
+	connection south, Route34, ROUTE_34, 6
 
 	map_attributes OlivineCity, OLIVINE_CITY, $35, NORTH | WEST
 	connection north, Route39, ROUTE_39, 5
@@ -205,9 +206,14 @@ ENDM
 	connection south, Route41, ROUTE_41, -15
 	connection east, OlivineCity, OLIVINE_CITY, -9
 
-	map_attributes Route41, ROUTE_41, $35, NORTH | WEST
+	map_attributes WhirlIslands, WHIRL_ISLANDS, $35, NORTH | WEST | EAST
 	connection north, Route40, ROUTE_40, 15
 	connection west, CianwoodCity, CIANWOOD_CITY, 0
+	connection east, Route41, ROUTE_41, 4
+
+	map_attributes Route41, ROUTE_41, $35, WEST | EAST
+	connection west, WhirlIslands, WHIRL_ISLANDS, -4
+	connection east, GoldenrodCity, GOLDENROD_CITY, 1
 
 	map_attributes Route42, ROUTE_42, $05, WEST | EAST
 	connection west, EcruteakCity, ECRUTEAK_CITY, -9
@@ -530,6 +536,7 @@ ENDM
 	map_attributes Route32RuinsOfAlphGate, ROUTE_32_RUINS_OF_ALPH_GATE, $00, 0
 	map_attributes Route32Pokecenter1F, ROUTE_32_POKECENTER_1F, $00, 0
 	map_attributes Route35GoldenrodGate, ROUTE_35_GOLDENROD_GATE, $00, 0
+	map_attributes GoldenrodPortGate, GOLDENROD_PORT_GATE, $00, 0
 	map_attributes Route35NationalParkGate, ROUTE_35_NATIONAL_PARK_GATE, $00, 0
 	map_attributes Route36RuinsOfAlphGate, ROUTE_36_RUINS_OF_ALPH_GATE, $00, 0
 	map_attributes Route36NationalParkGate, ROUTE_36_NATIONAL_PARK_GATE, $00, 0

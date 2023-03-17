@@ -50,7 +50,7 @@ PlayersHousePosterScript:
 	describedecoration DECODESC_POSTER
 
 PlayersHouseRadioScript:
-if DEF(_DEBUG)
+;if DEF(_DEBUG)
 	opentext
 	; full pokegear
 	setflag ENGINE_POKEGEAR
@@ -148,38 +148,38 @@ if DEF(_DEBUG)
 	clearevent EVENT_PLAYERS_HOUSE_MOM_2
 	closetext
 	end
-else
+;else
 
-	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
-	iftrue .NormalRadio
-	checkevent EVENT_LISTENED_TO_INITIAL_RADIO
-	iftrue .AbbreviatedRadio
-	playmusic MUSIC_POKEMON_TALK
-	opentext
-	writetext PlayersRadioText1
-	pause 45
-	writetext PlayersRadioText2
-	pause 45
-	writetext PlayersRadioText3
-	pause 45
-	musicfadeout MUSIC_NEW_BARK_TOWN, 16
-	writetext PlayersRadioText4
-	pause 45
-	closetext
-	setevent EVENT_LISTENED_TO_INITIAL_RADIO
-	end
+;	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
+;	iftrue .NormalRadio
+;	checkevent EVENT_LISTENED_TO_INITIAL_RADIO
+;	iftrue .AbbreviatedRadio
+;	playmusic MUSIC_POKEMON_TALK
+;	opentext
+;	writetext PlayersRadioText1
+;	pause 45
+;	writetext PlayersRadioText2
+;	pause 45
+;	writetext PlayersRadioText3
+;	pause 45
+;	musicfadeout MUSIC_NEW_BARK_TOWN, 16
+;	writetext PlayersRadioText4
+;	pause 45
+;	closetext
+;	setevent EVENT_LISTENED_TO_INITIAL_RADIO
+;	end
 
-.NormalRadio:
-	jumpstd Radio1Script
+;.NormalRadio:
+;	jumpstd Radio1Script
+;
+;.AbbreviatedRadio:
+;	opentext
+;	writetext PlayersRadioText4
+;	pause 45
+;	closetext
+;	end
 
-.AbbreviatedRadio:
-	opentext
-	writetext PlayersRadioText4
-	pause 45
-	closetext
-	end
-
-endc
+;endc
 
 PlayersHouseBookshelfScript:
 	stowfollower
