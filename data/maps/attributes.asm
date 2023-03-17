@@ -130,6 +130,8 @@ ENDM
 	connection south, Route37, ROUTE_37, 5
 	connection west, Route38, ROUTE_38, 5
 	connection east, Route42, ROUTE_42, 9
+	
+	map_attributes BellchimeTrail, BELLCHIME_TRAIL, $05, 0
 
 	map_attributes MahoganyTown, MAHOGANY_TOWN, $71, NORTH | WEST | EAST
 	connection north, Route43, ROUTE_43, 0

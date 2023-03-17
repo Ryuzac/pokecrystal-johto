@@ -182,7 +182,6 @@ Route28SteelWingHouse_Blocks:
 CeladonMansionRoofHouse_Blocks:
 Route16FuchsiaSpeechHouse_Blocks:
 ManiasHouse_Blocks:
-CianwoodPharmacy_Blocks:
 CianwoodPhotoStudio_Blocks:
 CianwoodLugiaSpeechHouse_Blocks:
 PokeSeersHouse_Blocks:
@@ -441,6 +440,7 @@ TradeCenter_Blocks:
 TimeCapsule_Blocks:
 	INCBIN "maps/TradeCenter.blk"
 
+CianwoodPharmacy_Blocks:
 EcruteakLugiaSpeechHouse_Blocks:
 EcruteakItemfinderHouse_Blocks:
 VioletNicknameSpeechHouse_Blocks:
@@ -1051,3 +1051,6 @@ SECTION "Map Blocks 4", ROMX
 
 WhirlIslands_Blocks:
 	INCBIN "maps/WhirlIslands.blk"
+	
+BellchimeTrail_Blocks:
+	INCBIN "maps/BellchimeTrail.blk"
