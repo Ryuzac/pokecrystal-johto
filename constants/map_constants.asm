@@ -115,7 +115,7 @@ ENDM
 	map_const TEAM_ROCKET_BASE_B2F,                        15,  9 ; 50
 	map_const TEAM_ROCKET_BASE_B3F,                        15,  9 ; 51
 	map_const ILEX_FOREST,                                 15, 27 ; 52
-	map_const GOLDENROD_UNDERGROUND,                       15, 18 ; 53
+	map_const GOLDENROD_UNDERGROUND,                       16, 18 ; 53
 	map_const GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES, 15, 18 ; 54
 	map_const GOLDENROD_DEPT_STORE_B1F,                    10,  9 ; 55
 	map_const GOLDENROD_UNDERGROUND_WAREHOUSE,             10,  9 ; 56
@@ -271,13 +271,14 @@ ENDM
 	map_const GOLDENROD_DEPT_STORE_6F,                      8,  4 ; 16
 	map_const GOLDENROD_DEPT_STORE_ELEVATOR,                2,  2 ; 17
 	map_const GOLDENROD_DEPT_STORE_ROOF,                    8,  4 ; 18
-	map_const GOLDENROD_GAME_CORNER,                       10,  7 ; 19
-	map_const GOLDENROD_POKECENTER_1F,                      5,  4 ; 20
-	map_const GOLDENROD_PORT_GATE,                      	5,  4 ; 14
-	map_const POKECOM_CENTER_ADMIN_OFFICE_MOBILE,          16, 16 ; 21
-	map_const ILEX_FOREST_AZALEA_GATE,                      5,  4 ; 22
-	map_const ROUTE_34_ILEX_FOREST_GATE,                    5,  4 ; 23
-	map_const DAY_CARE,                                     5,  4 ; 24
+	map_const GOLDENROD_GAME_CORNER_1F,                     8,  7 ; 19
+	map_const GOLDENROD_GAME_CORNER_B1F,                   10,  7 ; 20
+	map_const GOLDENROD_POKECENTER_1F,                      5,  4 ; 21
+	map_const GOLDENROD_PORT_GATE,                      	5,  4 ; 22
+	map_const POKECOM_CENTER_ADMIN_OFFICE_MOBILE,          16, 16 ; 23
+	map_const ILEX_FOREST_AZALEA_GATE,                      5,  4 ; 24
+	map_const ROUTE_34_ILEX_FOREST_GATE,                    5,  4 ; 25
+	map_const DAY_CARE,                                     5,  4 ; 26
 	endgroup
 
 	newgroup VERMILION                                            ; 12
@@ -423,7 +424,7 @@ ENDM
 	newgroup CIANWOOD                                             ; 22
 	map_const ROUTE_40,                                    10, 18 ;  1
 	map_const WHIRL_ISLANDS,                               25, 27 ;  2
-	map_const ROUTE_41,                                    24, 19 ;  2
+	map_const ROUTE_41,                                    27, 19 ;  2
 	;map_const ROUTE_41,                                    25, 27 ;  2
 	map_const CIANWOOD_CITY,                               15, 27 ;  3
 	map_const MANIAS_HOUSE,                                 4,  4 ;  4

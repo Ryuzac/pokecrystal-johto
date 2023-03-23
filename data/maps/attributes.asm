@@ -117,9 +117,9 @@ ENDM
 	map_attributes CianwoodCity, CIANWOOD_CITY, $35, EAST
 	connection east, WhirlIslands, WHIRL_ISLANDS, 0
 
-	map_attributes GoldenrodCity, GOLDENROD_CITY, $35, NORTH | WEST | SOUTH
+	map_attributes GoldenrodCity, GOLDENROD_CITY, $35, NORTH | SOUTH
 	connection north, Route35, ROUTE_35, 6
-	connection west, Route41, ROUTE_41, 1
+	;connection west, Route41, ROUTE_41, 1
 	connection south, Route34, ROUTE_34, 6
 
 	map_attributes OlivineCity, OLIVINE_CITY, $35, NORTH | WEST
@@ -180,12 +180,12 @@ ENDM
 	connection west, AzaleaTown, AZALEA_TOWN, 0
 
 	map_attributes Route34, ROUTE_34, $05, NORTH | EAST
-	connection north, GoldenrodCity, GOLDENROD_CITY, -5
+	connection north, GoldenrodCity, GOLDENROD_CITY, -6
 	connection east, AzaleaTown, AZALEA_TOWN, 18
 
 	map_attributes Route35, ROUTE_35, $05, NORTH | SOUTH
 	connection north, Route36, ROUTE_36, 0
-	connection south, GoldenrodCity, GOLDENROD_CITY, -5
+	connection south, GoldenrodCity, GOLDENROD_CITY, -6
 
 	map_attributes Route36, ROUTE_36, $05, NORTH | SOUTH | EAST
 	connection north, Route37, ROUTE_37, 10
@@ -558,7 +558,8 @@ ENDM
 	map_attributes GoldenrodDeptStore6F, GOLDENROD_DEPT_STORE_6F, $00, 0
 	map_attributes GoldenrodDeptStoreElevator, GOLDENROD_DEPT_STORE_ELEVATOR, $00, 0
 	map_attributes GoldenrodDeptStoreRoof, GOLDENROD_DEPT_STORE_ROOF, $24, 0
-	map_attributes GoldenrodGameCorner, GOLDENROD_GAME_CORNER, $00, 0
+	map_attributes GoldenrodGameCorner1F, GOLDENROD_GAME_CORNER_1F, $00, 0
+	map_attributes GoldenrodGameCornerB1F, GOLDENROD_GAME_CORNER_B1F, $00, 0
 	map_attributes GoldenrodPokecenter1F, GOLDENROD_POKECENTER_1F, $00, 0
 	map_attributes PokecomCenterAdminOfficeMobile, POKECOM_CENTER_ADMIN_OFFICE_MOBILE, $00, 0
 	map_attributes IlexForestAzaleaGate, ILEX_FOREST_AZALEA_GATE, $00, 0

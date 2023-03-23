@@ -40,7 +40,8 @@ CherrygroveCityGuideGent:
 .Return
 	follow CHERRYGROVECITY_GRAMPS, PLAYER
 	applymovement CHERRYGROVECITY_GRAMPS, GuideGentMovement1
-	turnobject PLAYER, UP					  
+	turnobject PLAYER, UP
+	turnobject FOLLOWER, UP
 	opentext
 	writetext GuideGentPokecenterText
 	waitbutton
@@ -266,7 +267,6 @@ GuideGentMovement_Player:
 GuideGentMovement1:
 	step LEFT
 	step UP
-	step LEFT
 	step LEFT
 	turn_head UP
 	step_end

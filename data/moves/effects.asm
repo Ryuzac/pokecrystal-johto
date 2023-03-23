@@ -1231,13 +1231,6 @@ TrapTarget:
 	traptarget
 	endmove
 
-Growth:
-	checkobedience
-	usedmovetext
-	doturn
-	growth
-	endmove
-
 SuperFang:
 Psywave:
 StaticDamage:

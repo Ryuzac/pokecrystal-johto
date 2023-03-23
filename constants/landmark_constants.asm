@@ -7,10 +7,11 @@
 	const LANDMARK_CHERRYGROVE_CITY  ; 03
 	const LANDMARK_ROUTE_30          ; 04
 	const LANDMARK_ROUTE_31          ; 05
+	const LANDMARK_DARK_CAVE         ; 2d
 	const LANDMARK_VIOLET_CITY       ; 06
 	const LANDMARK_SPROUT_TOWER      ; 07
-	const LANDMARK_ROUTE_32          ; 08
 	const LANDMARK_RUINS_OF_ALPH     ; 09
+	const LANDMARK_ROUTE_32          ; 08
 	const LANDMARK_UNION_CAVE        ; 0a
 	const LANDMARK_ROUTE_33          ; 0b
 	const LANDMARK_AZALEA_TOWN       ; 0c
@@ -24,9 +25,9 @@
 	const LANDMARK_ROUTE_36          ; 14
 	const LANDMARK_ROUTE_37          ; 15
 	const LANDMARK_ECRUTEAK_CITY     ; 16
+	const LANDMARK_BURNED_TOWER      ; 19
 	const LANDMARK_BELLCHIME_TRAIL   ; 17
 	const LANDMARK_TIN_TOWER         ; 18
-	const LANDMARK_BURNED_TOWER      ; 19
 	const LANDMARK_ROUTE_38          ; 1a
 	const LANDMARK_ROUTE_39          ; 1b
 	const LANDMARK_OLIVINE_CITY      ; 1c
@@ -36,6 +37,9 @@
 	const LANDMARK_WHIRL_ISLANDS     ; 20
 	const LANDMARK_ROUTE_41          ; 21
 	const LANDMARK_CIANWOOD_CITY     ; 22
+;	const LANDMARK_ROUTE_47
+;	const LANDMARK_ROUTE_48
+;	const LANDMARK_SAFARI_ZONE
 	const LANDMARK_ROUTE_42          ; 23
 	const LANDMARK_MT_MORTAR         ; 24
 	const LANDMARK_MAHOGANY_TOWN     ; 25
@@ -46,8 +50,14 @@
 	const LANDMARK_BLACKTHORN_CITY   ; 2a
 	const LANDMARK_DRAGONS_DEN       ; 2b
 	const LANDMARK_ROUTE_45          ; 2c
-	const LANDMARK_DARK_CAVE         ; 2d
 	const LANDMARK_ROUTE_46          ; 2e
+	const LANDMARK_ROUTE_27          ; 5d
+	const LANDMARK_TOHJO_FALLS       ; 5e
+	const LANDMARK_ROUTE_26          ; 5c
+	const LANDMARK_VICTORY_ROAD      ; 59
+	const LANDMARK_ROUTE_23          ; 5a
+	const LANDMARK_INDIGO_PLATEAU    ; 5b
+	const LANDMARK_ROUTE_28          ; 5f	
 	const LANDMARK_SILVER_CAVE       ; 2f
 DEF KANTO_LANDMARK EQU const_value
 	const LANDMARK_PALLET_TOWN       ; 30
@@ -91,13 +101,6 @@ DEF KANTO_LANDMARK EQU const_value
 	const LANDMARK_CINNABAR_ISLAND   ; 56
 	const LANDMARK_ROUTE_21          ; 57
 	const LANDMARK_ROUTE_22          ; 58
-	const LANDMARK_VICTORY_ROAD      ; 59
-	const LANDMARK_ROUTE_23          ; 5a
-	const LANDMARK_INDIGO_PLATEAU    ; 5b
-	const LANDMARK_ROUTE_26          ; 5c
-	const LANDMARK_ROUTE_27          ; 5d
-	const LANDMARK_TOHJO_FALLS       ; 5e
-	const LANDMARK_ROUTE_28          ; 5f
 	const LANDMARK_FAST_SHIP         ; 60
 DEF NUM_LANDMARKS EQU const_value
 

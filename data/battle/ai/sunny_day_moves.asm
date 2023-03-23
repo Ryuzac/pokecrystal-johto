@@ -4,7 +4,7 @@ SunnyDayMoves:
 	db FIRE_PUNCH
  	db EMBER
  	db FLAMETHROWER
-	db GROWTH
+;	db GROWTH
 	db SOLARBEAM
  	db FIRE_SPIN
  	db FIRE_BLAST

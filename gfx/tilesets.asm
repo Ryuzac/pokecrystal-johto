@@ -36,15 +36,6 @@ INCBIN "data/tilesets/ice_path_metatiles.bin"
 TilesetIcePathColl::
 INCLUDE "data/tilesets/ice_path_collision.asm"
 
-TilesetPlayersRoomGFX::
-INCBIN "gfx/tilesets/players_room.2bpp.lz"
-
-TilesetPlayersRoomMeta::
-INCBIN "data/tilesets/players_room_metatiles.bin"
-
-TilesetPlayersRoomColl::
-INCLUDE "data/tilesets/players_room_collision.asm"
-
 
 SECTION "Tileset Data 2", ROMX
 
@@ -124,15 +115,6 @@ INCBIN "data/tilesets/mart_metatiles.bin"
 
 TilesetMartColl::
 INCLUDE "data/tilesets/mart_collision.asm"
-
-TilesetGameCornerGFX::
-INCBIN "gfx/tilesets/game_corner.2bpp.lz"
-
-TilesetGameCornerMeta::
-INCBIN "data/tilesets/game_corner_metatiles.bin"
-
-TilesetGameCornerColl::
-INCLUDE "data/tilesets/game_corner_collision.asm"
 
 TilesetTrainStationGFX::
 INCBIN "gfx/tilesets/train_station.2bpp.lz"
@@ -219,15 +201,6 @@ INCBIN "data/tilesets/battle_tower_inside_metatiles.bin"
 
 TilesetBattleTowerInsideColl::
 INCLUDE "data/tilesets/battle_tower_inside_collision.asm"
-
-TilesetGateGFX::
-INCBIN "gfx/tilesets/gate.2bpp.lz"
-
-TilesetGateMeta::
-INCBIN "data/tilesets/gate_metatiles.bin"
-
-TilesetGateColl::
-INCLUDE "data/tilesets/gate_collision.asm"
 
 TilesetJohtoModernGFX::
 TilesetBattleTowerOutsideGFX::
@@ -320,6 +293,14 @@ INCBIN "data/tilesets/ruins_of_alph_metatiles.bin"
 TilesetRuinsOfAlphColl::
 INCLUDE "data/tilesets/ruins_of_alph_collision.asm"
 
+TilesetPlayersRoomGFX::
+INCBIN "gfx/tilesets/players_room.2bpp.lz"
+
+TilesetPlayersRoomMeta::
+INCBIN "data/tilesets/players_room_metatiles.bin"
+
+TilesetPlayersRoomColl::
+INCLUDE "data/tilesets/players_room_collision.asm"
 
 SECTION "Tileset Data 8", ROMX
 
@@ -334,3 +315,21 @@ INCBIN "data/tilesets/omanyte_word_room_metatiles.bin"
 
 TilesetAerodactylWordRoomMeta::
 INCBIN "data/tilesets/aerodactyl_word_room_metatiles.bin"
+
+TilesetGateGFX::
+INCBIN "gfx/tilesets/gate.2bpp.lz"
+
+TilesetGateMeta::
+INCBIN "data/tilesets/gate_metatiles.bin"
+
+TilesetGateColl::
+INCLUDE "data/tilesets/gate_collision.asm"
+
+TilesetGameCornerGFX::
+INCBIN "gfx/tilesets/game_corner.2bpp.lz"
+
+TilesetGameCornerMeta::
+INCBIN "data/tilesets/game_corner_metatiles.bin"
+
+TilesetGameCornerColl::
+INCLUDE "data/tilesets/game_corner_collision.asm"

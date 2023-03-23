@@ -1,5 +1,5 @@
-GOLDENRODUNDERGROUND_OLDER_HAIRCUT_PRICE   EQU 500
-GOLDENRODUNDERGROUND_YOUNGER_HAIRCUT_PRICE EQU 300
+DEF GOLDENRODUNDERGROUND_OLDER_HAIRCUT_PRICE   EQU 500
+DEF GOLDENRODUNDERGROUND_YOUNGER_HAIRCUT_PRICE EQU 300
 
 	object_const_def
 	const GOLDENRODUNDERGROUND_SUPER_NERD1
@@ -16,11 +16,11 @@ GoldenrodUnderground_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
-	callback MAPCALLBACK_NEWMAP, .ResetSwitches
-	callback MAPCALLBACK_TILES, .CheckBasementKey
-	callback MAPCALLBACK_OBJECTS, .CheckDayOfWeek
+	callback MAPCALLBACK_NEWMAP, GoldenrodUndergroundResetSwitchesCallback
+	callback MAPCALLBACK_TILES, GoldenrodUndergroundCheckBasementKeyCallback
+	callback MAPCALLBACK_OBJECTS, GoldenrodUndergroundCheckDayOfWeekCallback
 
-.ResetSwitches:
+GoldenrodUndergroundResetSwitchesCallback:
 	clearevent EVENT_SWITCH_1
 	clearevent EVENT_SWITCH_2
 	clearevent EVENT_SWITCH_3
@@ -40,7 +40,7 @@ GoldenrodUnderground_MapScripts:
 	writemem wUndergroundSwitchPositions
 	endcallback
 
-.CheckBasementKey:
+GoldenrodUndergroundCheckBasementKeyCallback:
 	checkevent EVENT_USED_BASEMENT_KEY
 	iffalse .LockBasementDoor
 	endcallback
@@ -49,7 +49,7 @@ GoldenrodUnderground_MapScripts:
 	changeblock 18, 6, $3d ; locked door
 	endcallback
 
-.CheckDayOfWeek:
+GoldenrodUndergroundCheckDayOfWeekCallback:
 	readvar VAR_WEEKDAY
 	ifequal MONDAY, .Monday
 	ifequal TUESDAY, .Tuesday
@@ -408,9 +408,6 @@ GoldenrodUndergroundCoinCase:
 
 GoldenrodUndergroundNoEntrySign:
 	jumptext GoldenrodUndergroundNoEntryText
-	
-GoldenrodUndergroundGameCornerSign:
-	jumptext GoldenrodUndergroundGameCornerText
 
 GoldenrodUndergroundHiddenParlyzHeal:
 	hiddenitem PARLYZ_HEAL, EVENT_GOLDENROD_UNDERGROUND_HIDDEN_PARLYZ_HEAL
@@ -649,13 +646,6 @@ GoldenrodUndergroundNoEntryText:
 	text "NO ENTRY BEYOND"
 	line "THIS POINT"
 	done
-	
-GoldenrodUndergroundGameCornerText:
-	text "Your Playground!"
-
-	para "GOLDENROD CITY"
-	line "GAME CORNER"
-	done
 
 GoldenrodUnderground_MapEvents:
 	db 0, 0 ; filler
@@ -673,18 +663,16 @@ GoldenrodUnderground_MapEvents:
 	def_bg_events
 	bg_event 24, 26, BGEVENT_READ, BasementDoorScript
 	bg_event 25, 26, BGEVENT_READ, GoldenrodUndergroundNoEntrySign
-	bg_event 10, 18, BGEVENT_READ, GoldenrodUndergroundGameCornerSign
 	bg_event  6, 13, BGEVENT_ITEM, GoldenrodUndergroundHiddenParlyzHeal
-	bg_event  4, 20, BGEVENT_ITEM, GoldenrodUndergroundHiddenSuperPotion
+	bg_event  4, 18, BGEVENT_ITEM, GoldenrodUndergroundHiddenSuperPotion
 	bg_event 23, 28, BGEVENT_ITEM, GoldenrodUndergroundHiddenAntidote
-
 
 	def_object_events
 	object_event  5, 31, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerSupernerdEric, -1
-	object_event  7, 26, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerSupernerdTeru, -1
+	object_event  6,  9, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerSupernerdTeru, -1
 	object_event  3, 27, SPRITE_SUPER_NERD, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPokemaniacIssac, -1
 	object_event  2,  6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPokemaniacDonald, -1
-	object_event  7, 18, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundCoinCase, EVENT_GOLDENROD_UNDERGROUND_COIN_CASE
+	object_event  7, 26, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundCoinCase, EVENT_GOLDENROD_UNDERGROUND_COIN_CASE
 	object_event  7, 11, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, BargainMerchantScript, EVENT_GOLDENROD_UNDERGROUND_GRAMPS
 	object_event  7, 14, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, OlderHaircutBrotherScript, EVENT_GOLDENROD_UNDERGROUND_OLDER_HAIRCUT_BROTHER
 	object_event  7, 15, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, YoungerHaircutBrotherScript, EVENT_GOLDENROD_UNDERGROUND_YOUNGER_HAIRCUT_BROTHER
