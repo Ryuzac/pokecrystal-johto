@@ -152,3 +152,6 @@
 	tilecoll WALL, WALL, DOOR, WALL ; 97
 	tilecoll WALL, WALL, WALL, WALL ; 98
 	tilecoll WALL, WALL, WALL, WALL ; 99
+	tilecoll WHIRLPOOL, WATER, BUOY, WATER ; 9a
+	tilecoll WALL, FLOOR, WALL, FLOOR ; 9b
+	tilecoll FLOOR, WALL, FLOOR, WALL ; 9c

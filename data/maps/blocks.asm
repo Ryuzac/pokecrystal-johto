@@ -1057,3 +1057,21 @@ BellchimeTrail_Blocks:
 	
 GoldenrodGameCornerB1F_Blocks:
 	INCBIN "maps/GoldenrodGameCornerB1F.blk"
+
+CliffEdgeGate_Blocks:
+	INCBIN "maps/CliffEdgeGate.blk"
+
+Route47_Blocks:
+	INCBIN "maps/Route47.blk"
+
+CliffCave_Blocks:
+	INCBIN "maps/CliffCave.blk"
+
+EmbeddedTower_Blocks:
+	INCBIN "maps/EmbeddedTower.blk"
+
+Route48_Blocks:
+	INCBIN "maps/Route48.blk"
+
+SafariZoneGate_Blocks:
+	INCBIN "maps/SafariZoneGate.blk"

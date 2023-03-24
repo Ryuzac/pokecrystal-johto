@@ -43,9 +43,12 @@ Landmarks:
 	landmark  28,  84, WhirlIslandsName
 	landmark  40,  84, Route41Name
 	landmark  20,  92, CianwoodCityName
-;	landmark  12,  92, Route47Name
-;	landmark  12,  84, Route48Name
-;	landmark  12,  76, SafariZoneName
+	landmark  16,  92, CliffEdgeGateName
+	landmark  12,  92, Route47Name
+	landmark  12,  92, CliffCaveName
+	landmark  12,  92, EmbeddedTowerName
+	landmark  12,  84, Route48Name
+	landmark  12,  76, SafariZoneGateName
 	landmark  76,  44, Route42Name
 	landmark  76,  36, MtMortarName
 	landmark  92,  44, MahoganyTownName
@@ -119,6 +122,12 @@ GoldenrodCityName:   db "GOLDENROD¯CITY@"
 EcruteakCityName:    db "ECRUTEAK¯CITY@"
 OlivineCityName:     db "OLIVINE¯CITY@"
 CianwoodCityName:    db "CIANWOOD¯CITY@"
+CliffEdgeGateName:   db "CLIFF EDGE¯GATE@"
+Route47Name:    	 db "ROUTE 47@"
+CliffCaveName:    	 db "CLIFF CAVE@"
+EmbeddedTowerName:   db "EMBEDDED¯TOWER@"
+Route48Name:    	 db "ROUTE 48@"
+SafariZoneGateName:  db "SAFARI ZONE¯GATE@"
 MahoganyTownName:    db "MAHOGANY¯TOWN@"
 BlackthornCityName:  db "BLACKTHORN¯CITY@"
 LakeOfRageName:      db "LAKE OF¯RAGE@"

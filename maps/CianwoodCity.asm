@@ -141,6 +141,9 @@ CianwoodPhotoStudioSign:
 CianwoodPokeSeerSign:
 	jumptext CianwoodPokeSeerSignText
 
+CianwoodSafariZoneSign:
+	jumptext CianwoodSafariZoneSignText
+	
 CianwoodPokecenterSign:
 	jumpstd PokecenterSignScript
 
@@ -386,6 +389,12 @@ CianwoodPokeSeerSignText:
 	text "THE # SEER"
 	line "AHEAD"
 	done
+	
+CianwoodSafariZoneSignText:
+	text "ROAD TO THE"
+	line "SAFARI ZONE"
+	cont "AHEAD"
+	done
 
 CianwoodCity_MapEvents:
 	db 0, 0 ; filler
@@ -398,17 +407,19 @@ CianwoodCity_MapEvents:
 	warp_event  9, 31, CIANWOOD_PHOTO_STUDIO, 1
 	warp_event 15, 37, CIANWOOD_LUGIA_SPEECH_HOUSE, 1
 	warp_event  5, 17, POKE_SEERS_HOUSE, 1
+	warp_event  4, 23, CLIFF_EDGE_GATE, 1
 
 	def_coord_events
 	coord_event 11, 16, SCENE_CIANWOODCITY_SUICUNE_AND_EUSINE, CianwoodCitySuicuneAndEusine
 
 	def_bg_events
 	bg_event 20, 34, BGEVENT_READ, CianwoodCitySign
+	bg_event  6, 24, BGEVENT_READ, CianwoodSafariZoneSign
 	bg_event  7, 45, BGEVENT_READ, CianwoodGymSign
 	bg_event 24, 43, BGEVENT_READ, CianwoodPokecenterSign
 	bg_event 19, 47, BGEVENT_READ, CianwoodPharmacySign
 	bg_event  8, 32, BGEVENT_READ, CianwoodPhotoStudioSign
-	bg_event  9, 25, BGEVENT_READ, CianwoodPokeSeerSign
+	bg_event  9, 21, BGEVENT_READ, CianwoodPokeSeerSign
 	bg_event  4, 19, BGEVENT_ITEM, CianwoodCityHiddenRevive
 	bg_event  5, 29, BGEVENT_ITEM, CianwoodCityHiddenMaxEther
 
@@ -418,7 +429,7 @@ CianwoodCity_MapEvents:
 	object_event 14, 42, SPRITE_LASS, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityLass, -1
 	object_event  8, 16, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
 	object_event  9, 17, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
-	object_event  4, 25, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
+	object_event  4, 26, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
 	object_event  5, 29, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
 	object_event 10, 27, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1
 	object_event  4, 19, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CianwoodCityRock, -1

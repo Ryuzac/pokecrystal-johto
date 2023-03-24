@@ -383,6 +383,19 @@ ENDM
 	connection north, Route10North, ROUTE_10_NORTH, 0
 	connection south, LavenderTown, LAVENDER_TOWN, 0
 
+	map_attributes SafariZoneGate, SAFARI_ZONE_GATE, $05, SOUTH
+	connection south, Route48, ROUTE_48, -3
+	
+	map_attributes Route48, ROUTE_48, $35, NORTH | SOUTH
+	connection north, SafariZoneGate, SAFARI_ZONE_GATE, 3
+	connection south, Route47, ROUTE_47, 0
+	
+	map_attributes Route47, ROUTE_47, $35, NORTH
+	connection north, Route48, ROUTE_48, 0
+	
+	map_attributes CliffEdgeGate, CLIFF_EDGE_GATE, $09, 0
+	map_attributes CliffCave, CLIFF_CAVE, $09, 0
+	map_attributes EmbeddedTower, EMBEDDED_TOWER, $00, 0
 	map_attributes Route23, ROUTE_23, $0f, 0
 	map_attributes SproutTower1F, SPROUT_TOWER_1F, $00, 0
 	map_attributes SproutTower2F, SPROUT_TOWER_2F, $00, 0
