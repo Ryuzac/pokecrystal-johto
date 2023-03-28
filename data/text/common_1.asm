@@ -204,6 +204,12 @@ _OakTimeSoDarkText::
 	line "No wonder it's so"
 	cont "dark!"
 	done
+	
+_OakTimeReallyText::
+	text "!"
+	line "Yikes! I really"
+	cont "overslept!"
+	done
 
 _OakTimeWhatDayIsItText::
 	text "What day is it?"

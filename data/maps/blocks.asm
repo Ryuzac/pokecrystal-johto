@@ -361,6 +361,7 @@ CianwoodPokecenter1F_Blocks:
 ViridianPokecenter1F_Blocks:
 SaffronPokecenter1F_Blocks:
 CherrygrovePokecenter1F_Blocks:
+SafariZoneGatePokecenter1F_Blocks:
 	INCBIN "maps/Pokecenter1F.blk"
 
 BetaPewterMuseumOfScience1F_Blocks: ; unreferenced
@@ -1075,3 +1076,6 @@ Route48_Blocks:
 
 SafariZoneGate_Blocks:
 	INCBIN "maps/SafariZoneGate.blk"
+
+RuinsOfAlphEntryRoom_Blocks:
+	INCBIN "maps/RuinsOfAlphEntryRoom.blk"

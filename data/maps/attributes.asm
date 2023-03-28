@@ -396,6 +396,7 @@ ENDM
 	map_attributes CliffEdgeGate, CLIFF_EDGE_GATE, $09, 0
 	map_attributes CliffCave, CLIFF_CAVE, $09, 0
 	map_attributes EmbeddedTower, EMBEDDED_TOWER, $00, 0
+	map_attributes SafariZoneGatePokecenter1F, SAFARI_ZONE_GATE_POKECENTER_1F, $00, 0
 	map_attributes Route23, ROUTE_23, $0f, 0
 	map_attributes SproutTower1F, SPROUT_TOWER_1F, $00, 0
 	map_attributes SproutTower2F, SPROUT_TOWER_2F, $00, 0
@@ -418,6 +419,7 @@ ENDM
 	map_attributes RadioTower3F, RADIO_TOWER_3F, $00, 0
 	map_attributes RadioTower4F, RADIO_TOWER_4F, $00, 0
 	map_attributes RadioTower5F, RADIO_TOWER_5F, $00, 0
+	map_attributes RuinsOfAlphEntryRoom, RUINS_OF_ALPH_ENTRY_ROOM, $00, 0
 	map_attributes RuinsOfAlphOutside, RUINS_OF_ALPH_OUTSIDE, $05, 0
 	map_attributes RuinsOfAlphHoOhChamber, RUINS_OF_ALPH_HO_OH_CHAMBER, $00, 0
 	map_attributes RuinsOfAlphKabutoChamber, RUINS_OF_ALPH_KABUTO_CHAMBER, $00, 0

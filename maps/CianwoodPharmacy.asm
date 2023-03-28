@@ -51,6 +51,18 @@ CianwoodPharmacyDrawerScript:
 CianwoodPharmacyApprentice:
 	jumptextfaceplayer CianwoodPharmacyApprenticeText
 
+CianwoodPharmacyFearow:
+	opentext
+	writetext CianwoodPharmacyFearowText
+	cry FEAROW
+	waitbutton
+	closetext
+	end
+	
+CianwoodPharmacyFearowText:
+	text "FEAROW: Feero!"
+	done
+
 PharmacistGiveSecretpotionText:
 	text "Your #MON ap-"
 	line "pear to be fine."
@@ -119,3 +131,5 @@ CianwoodPharmacy_MapEvents:
 	def_object_events
 	object_event  2,  3, SPRITE_PHARMACIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CianwoodPharmacist, -1
 	object_event  5,  4, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CianwoodPharmacyApprentice, -1
+	object_event  6,  3, SPRITE_MOLTRES, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, CianwoodPharmacyFearow, -1
+	

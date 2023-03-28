@@ -892,28 +892,47 @@ VFlip_DrawCursor:
 	dbsprite 2, 2, 0, 0, $06, 2 | X_FLIP
 
 VFlip_CopyOAM:
-	ld de, wShadowOAMSprite00Attributes
+	ld de, wShadowOAMSprite00 ; wShadowOAMSprite00Attributes
 	ldi a, [hl]
 .loop
 	push af
-	ldi a, [hl]
+	ld a, [hli]
 	add c
 	ld [de], a ; y
 	inc de
-	ldi a, [hl]
+	ld a, [hli]
 	add b
 	ld [de], a ; x
 	inc de
-	ldi a, [hl]
+	ld a, [hli]
 	ld [de], a ; tile id
 	inc de
-	ldi a, [hl]
-	ld [de], a ; attr
+	ld a, [hli]
+	ld [de], a ; attributes
 	inc de
 	pop af
 	dec a
 	jr nz, .loop
 	ret
+;	push af
+;	ldi a, [hl]
+;	add c
+;	ld [de], a ; y
+;	inc de
+;	ldi a, [hl]
+;	add b
+;	ld [de], a ; x
+;	inc de
+;	ldi a, [hl]
+;	ld [de], a ; tile id
+;	inc de
+;	ldi a, [hl]
+;	ld [de], a ; attr
+;	inc de
+;	pop af
+;	dec a
+;	jr nz, .loop
+;	ret
 
 VFlip_HideCursor:
 	ld hl, wShadowOAMSprite00YCoord

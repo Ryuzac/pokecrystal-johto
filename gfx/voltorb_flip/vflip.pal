@@ -1,14 +1,17 @@
-	RGB 26, 29, 28
-	RGB 05, 20, 13
-	RGB 03, 16, 12
-	RGB 05, 05, 05
+	; Face Down Card Palette
+	RGB 31, 31, 31 ; White
+	RGB 05, 20, 13 ; Light Green (background)
+	RGB 03, 16, 12 ; Dark Green
+	RGB 05, 05, 05 ; Black
 
-	RGB 26, 29, 28
-	RGB 05, 20, 13
-	RGB 25, 18, 16
-	RGB 05, 05, 05
+	; Cursor Palette
+	RGB 31, 31, 31 ; White
+	RGB 05, 20, 13 ; Light Green (background)
+	RGB 25, 18, 16 ; Pink (cursor)
+	RGB 05, 05, 05 ; Black
 
-	RGB 31, 31, 31
-	RGB 25, 18, 16
-	RGB 28, 14, 10
-	RGB 05, 05, 05
+	; Face Up Card Palette
+	RGB 31, 31, 31 ; White
+	RGB 05, 20, 13 ; Light Green (background)
+	RGB 28, 14, 10 ; Voltorb Red
+	RGB 05, 05, 05 ; Black

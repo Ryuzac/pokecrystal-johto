@@ -84,6 +84,7 @@ ENDM
 	map_const RADIO_TOWER_3F,                               9,  4 ; 19
 	map_const RADIO_TOWER_4F,                               9,  4 ; 20
 	map_const RADIO_TOWER_5F,                               9,  4 ; 21
+	map_const RUINS_OF_ALPH_ENTRY_ROOM,                     4,  4 ; 22
 	map_const RUINS_OF_ALPH_OUTSIDE,                       10, 18 ; 22
 	map_const RUINS_OF_ALPH_HO_OH_CHAMBER,                  4,  5 ; 23
 	map_const RUINS_OF_ALPH_KABUTO_CHAMBER,                 4,  5 ; 24
@@ -513,6 +514,7 @@ ENDM
 	map_const CLIFF_CAVE,                          		   18, 12 ;  4
 	map_const EMBEDDED_TOWER,                      		    9,  9 ;  5
 	map_const SAFARI_ZONE_GATE,                    		   13, 11 ;  6
+	map_const SAFARI_ZONE_GATE_POKECENTER_1F,				5,  4 ;  7
 	endgroup
 
 DEF NUM_MAP_GROUPS EQU const_value ; 27

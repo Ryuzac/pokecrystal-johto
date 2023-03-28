@@ -199,12 +199,13 @@ SlotMachine:
 	ret
 
 VoltorbFlip:
-	call CheckCoinCase
+	call CheckCoinCase ; If coins are required just replace this with CheckCoinsAndCoinCase
 	ret c
 	ld a, BANK(_VoltorbFlip)
 	ld hl, _VoltorbFlip
 	call StartGameCornerGame
 	ret
+
 CardFlip:
 	call CheckCoinsAndCoinCase
 	ret c
@@ -253,6 +254,7 @@ CheckCoinCase:
 .NoCoinCaseText:
 	text_far _NoCoinCaseText
 	text_end
+
 CheckCoinsAndCoinCase:
 	ld hl, wCoins
 	ld a, [hli]

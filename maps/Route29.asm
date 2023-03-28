@@ -150,15 +150,15 @@ Route29CooltrainerMScript:
 	opentext
 	checktime DAY
 	iftrue .day_morn
-	checktime NITE
-	iftrue .nite
+	checktime EVE | NITE
+	iftrue .nite_eve
 .day_morn
 	writetext Route29CooltrainerMText_WaitingForNight
 	waitbutton
 	closetext
 	end
 
-.nite
+.nite_eve
 	writetext Route29CooltrainerMText_WaitingForMorning
 	waitbutton
 	closetext

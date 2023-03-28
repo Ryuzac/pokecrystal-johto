@@ -18,7 +18,6 @@ INCLUDE "audio/music/darkcave.asm"
 INCLUDE "audio/music/johtogymbattle.asm"
 INCLUDE "audio/music/championbattle.asm"
 INCLUDE "audio/music/ssaqua.asm"
-INCLUDE "audio/music/newbarktown.asm"
 INCLUDE "audio/music/goldenrodcity.asm"
 INCLUDE "audio/music/vermilioncity.asm"
 INCLUDE "audio/music/titlescreen.asm"
@@ -153,3 +152,11 @@ SECTION "Cries", ROMX
 INCLUDE "data/pokemon/cries.asm"
 
 INCLUDE "audio/cries.asm"
+
+
+SECTION "New Songs", ROMX
+
+INCLUDE "audio/music/newbarktown.asm" ; Added night version
+INCLUDE "audio/music/route47.asm"
+INCLUDE "audio/music/SafariZone.asm"
+INCLUDE "audio/music/SafariZoneGate.asm"
