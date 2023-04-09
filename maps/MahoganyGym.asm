@@ -203,9 +203,9 @@ PryceText_GlacierBadgeSpeech:
 	cont "stats of #MON."
 
 	para "It also lets your"
-	line "#MON use WHIRL-"
-	cont "POOL to get across"
-	cont "real whirlpools."
+	line "#MON get across"
+	cont "real whirlpools by"
+	cont "using WHIRLPOOL."
 
 	para "And this… This is"
 	line "a gift from me!"

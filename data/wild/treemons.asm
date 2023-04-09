@@ -125,7 +125,28 @@ TreeMonSet_Forest:
 	db  5, KAKUNA,     10
 	db -1
 
-TreeMonSet_Rock:
+TreeMonSet_Rock: ; Dark Cave, Burned Tower, Route 40, Cianwood City
 	db 90, KRABBY,     15
-	db 10, SHUCKLE,    15
+	db 10, SHUCKLE,    23
 	db -1
+
+; HGSS Rock Tables
+;TreeMonSet_Rock_Beach: ; Cianwood City
+;	db 90, KRABBY,     15
+;	db 10, SHUCKLE,    23
+;	db -1
+;
+;TreeMonSet_Rock_Dark: ; Dark Cave
+;	db 10, GEODUDE,    10
+;	db 90, DUNSPARCE,  6
+;	db -1
+;	
+;TreeMonSet_Rock_Cave: ; Victory Road / Cerulean Cave
+;	db 90, GEODUDE,    32
+;	db 10, GRAVELER,   33
+;	db -1
+;
+;TreeMonSet_Rock_Cliff: ; Cliff Cave
+;	db 90, KRABBY,     26
+;	db 10, KINGLER,    28
+;	db -1

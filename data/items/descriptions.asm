@@ -6,7 +6,7 @@ ItemDescriptions:
 	dw BrightpowderDesc
 	dw GreatBallDesc
 	dw PokeBallDesc
-	dw TeruSama1Desc
+	dw TeruSama1Desc ; Unused Item
 	dw BicycleDesc
 	dw MoonStoneDesc
 	dw AntidoteDesc
@@ -25,7 +25,7 @@ ItemDescriptions:
 	dw FireStoneDesc
 	dw ThunderStoneDesc
 	dw WaterStoneDesc
-	dw TeruSama2Desc
+	dw TeruSama2Desc ; Unused Item
 	dw HPUpDesc
 	dw ProteinDesc
 	dw IronDesc
@@ -45,18 +45,18 @@ ItemDescriptions:
 	dw SuperRepelDesc
 	dw MaxRepelDesc
 	dw DireHitDesc
-	dw TeruSama3Desc
+	dw TeruSama3Desc ; Unused Item
 	dw FreshWaterDesc
 	dw SodaPopDesc
 	dw LemonadeDesc
 	dw XAttackDesc
-	dw TeruSama4Desc
+	dw TeruSama4Desc ; Unused Item
 	dw XDefendDesc
 	dw XSpeedDesc
 	dw XSpclAtkDesc
 	dw CoinCaseDesc
 	dw ItemfinderDesc
-	dw TeruSama5Desc
+	dw TeruSama5Desc ; Unused Item
 	dw ExpShareDesc
 	dw OldRodDesc
 	dw GoodRodDesc
@@ -136,33 +136,33 @@ ItemDescriptions:
 	dw BasementKeyDesc
 	dw PassDesc
 	dw EvioliteDesc
-	dw TeruSama10Desc
-	dw TeruSama11Desc
+	dw TeruSama10Desc ; Unused Item
+	dw TeruSama11Desc ; Unused Item
 	dw CharcoalDesc
 	dw BerryJuiceDesc
 	dw ScopeLensDesc
-	dw TeruSama12Desc
-	dw TeruSama13Desc
+	dw TeruSama12Desc ; Unused Item
+	dw TeruSama13Desc ; Unused Item
 	dw MetalCoatDesc
 	dw DragonFangDesc
-	dw TeruSama14Desc
+	dw TeruSama14Desc ; Unused Item
 	dw LeftoversDesc
-	dw TeruSama15Desc
-	dw TeruSama16Desc
-	dw TeruSama17Desc
+	dw TeruSama15Desc ; Unused Item
+	dw TeruSama16Desc ; Unused Item
+	dw TeruSama17Desc ; Unused Item
 	dw MysteryBerryDesc
 	dw DragonScaleDesc
 	dw BerserkGeneDesc
-	dw TeruSama18Desc
-	dw TeruSama19Desc
-	dw TeruSama20Desc
+	dw TeruSama18Desc ; Unused Item
+	dw TeruSama19Desc ; Unused Item
+	dw TeruSama20Desc ; Unused Item
 	dw SacredAshDesc
 	dw HeavyBallDesc
 	dw FlowerMailDesc
 	dw LevelBallDesc
 	dw LureBallDesc
 	dw FastBallDesc
-	dw TeruSama21Desc
+	dw TeruSama21Desc ; Unused Item
 	dw LightBallDesc
 	dw FriendBallDesc
 	dw MoonBallDesc
@@ -171,15 +171,15 @@ ItemDescriptions:
 	dw GorgeousBoxDesc
 	dw SunStoneDesc
 	dw PolkadotBowDesc
-	dw TeruSama22Desc
+	dw TeruSama22Desc ; Unused Item
 	dw UpGradeDesc
 	dw BerryDesc
 	dw GoldBerryDesc
 	dw SquirtBottleDesc
-	dw TeruSama23Desc
+	dw TeruSama23Desc ; Unused Item
 	dw ParkBallDesc
 	dw RainbowWingDesc
-	dw TeruSama24Desc
+	dw TeruSama24Desc ; Unused Item
 	dw BrickPieceDesc
 	dw SurfMailDesc
 	dw LiteBlueMailDesc
@@ -190,14 +190,14 @@ ItemDescriptions:
 	dw BlueSkyMailDesc
 	dw MusicMailDesc
 	dw MirageMailDesc
-	dw TeruSama25Desc
+	dw TeruSama25Desc ; Unused Item
+	dw TeruSama26Desc ; Unused Item
+	dw TeruSama27Desc ; Unused Item
 	assert_table_length NUM_ITEMS
 	dw TeruSama26Desc
 	dw TeruSama26Desc
 	dw TeruSama26Desc
 	dw TeruSama26Desc
-	dw TeruSama26Desc
-	dw TeruSama27Desc
 	dw TeruSama27Desc
 	dw TeruSama27Desc
 	dw TeruSama27Desc

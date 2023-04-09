@@ -155,3 +155,10 @@
 	tilecoll WHIRLPOOL, WATER, BUOY, WATER ; 9a
 	tilecoll WALL, FLOOR, WALL, FLOOR ; 9b
 	tilecoll FLOOR, WALL, FLOOR, WALL ; 9c
+	tilecoll WALL, WALL, WALL, WALL ; 9d
+	tilecoll WALL, WALL, WALL, WALL ; 9e
+	tilecoll WALL, WALL, WALL, WALL ; 9f
+	tilecoll WALL, FLOOR, WALL, FLOOR ; a0
+	tilecoll FLOOR, WALL, FLOOR, WALL ; a1
+	tilecoll WALL, WALL, WALL, WALL ; a2
+	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; a3

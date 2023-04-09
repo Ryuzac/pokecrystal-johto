@@ -316,9 +316,13 @@ ActivateFishingSwarm:
 
 StoreSwarmMapIndices::
 	ld a, c
-	and a
-	jr nz, .yanma
-; swarm dark cave violet entrance
+	cp SWARM_YANMA
+	jr z, .yanma
+	cp SWARM_SNUBBULL
+	jr z, .snubbull
+	cp SWARM_MARILL
+	jr z, .marill
+; dunsparce
 	ld a, d
 	ld [wDunsparceMapGroup], a
 	ld a, e
@@ -331,6 +335,21 @@ StoreSwarmMapIndices::
 	ld a, e
 	ld [wYanmaMapNumber], a
 	ret
+
+.snubbull
+	ld a, d
+	ld [wSnubbullMapGroup], a
+	ld a, e
+	ld [wSnubbullMapNumber], a
+	ret
+
+.marill
+	ld a, d
+	ld [wMarillMapGroup], a
+	ld a, e
+	ld [wMarillMapNumber], a
+	ret
+
 
 CheckPokerus:
 ; Check if a monster in your party has Pokerus

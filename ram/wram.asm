@@ -2798,7 +2798,9 @@ wDudeNumBalls:: db
 wDudeBalls:: ds 2 * 4 + 1
 ENDU
 
-	ds 4
+wOtherTrainerType:: db
+wTrainerGroupBank:: db
+	ds 2
 
 wd430:: ; mobile
 wBattleAction:: db
@@ -3233,7 +3235,7 @@ wBugContestStartTime:: ds 4 ; day, hour, min, sec
 wUnusedTwoDayTimerOn:: db
 wUnusedTwoDayTimer:: db
 wUnusedTwoDayTimerStartDate:: db
-	ds 4
+;	ds 4 ; Used to restore Marill and Snubbull swarms
 wMobileOrCable_LastSelection:: db
 wdc41:: ds 1
 wdc42:: ds 8
@@ -3249,6 +3251,10 @@ wPlayerMonSelection:: ds 3
 wdc5f:: db
 wdc60:: db
 
+wMarillMapNumber:: db
+wMarillMapGroup:: db
+wSnubbullMapNumber:: db
+wSnubbullMapGroup:: db
 ;	ds 18 ; Used to increase CONTACT_LIST_SIZE
 
 wStepCount:: db

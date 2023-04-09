@@ -117,6 +117,8 @@ FindNest:
 	jr z, .found
 	inc hl
 	inc hl
+	inc hl
+	inc hl
 	pop af
 	dec a
 	jr nz, .ScanMapLoop
@@ -269,92 +271,79 @@ ChooseWildEncounter:
 	inc hl
 	inc hl
 	call CheckOnWater
-	ld de, WaterMonProbTable
 	jr z, .watermon
 	inc hl
 	inc hl
 	call GetTimeOfDayNotEve
-	ld bc, NUM_GRASSMON * 2
+	ld bc, NUM_GRASSMON * 4
 	call AddNTimes
-	ld de, GrassMonProbTable
 
 .watermon
-; hl contains the pointer to the wild mon data, let's save that to the stack
-	push hl
 .randomloop
 	call Random
 	cp 100
 	jr nc, .randomloop
-	inc a ; 1 <= a <= 100
-	ld b, a
-	ld h, d
-	ld l, e
+	ld de, 4
 ; This next loop chooses which mon to load up.
 .prob_bracket_loop
-	ld a, [hli]
-	cp b
-	jr nc, .got_it
-	inc hl
+	sub [hl]
+	jr c, .got_it
+	add hl, de
 	jr .prob_bracket_loop
 
 .got_it
-	ld c, [hl]
-	ld b, 0
-	pop hl
-	add hl, bc ; this selects our mon
+	inc hl
 	ld a, [hli]
 	ld b, a
-; If the Pokemon is encountered by surfing, we need to give the levels some variety.
-	call CheckOnWater
-	jr nz, .ok
-; Check if we buff the wild mon, and by how much.
-	call Random
-	cp 35 percent
-	jr c, .ok
-	inc b
-	cp 65 percent
-	jr c, .ok
-	inc b
-	cp 85 percent
-	jr c, .ok
-	inc b
-	cp 95 percent
-	jr c, .ok
-	inc b
-; Store the level
-.ok
-	ld a, b
-	ld [wCurPartyLevel], a
-	ld b, [hl]
-	ld a, b
+
 	call ValidateTempWildMonSpecies
 	jr c, .nowildbattle
-
 	
 	cp UNOWN
-	jr nz, .done
+	jr nz, .load_species
 
 	ld a, [wUnlockedUnowns]
 	and a
 	jr z, .nowildbattle
 
-.done
-	jr .loadwildmon
-
-.nowildbattle
-	ld a, 1
-	and a
-	ret
-
-.loadwildmon
 	ld a, b
+
+.load_species
 	ld [wTempWildMonSpecies], a
+
+; Min level
+	ld a, [hli]
+	ld d, a
+
+; Max level
+	ld a, [hl]
+	sub d
+	jr nz, .RandomLevel
+
+; If min and max are the same.
+	ld a, d
+	jr .GotLevel
+
+.RandomLevel:
+; Get a random level between the min and max.
+	ld c, a
+	inc c
+	call Random
+	ldh a, [hRandomAdd]
+	call SimpleDivide
+	add d
+
+.GotLevel:
+	ld [wCurPartyLevel], a
 
 .startwildbattle
 	xor a
 	ret
 
-INCLUDE "data/wild/probabilities.asm"
+.nowildbattle
+	ld a, 1
+	and a
+	ret
 
 CheckRepelEffect::
 ; If there is no active Repel, there's no need to be here.
@@ -400,7 +389,7 @@ _GrassWildmonLookup:
 	ld de, KantoGrassWildMons
 	call _JohtoWildmonCheck
 	ld bc, GRASS_WILDDATA_LENGTH
-	jr _NormalWildmonOK
+	jp _NormalWildmonOK
 
 _WaterWildmonLookup:
 	ld hl, SwarmWaterWildMons
@@ -444,11 +433,45 @@ _SwarmWildmonCheck:
 	ld hl, wSwarmFlags
 	bit SWARMFLAGS_YANMA_SWARM_F, [hl]
 	pop hl
-	jr z, _NoSwarmWildmon
+	jr z, .CheckSnubbull
 	ld a, [wYanmaMapGroup]
 	cp d
-	jr nz, _NoSwarmWildmon
+	jr nz, .CheckSnubbull
 	ld a, [wYanmaMapNumber]
+	cp e
+	jr nz, .CheckSnubbull
+	call LookUpWildmonsForMapDE
+	jr nc, _NoSwarmWildmon
+	scf
+	ret
+
+.CheckSnubbull:
+	push hl
+	ld hl, wSwarmFlags
+	bit SWARMFLAGS_SNUBBULL_SWARM_F, [hl]
+	pop hl
+	jr z, .CheckMarill
+	ld a, [wSnubbullMapGroup]
+	cp d
+	jr nz, .CheckMarill
+	ld a, [wSnubbullMapNumber]
+	cp e
+	jr nz, .CheckMarill
+	call LookUpWildmonsForMapDE
+	jr nc, _NoSwarmWildmon
+	scf
+	ret
+
+.CheckMarill:
+	push hl
+	ld hl, wSwarmFlags
+	bit SWARMFLAGS_MARILL_SWARM_F, [hl]
+	pop hl
+	jr z, _NoSwarmWildmon
+	ld a, [wMarillMapGroup]
+	cp d
+	jr nz, _NoSwarmWildmon
+	ld a, [wMarillMapNumber]
 	cp e
 	jr nz, _NoSwarmWildmon
 	call LookUpWildmonsForMapDE
@@ -792,10 +815,10 @@ RandomUnseenWildMon:
 
 .GetGrassmon:
 	push hl
-	ld bc, 5 + 4 * 2 ; Location of the level of the 5th wild Pokemon in that map
+	ld bc, 5 + 4 * 4 ; Location of the level of the 5th wild Pokemon in that map
 	add hl, bc
 	call GetTimeOfDayNotEve
-	ld bc, NUM_GRASSMON * 2
+	ld bc, NUM_GRASSMON * 4
 	call AddNTimes
 .randloop1
 	call Random
@@ -810,7 +833,7 @@ RandomUnseenWildMon:
 	inc hl
 	ld c, [hl] ; Contains the species index of this rare Pokemon
 	pop hl
-	ld de, 5 + 0 * 2
+	ld de, 5 + 0 * 4
 	add hl, de
 	inc hl ; Species index of the most common Pokemon on that route
 	ld b, 4
@@ -861,11 +884,11 @@ RandomPhoneWildMon:
 	call LookUpWildmonsForMapDE
 
 .ok
-	ld bc, 5 + 0 * 2
+	ld bc, 5 + 0 * 4
 	add hl, bc
 	call GetTimeOfDayNotEve
 	inc a
-	ld bc, NUM_GRASSMON * 2
+	ld bc, NUM_GRASSMON * 4
 .loop
 	dec a
 	jr z, .done
@@ -898,6 +921,11 @@ RandomPhoneMon:
 	ld b, 0
 	add hl, bc
 	add hl, bc
+	add hl, bc
+	ld a, BANK(TrainerGroups)
+	call GetFarByte
+	ld [wTrainerGroupBank], a
+	inc hl
 	ld a, BANK(TrainerGroups)
 	call GetFarWord
 
@@ -905,7 +933,7 @@ RandomPhoneMon:
 	dec e
 	jr z, .skipped
 .skip
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	inc hl
 	cp -1
@@ -914,34 +942,63 @@ RandomPhoneMon:
 .skipped
 
 .skip_name
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	inc hl
 	cp "@"
 	jr nz, .skip_name
 
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	inc hl
-	ld bc, 2 ; level, species
-	cp TRAINERTYPE_NORMAL
-	jr z, .got_mon_length
-	ld bc, 2 + NUM_MOVES ; level, species, moves
-	cp TRAINERTYPE_MOVES
-	jr z, .got_mon_length
-	ld bc, 2 + 1 ; level, species, item
-	cp TRAINERTYPE_ITEM
-	jr z, .got_mon_length
-	; TRAINERTYPE_ITEM_MOVES
-	ld bc, 2 + 1 + NUM_MOVES ; level, species, item, moves
-.got_mon_length
+; b = trainer type
+	ld b, a
+; TRAINERTYPE_NICKNAME has uneven length, so always use the first mon
+	bit TRAINERTYPE_NICKNAME_F, b
+	jr nz, .got_mon
+; c = mon length
+; All trainers use 2 bytes for level and species
+	ld c, 2
+; TRAINERTYPE_DVS uses 2 more bytes
+	bit TRAINERTYPE_DVS_F, b
+	jr z, .no_dvs
+	inc c
+	inc c
+.no_dvs
+; TRAINERTYPE_STAT_EXP uses NUM_EXP_STATS * 2 (10) more bytes
+	bit TRAINERTYPE_STAT_EXP_F, b
+	jr z, .no_stat_exp
+	ld a, NUM_EXP_STATS * 2
+	add c
+	ld c, a
+.no_stat_exp
+; TRAINERTYPE_HAPPINESS uses 1 more byte
+	bit TRAINERTYPE_HAPPINESS_F, b
+	jr z, .no_happiness
+	inc c
+.no_happiness
+; TRAINERTYPE_ITEM uses 1 more byte
+	bit TRAINERTYPE_ITEM_F, b
+	jr z, .no_item
+	inc c
+.no_item
+; TRAINERTYPE_MOVES uses NUM_MOVES (4) more bytes
+	bit TRAINERTYPE_MOVES_F, b
+	jr z, .no_moves
+	ld a, NUM_MOVES
+	add c
+	ld c, a
+.no_moves
+; bc = mon length
+	xor a
+	ld b, a
 
 	ld e, 0
 	push hl
 .count_mon
 	inc e
 	add hl, bc
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	cp -1
 	jr nz, .count_mon
@@ -962,7 +1019,7 @@ RandomPhoneMon:
 .got_mon
 
 	inc hl ; species
-	ld a, BANK(Trainers)
+	ld a, [wTrainerGroupBank]
 	call GetFarByte
 	ld [wNamedObjectIndex], a
 	call GetPokemonName

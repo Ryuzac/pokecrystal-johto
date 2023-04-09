@@ -5,7 +5,7 @@ ItemNames::
 	li "BRIGHTPOWDER"
 	li "GREAT BALL"
 	li "# BALL"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "BICYCLE"
 	li "MOON STONE"
 	li "ANTIDOTE"
@@ -24,7 +24,7 @@ ItemNames::
 	li "FIRE STONE"
 	li "THUNDERSTONE"
 	li "WATER STONE"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "HP UP"
 	li "PROTEIN"
 	li "IRON"
@@ -44,18 +44,18 @@ ItemNames::
 	li "SUPER REPEL"
 	li "MAX REPEL"
 	li "DIRE HIT"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "FRESH WATER"
 	li "SODA POP"
 	li "LEMONADE"
 	li "X ATTACK"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "X DEFEND"
 	li "X SPEED"
 	li "X SPCL.ATK"
 	li "COIN CASE"
 	li "ITEMFINDER"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "EXP.SHARE"
 	li "OLD ROD"
 	li "GOOD ROD"
@@ -135,33 +135,33 @@ ItemNames::
 	li "BASEMENT KEY"
 	li "PASS"
 	li "EVIOLITE"
-	li "TERU-SAMA"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
 	li "CHARCOAL"
 	li "BERRY JUICE"
 	li "SCOPE LENS"
-	li "TERU-SAMA"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
 	li "METAL COAT"
 	li "DRAGON FANG"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "LEFTOVERS"
-	li "TERU-SAMA"
-	li "TERU-SAMA"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
 	li "MYSTERYBERRY"
 	li "DRAGON SCALE"
 	li "BERSERK GENE"
-	li "TERU-SAMA"
-	li "TERU-SAMA"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
 	li "SACRED ASH"
 	li "HEAVY BALL"
 	li "FLOWER MAIL"
 	li "LEVEL BALL"
 	li "LURE BALL"
 	li "FAST BALL"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "LIGHT BALL"
 	li "FRIEND BALL"
 	li "MOON BALL"
@@ -170,15 +170,15 @@ ItemNames::
 	li "GORGEOUS BOX"
 	li "SUN STONE"
 	li "POLKADOT BOW"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "UP-GRADE"
 	li "BERRY"
 	li "GOLD BERRY"
 	li "SQUIRTBOTTLE"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "PARK BALL"
 	li "RAINBOW WING"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
 	li "BRICK PIECE"
 	li "SURF MAIL"
 	li "LITEBLUEMAIL"
@@ -189,13 +189,14 @@ ItemNames::
 	li "BLUESKY MAIL"
 	li "MUSIC MAIL"
 	li "MIRAGE MAIL"
-	li "TERU-SAMA"
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
+	li "TERU-SAMA" ; Unused Item
 	assert_list_length NUM_ITEMS
 	li "TM01"
 	li "TM02"
 	li "TM03"
 	li "TM04"
-	li "TERU-SAMA"
 	li "TM05"
 	li "TM06"
 	li "TM07"
@@ -220,7 +221,6 @@ ItemNames::
 	li "TM26"
 	li "TM27"
 	li "TM28"
-	li "TERU-SAMA"
 	li "TM29"
 	li "TM30"
 	li "TM31"
@@ -243,7 +243,7 @@ ItemNames::
 	li "TM48"
 	li "TM49"
 	li "TM50"
-	assert_list_length NUM_ITEMS + NUM_TMS + 2 ; count ITEM_C3 and ITEM_DC
+	assert_list_length NUM_ITEMS + NUM_TMS
 	li "HM01"
 	li "HM02"
 	li "HM03"
@@ -251,7 +251,7 @@ ItemNames::
 	li "HM05"
 	li "HM06"
 	li "HM07"
-	assert_list_length NUM_ITEMS + NUM_TMS + 2 + NUM_HMS ; count ITEM_C3 and ITEM_DC
+	assert_list_length NUM_ITEMS + NUM_TMS + NUM_HMS
 	li "TERU-SAMA"
 	li "TERU-SAMA"
 	li "TERU-SAMA"
